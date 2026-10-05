@@ -1,14 +1,14 @@
+
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
-import OpenAI from "openai";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MODEL = process.env.OPENAI_MODEL || "gpt-6-luna";
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY || "";
-const openai = OPENAI_API_KEY ? new OpenAI({ apiKey: OPENAI_API_KEY }) : null;
+
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 
 app.use(express.json({ limit: "512kb" }));
 app.use(express.static(__dirname));
@@ -41,23 +41,19 @@ const HERMES_SCHEMA = {
 
 function safeHistory(history) {
   if (!Array.isArray(history)) return [];
-  return history
-    .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
-    .slice(-12)
-    .map((m) => ({ role: m.role, content: m.content.slice(0, 4000) }));
-}
 
-function fallbackReply(message, reminders) {
-  const lower = message.toLowerCase();
-  if (lower.includes("agenda") || lower.includes("o que tenho") || lower.includes("compromisso")) {
-    if (!reminders.length) return "Sua agenda está vazia por enquanto. Posso criar um lembrete para você.";
-    const items = reminders
-      .slice(0, 5)
-      .map((r) => `${r.title} às ${new Date(r.when).toLocaleString("pt-BR")}`)
-      .join("\n");
-    return `Encontrei estes próximos lembretes:\n${items}`;
-  }
-  return "Estou funcionando, mas a IA ainda não foi conectada. No Vercel, adicione OPENAI_API_KEY em Settings → Environment Variables e faça um novo deploy.";
+  return history
+    .filter(
+      m =>
+        m &&
+        (m.role === "user" || m.role === "assistant") &&
+        typeof m.content === "string"
+    )
+    .slice(-12)
+    .map(m => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content.slice(0, 4000) }]
+    }));
 }
 
 app.get("/api/health", (_req, res) => {
@@ -65,99 +61,178 @@ app.get("/api/health", (_req, res) => {
     ok: true,
     name: "Hermes",
     version: "2.0.0",
-    ai: Boolean(openai),
-    model: MODEL
+    ai: Boolean(GEMINI_API_KEY),
+    model: MODEL,
+    provider: "gemini"
   });
 });
 
 app.post("/api/chat", async (req, res) => {
   const message = String(req.body?.message || "").trim();
   const now = String(req.body?.now || new Date().toISOString());
-  const timezone = String(req.body?.timezone || "America/Sao_Paulo");
-  const memories = Array.isArray(req.body?.memories) ? req.body.memories.slice(0, 50) : [];
-  const reminders = Array.isArray(req.body?.reminders) ? req.body.reminders.slice(0, 50) : [];
+  const timezone = String(
+    req.body?.timezone || "America/Sao_Paulo"
+  );
+
+  const memories = Array.isArray(req.body?.memories)
+    ? req.body.memories.slice(0, 50)
+    : [];
+
+  const reminders = Array.isArray(req.body?.reminders)
+    ? req.body.reminders.slice(0, 50)
+    : [];
+
   const history = safeHistory(req.body?.history);
 
-  if (!message) return res.status(400).json({ error: "Mensagem vazia." });
+  if (!message) {
+    return res.status(400).json({
+      error: "Mensagem vazia."
+    });
+  }
 
-  if (!openai) {
-    return res.json({
-      reply: fallbackReply(message, reminders),
-      action: "none",
-      reminder_title: "",
-      reminder_when: "",
-      reminder_repeat: "",
-      memory_key: "",
-      memory_value: "",
-      ai: false
+  if (!GEMINI_API_KEY) {
+    return res.status(500).json({
+      error: "GEMINI_API_KEY não configurada no Vercel."
     });
   }
 
   const context = {
     now,
     timezone,
-    memories: memories.map((m) => ({ key: String(m.key || ""), value: String(m.value || "") })),
-    reminders: reminders.map((r) => ({
-      title: String(r.title || ""),
-      when: String(r.when || ""),
-      repeat: String(r.repeat || "once")
-    }))
+    memories,
+    reminders
   };
 
   const system = `
-Você é Hermes, um assistente pessoal em português do Brasil. Seja natural, útil, direto e humano.
-Data/hora atual: ${now}. Fuso do usuário: ${timezone}.
+Você é Hermes, um assistente pessoal inteligente em português do Brasil.
 
-Você pode executar UMA ação por mensagem, além de responder.
-Ações permitidas:
-• none: conversa normal.
-• create_reminder: quando o usuário pedir para lembrar de algo. Converta datas relativas para ISO 8601 com o fuso do usuário. Se faltar data ou horário essencial, NÃO invente: faça uma pergunta e use action none.
-• list_agenda: quando o usuário pedir agenda, compromissos ou lembretes. Use somente os dados fornecidos, nunca invente eventos.
-• save_memory: SOMENTE quando o usuário pedir explicitamente para você lembrar/guardar algo ou quando declarar uma preferência estável que claramente seja útil no futuro. Salve uma frase curta.
-• delete_memory: quando pedir para esquecer/remover algo que esteja na memória.
+Seja natural, útil, direto, humano e amigável.
+
+Data e hora atual:
+${now}
+
+Fuso:
+${timezone}
+
+Você pode executar UMA ação por mensagem.
+
+none:
+Conversa normal.
+
+create_reminder:
+Quando o usuário pedir para lembrar de algo.
+Converta datas relativas para ISO 8601.
+Se faltar data ou horário essencial, não invente.
+Faça uma pergunta e use action none.
+
+list_agenda:
+Quando o usuário pedir agenda, compromissos ou lembretes.
+Use somente os dados fornecidos.
+
+save_memory:
+Quando o usuário pedir explicitamente para lembrar ou guardar algo.
+Também pode usar para preferências estáveis úteis no futuro.
+
+delete_memory:
+Quando o usuário pedir para esquecer ou remover algo da memória.
 
 Para create_reminder:
-reminder_title deve ser apenas a tarefa.
-reminder_when deve ser ISO 8601 completo, com offset quando possível.
-reminder_repeat deve ser one_time, daily, weekly ou monthly.
+reminder_title = somente a tarefa.
+reminder_when = ISO 8601 completo.
+reminder_repeat = one_time, daily, weekly ou monthly.
 
 Para save_memory/delete_memory:
-memory_key é um identificador curto e memory_value é o conteúdo.
+memory_key = identificador curto.
+memory_value = conteúdo.
 
-Nunca diga que uma ação foi executada se ela não estiver representada pelo campo action.
-Não invente integrações, acesso a calendário ou dados externos.
+Nunca diga que uma ação foi executada se o campo action não representar essa ação.
 
-Contexto local do Hermes:
+Não invente acesso a calendário ou dados externos.
+
+Contexto local:
 ${JSON.stringify(context)}
 `;
 
+  const contents = [
+    ...history,
+    {
+      role: "user",
+      parts: [{ text: message }]
+    }
+  ];
+
   try {
-    const response = await openai.responses.create({
-      model: MODEL,
-      instructions: system,
-      input: [
-        ...history,
-        { role: "user", content: message }
-      ],
-      max_output_tokens: 700,
-      text: {
-        format: {
-          type: "json_schema",
-          name: "hermes_action",
-          strict: true,
-          schema: HERMES_SCHEMA
-        }
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": GEMINI_API_KEY
+        },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: system }]
+          },
+          contents,
+          generationConfig: {
+            responseMimeType: "application/json",
+            responseJsonSchema: HERMES_SCHEMA,
+            maxOutputTokens: 700
+          }
+        })
       }
+    );
+
+    const raw = await response.text();
+
+    if (!response.ok) {
+      console.error("Gemini API error:", raw);
+
+      let details = raw;
+
+      try {
+        const parsed = JSON.parse(raw);
+        details =
+          parsed?.error?.message ||
+          parsed?.error?.status ||
+          raw;
+      } catch {}
+
+      return res.status(502).json({
+        error: `Gemini: ${details}`
+      });
+    }
+
+    const payload = JSON.parse(raw);
+
+    const text =
+      payload?.candidates?.[0]?.content?.parts
+        ?.map(part => part.text || "")
+        .join("") || "";
+
+    if (!text) {
+      return res.status(502).json({
+        error: "Gemini não retornou uma resposta."
+      });
+    }
+
+    const data = JSON.parse(text);
+
+    return res.json({
+      ...data,
+      ai: true,
+      model: MODEL,
+      provider: "gemini"
     });
 
-    const data = JSON.parse(response.output_text);
-    res.json({ ...data, ai: true, model: MODEL });
-  }   catch (error) {
-    console.error("Hermes AI error:", error);
-    res.status(502).json({
-      error: error?.message || "Erro ao chamar a OpenAI."
+  } catch (error) {
+    console.error("Hermes Gemini error:", error);
+
+    return res.status(502).json({
+      error: error?.message || "Erro ao chamar o Gemini."
     });
-}
+  }
 });
 
 app.get("*splat", (_req, res) => {
@@ -165,5 +240,7 @@ app.get("*splat", (_req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Hermes 2.0 rodando na porta ${PORT}`);
+  console.log(
+    `Hermes 2.0 com Gemini rodando na porta ${PORT}`
+  );
 });

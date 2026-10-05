@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Hermes, seu assistente pessoal inteligente." />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="/icon.svg" />
+  <title>Hermes</title>
+  <style>
+    :root {
+      --bg:#080b14; --panel:#111728; --panel2:#151c30; --text:#f5f7ff;
+      --muted:#9ba6bd; --accent:#7c5cff; --accent2:#25d0b1; --line:#26304a;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at 50% -10%,#25204a 0,#080b14 45%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+    button,input{font:inherit}
+    .app{max-width:560px;margin:auto;min-height:100vh;padding:18px 16px 105px}
+    header{display:flex;align-items:center;justify-content:space-between;margin:6px 2px 22px}
+    .brand{display:flex;align-items:center;gap:11px}
+    .orb{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#8e75ff,#25d0b1);box-shadow:0 0 28px #765cff55;display:grid;place-items:center;font-weight:900}
+    h1{font-size:21px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+    .status{border:1px solid var(--line);background:#111728aa;border-radius:999px;padding:7px 10px;font-size:11px;color:#b9c3d8}
+    .hero{padding:18px 4px 16px}.hello{font-size:29px;font-weight:750;letter-spacing:-.7px}.hero p{color:var(--muted);margin:7px 0 0}
+    .card{background:linear-gradient(180deg,#12192aee,#0f1524ee);border:1px solid var(--line);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 14px 45px #00000022}
+    .cardtitle{font-size:13px;color:#b8c2d8;text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
+    .quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .quick button,.action{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:15px;padding:13px;text-align:left;cursor:pointer}
+    .quick button:hover,.action:hover{border-color:#6250c8}
+    .qtitle{display:block;font-weight:650;font-size:13px}.qsub{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+    .reminder{display:flex;gap:12px;align-items:center;padding:11px 0;border-bottom:1px solid #202940}
+    .reminder:last-child{border-bottom:0}.time{font-weight:750;width:52px}.rbody{flex:1}.rtitle{font-size:14px}.rmeta{font-size:11px;color:var(--muted);margin-top:3px}
+    .empty{color:var(--muted);font-size:13px;padding:6px 0}
+    .chat{display:flex;flex-direction:column;gap:9px;max-height:340px;overflow:auto}
+    .bubble{max-width:86%;padding:11px 13px;border-radius:16px;font-size:13px;line-height:1.4}
+    .hermes{background:#182139;border:1px solid #273452;align-self:flex-start}
+    .user{background:#6650d9;align-self:flex-end}
+    .composer{position:fixed;left:50%;transform:translateX(-50%);bottom:0;width:min(560px,100%);padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:#080b14ee;backdrop-filter:blur(18px);border-top:1px solid #1e2740}
+    .row{display:flex;gap:8px}.input{flex:1;background:#121a2b;border:1px solid #2a3551;color:white;border-radius:17px;padding:13px 14px;outline:none}.input:focus{border-color:#6b58dc}
+    .send,.mic{width:48px;border:0;border-radius:16px;background:var(--accent);color:white;cursor:pointer}.mic{background:#1a2439;border:1px solid var(--line)}
+    .small{font-size:10px;color:#707b93;text-align:center;margin-top:7px}
+    .modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;padding:14px}.modal.open{display:flex}
+    .sheet{width:min(560px,100%);background:#111728;border:1px solid var(--line);border-radius:24px;padding:18px}
+    .sheet h2{margin:0 0 14px;font-size:18px}.field{margin:10px 0}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.field input{width:100%;background:#0b1020;border:1px solid var(--line);color:white;border-radius:12px;padding:12px}
+    .save{width:100%;padding:13px;border:0;border-radius:14px;background:var(--accent);color:white;font-weight:700;margin-top:8px}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand"><div class="orb">H</div><div><h1>Hermes</h1><div class="sub">seu assistente pessoal</div></div></div>
+    <div class="status" id="notifyStatus">notificações</div>
+  </header>
+
+  <section class="hero">
+    <div class="hello" id="greeting">Olá, Wes 👋</div>
+    <p>O que você precisa organizar hoje?</p>
+  </section>
+
+  <section class="card">
+    <div class="cardtitle">Ações rápidas</div>
+    <div class="quick">
+      <button onclick="openReminder()"><span class="qtitle">⏰ Novo lembrete</span><span class="qsub">Escolha data e hora</span></button>
+      <button onclick="startVoice()"><span class="qtitle">🎙️ Falar com Hermes</span><span class="qsub">Use sua voz</span></button>
+      <button onclick="ask('O que tenho marcado hoje?')"><span class="qtitle">📋 Minha agenda</span><span class="qsub">Ver o que vem pela frente</span></button>
+      <button onclick="requestNotifications()"><span class="qtitle">🔔 Ativar alertas</span><span class="qsub">Permitir notificações</span></button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="cardtitle">Hoje</div>
+    <div id="reminders"><div class="empty">Nenhum lembrete ainda.</div></div>
+  </section>
+
+  <section class="card">
+    <div class="cardtitle">Conversa</div>
+    <div class="chat" id="chat">
+      <div class="bubble hermes">Olá, Wes. Eu sou o Hermes. 🤖<br>Você pode falar comigo normalmente. Por exemplo: “me lembre amanhã às 9h de ligar para alguém”.</div>
+    </div>
+  </section>
+</div>
+
+<div class="composer">
+  <div class="row">
+    <button class="mic" onclick="startVoice()" aria-label="Falar">🎙️</button>
+    <input class="input" id="message" placeholder="Fale com Hermes..." onkeydown="if(event.key==='Enter') send()" />
+    <button class="send" onclick="send()">➤</button>
+  </div>
+  <div class="small">Hermes • versão 1.0</div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+    <h2>Novo lembrete ⏰</h2>
+    <div class="field"><label>O que devo lembrar?</label><input id="rTitle" placeholder="Ex.: tomar remédio" /></div>
+    <div class="field"><label>Data e hora</label><input id="rDate" type="datetime-local" /></div>
+    <button class="save" onclick="saveReminder()">Salvar lembrete</button>
+    <button class="action" style="width:100%;margin-top:8px;text-align:center" onclick="closeReminder()">Cancelar</button>
+  </div>
+</div>
+
+<script>
+const KEY='hermes_reminders_v1';
+let reminders=JSON.parse(localStorage.getItem(KEY)||'[]');
+
+function greet(){
+  const h=new Date().getHours();
+  const t=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+  document.getElementById('greeting').textContent=t+', Wes 👋';
+}
+function render(){
+  const el=document.getElementById('reminders');
+  reminders.sort((a,b)=>new Date(a.when)-new Date(b.when));
+  if(!reminders.length){el.innerHTML='<div class="empty">Nenhum lembrete ainda.</div>';return}
+  el.innerHTML=reminders.map((r,i)=>{
+    const d=new Date(r.when);
+    const time=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    const date=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
+    return `<div class="reminder"><div class="time">${time}</div><div class="rbody"><div class="rtitle">${esc(r.title)}</div><div class="rmeta">${date}</div></div><button class="action" onclick="removeReminder(${i})">×</button></div>`
+  }).join('');
+}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function openReminder(){
+  document.getElementById('rDate').value=new Date(Date.now()+3600000).toISOString().slice(0,16);
+  document.getElementById('modal').classList.add('open');
+}
+function closeReminder(){document.getElementById('modal').classList.remove('open')}
+function saveReminder(){
+  const title=document.getElementById('rTitle').value.trim(), when=document.getElementById('rDate').value;
+  if(!title||!when)return;
+  reminders.push({title,when,done:false});
+  localStorage.setItem(KEY,JSON.stringify(reminders)); render(); closeReminder(); scheduleLocal(title,new Date(when));
+  addBubble('hermes','Fechado. Vou te lembrar de “'+title+'”. ⏰');
+}
+function removeReminder(i){reminders.splice(i,1);localStorage.setItem(KEY,JSON.stringify(reminders));render()}
+async function requestNotifications(){
+  if(!('Notification' in window)){alert('Seu navegador não oferece notificações neste modo.');return}
+  const p=await Notification.requestPermission();
+  document.getElementById('notifyStatus').textContent=p==='granted'?'notificações ativas':'notificações bloqueadas';
+}
+function scheduleLocal(title,date){
+  const ms=date.getTime()-Date.now();
+  if(ms>0 && ms<2147483647 && Notification.permission==='granted'){
+    setTimeout(()=>new Notification('Hermes ⏰',{body:title,icon:'/icon.svg'}),ms);
+  }
+}
+function addBubble(who,text){
+  const c=document.getElementById('chat'), d=document.createElement('div');
+  d.className='bubble '+who; d.innerHTML=esc(text).replace(/\\n/g,'<br>'); c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+async function ask(message){
+  addBubble('user',message);
+  try{
+    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message})});
+    const j=await r.json(); addBubble('hermes',j.reply||'Tive um problema para responder.');
+  }catch(e){addBubble('hermes','Estou sem conexão com meu servidor agora. Tente novamente em instantes.')}
+}
+function send(){const i=document.getElementById('message');const m=i.value.trim();if(!m)return;i.value='';ask(m)}
+function startVoice(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('Seu navegador não oferece reconhecimento de voz.');return}
+  const r=new SR();r.lang='pt-BR';r.interimResults=false;r.maxAlternatives=1;
+  r.onresult=e=>{const t=e.results[0][0].transcript;document.getElementById('message').value=t;send()};
+  r.start();
+}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+greet();render();
+if(Notification.permission==='granted') document.getElementById('notifyStatus').textContent='notificações ativas';
+</script>
+</body>
+</html>

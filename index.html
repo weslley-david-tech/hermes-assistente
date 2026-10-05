@@ -1,169 +1,2348 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#0d1224" />
-  <meta name="description" content="Hermes, seu assistente pessoal inteligente." />
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="icon" href="/icon.svg" />
-  <title>Hermes · Assistente Pessoal</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#07111f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>Hermes</title>
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/icon.svg">
+
   <style>
-    :root{--bg:#060914;--panel:#0e1425;--panel2:#141c31;--line:#263250;--text:#f6f8ff;--muted:#98a5c1;--accent:#7c5cff;--accent2:#25d0b1;--danger:#ff6d88;--shadow:0 24px 60px #0007}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -12%,#33275e 0,#0a0e1c 38%,#050711 70%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh}
-    button,input{font:inherit}button{touch-action:manipulation}.app{max-width:640px;margin:auto;padding:16px 15px 118px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:7px 2px 14px;position:sticky;top:0;z-index:3;background:linear-gradient(#070a14ee,#070a1400);backdrop-filter:blur(7px)}
-    .brand{display:flex;align-items:center;gap:11px}.orb{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:18px;background:linear-gradient(145deg,#9a7bff,#25d0b1);box-shadow:0 0 34px #785fff55}.brand h1{font-size:20px;margin:0;letter-spacing:-.4px}.sub{color:var(--muted);font-size:11px;margin-top:2px}
-    .chip{display:flex;align-items:center;gap:7px;border:1px solid var(--line);background:#0e1424cc;border-radius:999px;padding:7px 10px;color:#c1cbe0;font-size:11px}.dot{width:7px;height:7px;border-radius:50%;background:#7b87a4}.dot.online{background:var(--accent2);box-shadow:0 0 10px #25d0b199}.dot.offline{background:var(--danger)}
-    .hero{padding:16px 4px 10px}.eyebrow{font-size:12px;color:#b3bfd7;letter-spacing:.8px;text-transform:uppercase}.hello{font-size:34px;font-weight:800;letter-spacing:-1.4px;margin-top:3px}.hero p{color:var(--muted);margin:7px 0 0;font-size:14px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:15px}.quick{border:1px solid var(--line);background:linear-gradient(180deg,#131b30,#101728);border-radius:18px;padding:15px;min-height:92px;color:var(--text);text-align:left;cursor:pointer;box-shadow:0 10px 28px #0002}.quick:hover{border-color:#6052bd}.quick .icon{font-size:22px}.quick .title{font-weight:750;margin-top:8px;font-size:13px}.quick .desc{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.3}
-    .card{margin-top:14px;background:linear-gradient(180deg,#11182aee,#0e1423ee);border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:0 14px 45px #0002}.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.cardtitle{font-size:12px;color:#b8c4dc;text-transform:uppercase;letter-spacing:.9px}.minor{font-size:10px;color:#71809e}.list{display:flex;flex-direction:column}.empty{color:var(--muted);font-size:13px;padding:7px 0}
-    .item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #1e2941}.item:last-child{border-bottom:0}.time{width:51px;font-weight:800;font-size:13px}.rmain{flex:1;min-width:0}.rtitle{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rmeta{color:var(--muted);font-size:10px;margin-top:3px}.ghost{border:0;background:transparent;color:#6f7c99;font-size:22px;cursor:pointer;width:34px;height:34px;border-radius:10px}.ghost:hover{background:#182037;color:#fff}
-    .memory{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #1e2941}.memory:last-child{border-bottom:0}.micon{width:30px;height:30px;display:grid;place-items:center;border-radius:10px;background:#19213a}.mtext{flex:1}.mkey{font-size:11px;color:#aab7d0;text-transform:uppercase;letter-spacing:.5px}.mvalue{font-size:13px;margin-top:2px}.chat{display:flex;flex-direction:column;gap:9px;max-height:390px;overflow:auto;padding-right:2px}.bubble{max-width:88%;padding:12px 13px;border-radius:18px;font-size:13px;line-height:1.5;white-space:pre-wrap;word-break:break-word}.bubble.hermes{align-self:flex-start;background:#172039;border:1px solid #2a3756}.bubble.user{align-self:flex-end;background:linear-gradient(145deg,#735de8,#6049cf);box-shadow:0 10px 22px #5e49d933}.typing{display:flex;gap:4px;align-items:center}.typing i{width:6px;height:6px;border-radius:50%;background:#8290ad;animation:b 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}@keyframes b{50%{opacity:.2;transform:translateY(2px)}}
-    .composer{position:fixed;left:50%;transform:translateX(-50%);bottom:0;z-index:5;width:min(640px,100%);padding:11px 15px calc(11px + env(safe-area-inset-bottom));background:#060914e8;backdrop-filter:blur(20px);border-top:1px solid #1d2842}.row{display:flex;gap:8px}.input{flex:1;min-width:0;background:#11192c;border:1px solid #2a3654;color:#fff;border-radius:18px;padding:13px 14px;outline:none}.input:focus{border-color:#6f5be2}.mic,.send{width:48px;min-width:48px;border:0;border-radius:16px;cursor:pointer;color:#fff}.mic{background:#131e35;border:1px solid var(--line)}.mic.active{background:#43223b;border-color:#a84b7c}.send{background:linear-gradient(145deg,#815fff,#6948df);font-size:19px}.small{text-align:center;color:#6c7893;font-size:10px;margin-top:7px}
-    .tabs{display:flex;gap:5px;background:#0d1322;border:1px solid var(--line);border-radius:15px;padding:4px;margin-top:15px}.tab{flex:1;border:0;background:transparent;color:#8996b2;padding:9px 8px;border-radius:11px;font-size:11px;cursor:pointer}.tab.active{color:#fff;background:#18213a}.view{display:none}.view.active{display:block}
-    .modal{position:fixed;inset:0;background:#000a;display:none;align-items:flex-end;justify-content:center;z-index:20;padding:12px}.modal.open{display:flex}.sheet{width:min(640px,100%);background:#0f1628;border:1px solid var(--line);border-radius:24px;padding:18px;box-shadow:var(--shadow)}.sheet h2{font-size:18px;margin:0 0 12px}.field{margin:10px 0}.field label{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}.field input{width:100%;background:#090e1c;border:1px solid var(--line);color:#fff;border-radius:12px;padding:12px}.primary{width:100%;padding:13px;border:0;border-radius:14px;background:linear-gradient(145deg,#815fff,#6948df);color:#fff;font-weight:800;margin-top:8px}.secondary{width:100%;padding:12px;border:1px solid var(--line);border-radius:14px;background:#141c31;color:#fff;margin-top:8px}
-    .toast{position:fixed;left:50%;bottom:86px;transform:translateX(-50%) translateY(10px);background:#151d31;border:1px solid var(--line);padding:10px 13px;border-radius:999px;font-size:11px;color:#d7def0;opacity:0;pointer-events:none;transition:.2s;z-index:30}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-    @media(min-width:650px){.app{padding-left:18px;padding-right:18px}.grid{grid-template-columns:repeat(4,1fr)}.hello{font-size:38px}}
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    :root{
+      --bg:#050b14;
+      --card:#0d1726;
+      --card2:#111e30;
+      --border:rgba(255,255,255,.08);
+      --text:#f5f7fb;
+      --muted:#8e9bad;
+      --blue:#4f8cff;
+      --blue2:#2864df;
+      --green:#27d69a;
+      --danger:#ff5d6c;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+    }
+
+    html,body{
+      width:100%;
+      min-height:100%;
+      background:var(--bg);
+      color:var(--text);
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+    }
+
+    body{
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    button,
+    input,
+    textarea{
+      font:inherit;
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+    }
+
+    .app{
+      width:100%;
+      max-width:900px;
+      min-height:100vh;
+      margin:auto;
+      padding-bottom:90px;
+    }
+
+    .top{
+      padding:26px 18px 12px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .brand-left{
+      display:flex;
+      align-items:center;
+      gap:13px;
+    }
+
+    .logo{
+      width:52px;
+      height:52px;
+      border-radius:17px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,#5d98ff,#255dd8);
+      box-shadow:0 12px 30px rgba(55,115,255,.25);
+      overflow:hidden;
+    }
+
+    .logo img{
+      width:34px;
+      height:34px;
+    }
+
+    .brand h1{
+      font-size:23px;
+      letter-spacing:-.5px;
+    }
+
+    .brand p{
+      color:var(--muted);
+      font-size:13px;
+      margin-top:3px;
+    }
+
+    .status{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .dot{
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:#777;
+    }
+
+    .dot.online{
+      background:var(--green);
+      box-shadow:0 0 12px rgba(39,214,154,.7);
+    }
+
+    .hero{
+      margin:15px 18px 18px;
+      padding:25px 21px;
+      border:1px solid var(--border);
+      border-radius:25px;
+      background:
+        radial-gradient(circle at 90% 0%,rgba(72,125,255,.22),transparent 40%),
+        linear-gradient(145deg,#0f1c2e,#0a1422);
+      box-shadow:var(--shadow);
+    }
+
+    .hero .greeting{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:-.8px;
+    }
+
+    .hero .sub{
+      color:var(--muted);
+      margin-top:8px;
+      line-height:1.5;
+      font-size:14px;
+    }
+
+    .quick-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:11px;
+      margin-top:20px;
+    }
+
+    .quick{
+      min-height:120px;
+      text-align:left;
+      padding:17px;
+      border-radius:19px;
+      background:rgba(255,255,255,.045);
+      border:1px solid var(--border);
+      color:var(--text);
+      transition:.2s;
+    }
+
+    .quick:active{
+      transform:scale(.98);
+    }
+
+    .quick .icon{
+      font-size:25px;
+      margin-bottom:12px;
+    }
+
+    .quick .title{
+      font-weight:650;
+      font-size:14px;
+    }
+
+    .quick .desc{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:5px;
+      line-height:1.35;
+    }
+
+    .section{
+      padding:0 18px;
+      margin-top:22px;
+    }
+
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:11px;
+    }
+
+    .section-title{
+      font-size:17px;
+      font-weight:700;
+    }
+
+    .section-action{
+      color:#77a7ff;
+      background:none;
+      font-size:12px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+      overflow:hidden;
+    }
+
+    .empty{
+      padding:22px;
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+    }
+
+    .item{
+      display:flex;
+      align-items:center;
+      gap:13px;
+      padding:16px;
+      border-bottom:1px solid var(--border);
+    }
+
+    .item:last-child{
+      border-bottom:0;
+    }
+
+    .time{
+      min-width:52px;
+      font-size:14px;
+      font-weight:700;
+      color:#8eb5ff;
+    }
+
+    .rmain{
+      flex:1;
+      min-width:0;
+    }
+
+    .rtitle{
+      font-size:14px;
+      font-weight:600;
+      word-break:break-word;
+    }
+
+    .rmeta{
+      color:var(--muted);
+      font-size:11px;
+      margin-top:4px;
+    }
+
+    .ghost{
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      background:rgba(255,255,255,.05);
+      color:#a9b2c0;
+      font-size:20px;
+    }
+
+    .bottom-nav{
+      position:fixed;
+      z-index:50;
+      left:50%;
+      bottom:12px;
+      transform:translateX(-50%);
+      width:calc(100% - 28px);
+      max-width:620px;
+      height:64px;
+      border:1px solid var(--border);
+      border-radius:21px;
+      background:rgba(11,20,34,.94);
+      backdrop-filter:blur(18px);
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      padding:6px;
+      box-shadow:0 15px 50px rgba(0,0,0,.45);
+    }
+
+    .nav-btn{
+      background:transparent;
+      color:var(--muted);
+      border-radius:16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:3px;
+      font-size:11px;
+    }
+
+    .nav-btn .nav-icon{
+      font-size:20px;
+    }
+
+    .nav-btn.active{
+      color:white;
+      background:rgba(75,135,255,.16);
+    }
+
+    .view{
+      display:none;
+    }
+
+    .view.active{
+      display:block;
+    }
+
+    .chat-wrap{
+      min-height:calc(100vh - 130px);
+      padding:18px;
+      padding-bottom:125px;
+    }
+
+    .chat-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:17px;
+    }
+
+    .chat-head h2{
+      font-size:22px;
+    }
+
+    .chat-head p{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:3px;
+    }
+
+    .messages{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .bubble{
+      max-width:88%;
+      padding:13px 15px;
+      border-radius:17px;
+      line-height:1.5;
+      font-size:14px;
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .bubble.user{
+      align-self:flex-end;
+      background:linear-gradient(135deg,#3979ef,#245fd1);
+      border-bottom-right-radius:5px;
+    }
+
+    .bubble.assistant{
+      align-self:flex-start;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-bottom-left-radius:5px;
+    }
+
+    .typing{
+      display:none;
+      align-items:center;
+      gap:4px;
+      padding:14px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .typing.show{
+      display:flex;
+    }
+
+    .typing span{
+      width:5px;
+      height:5px;
+      background:#7890b5;
+      border-radius:50%;
+      animation:pulse 1s infinite;
+    }
+
+    .typing span:nth-child(2){
+      animation-delay:.15s;
+    }
+
+    .typing span:nth-child(3){
+      animation-delay:.3s;
+    }
+
+    @keyframes pulse{
+      0%,100%{opacity:.3}
+      50%{opacity:1}
+    }
+
+    .composer{
+      position:fixed;
+      z-index:40;
+      left:50%;
+      bottom:87px;
+      transform:translateX(-50%);
+      width:calc(100% - 28px);
+      max-width:620px;
+      display:flex;
+      gap:8px;
+      padding:7px;
+      border:1px solid var(--border);
+      background:rgba(10,19,32,.96);
+      backdrop-filter:blur(18px);
+      border-radius:19px;
+      box-shadow:0 15px 45px rgba(0,0,0,.4);
+    }
+
+    .composer input{
+      flex:1;
+      min-width:0;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:white;
+      padding:11px 10px;
+      font-size:14px;
+    }
+
+    .composer input::placeholder{
+      color:#657389;
+    }
+
+    .circle-btn{
+      width:43px;
+      height:43px;
+      flex:none;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:19px;
+    }
+
+    .circle-btn.send{
+      background:var(--blue);
+    }
+
+    .circle-btn.active{
+      background:#e94e61;
+      animation:micPulse 1s infinite;
+    }
+
+    @keyframes micPulse{
+      50%{
+        box-shadow:0 0 0 8px rgba(233,78,97,.12);
+      }
+    }
+
+    .list-card{
+      margin:0 18px 15px;
+      padding:18px;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:20px;
+    }
+
+    .memory{
+      padding:13px 0;
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+    }
+
+    .memory:last-child{
+      border-bottom:0;
+    }
+
+    .memory-icon{
+      font-size:21px;
+    }
+
+    .memory-content{
+      flex:1;
+    }
+
+    .memory-key{
+      color:#79a8ff;
+      font-size:11px;
+    }
+
+    .memory-value{
+      margin-top:4px;
+      font-size:13px;
+      line-height:1.4;
+    }
+
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:100;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      background:rgba(0,0,0,.65);
+      backdrop-filter:blur(5px);
+    }
+
+    .modal.open{
+      display:flex;
+    }
+
+    .modal-box{
+      width:100%;
+      max-width:620px;
+      padding:22px;
+      background:#0d1828;
+      border:1px solid var(--border);
+      border-radius:25px 25px 0 0;
+      box-shadow:0 -20px 60px rgba(0,0,0,.45);
+    }
+
+    .modal-box h3{
+      font-size:19px;
+      margin-bottom:18px;
+    }
+
+    .field{
+      margin-bottom:13px;
+    }
+
+    .field label{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-bottom:7px;
+    }
+
+    .field input,
+    .field textarea{
+      width:100%;
+      background:#081220;
+      color:white;
+      border:1px solid var(--border);
+      border-radius:13px;
+      outline:0;
+      padding:13px;
+    }
+
+    .field textarea{
+      min-height:100px;
+      resize:vertical;
+    }
+
+    .modal-actions{
+      display:flex;
+      gap:9px;
+      margin-top:17px;
+    }
+
+    .modal-actions button{
+      flex:1;
+      padding:13px;
+      border-radius:13px;
+      color:white;
+      background:rgba(255,255,255,.07);
+    }
+
+    .modal-actions .primary{
+      background:var(--blue);
+    }
+
+    .toast{
+      position:fixed;
+      z-index:200;
+      left:50%;
+      top:18px;
+      transform:translate(-50%,-120px);
+      background:#152235;
+      border:1px solid var(--border);
+      color:white;
+      padding:12px 17px;
+      border-radius:14px;
+      font-size:12px;
+      box-shadow:var(--shadow);
+      transition:.3s;
+      max-width:calc(100% - 30px);
+      text-align:center;
+    }
+
+    .toast.show{
+      transform:translate(-50%,0);
+    }
+
+    @media(min-width:700px){
+      .quick-grid{
+        grid-template-columns:repeat(4,1fr);
+      }
+
+      .quick{
+        min-height:140px;
+      }
+    }
   </style>
 </head>
+
 <body>
+
 <div class="app">
-  <header>
-    <div class="brand"><div class="orb">H</div><div><h1>Hermes</h1><div class="sub">seu assistente pessoal</div></div></div>
-    <div class="chip"><span id="statusDot" class="dot"></span><span id="statusText">conectando</span></div>
-  </header>
 
-  <section class="hero">
-    <div class="eyebrow">Hermes 2.0</div>
-    <div class="hello" id="greeting">Bom dia, Wes 👋</div>
-    <p>Fale comigo como você falaria com uma pessoa.</p>
-  </section>
+  <div id="homeView" class="view active">
 
-  <div class="grid">
-    <button class="quick" onclick="openReminder()"><div class="icon">⏰</div><div class="title">Novo lembrete</div><div class="desc">Escolha data e hora</div></button>
-    <button class="quick" onclick="startVoice()"><div class="icon">🎙️</div><div class="title">Falar comigo</div><div class="desc">Use sua voz</div></button>
-    <button class="quick" onclick="ask('Mostre minha agenda de hoje')"><div class="icon">📋</div><div class="title">Minha agenda</div><div class="desc">Veja o que vem pela frente</div></button>
-    <button class="quick" onclick="requestNotifications()"><div class="icon">🔔</div><div class="title">Ativar alertas</div><div class="desc">Receba avisos no aparelho</div></button>
+    <header class="top">
+      <div class="brand">
+
+        <div class="brand-left">
+          <div class="logo">
+            <img src="/icon.svg" alt="Hermes">
+          </div>
+
+          <div>
+            <h1>Hermes</h1>
+            <p>Seu assistente pessoal</p>
+          </div>
+        </div>
+
+        <div class="status">
+          <span id="statusDot" class="dot"></span>
+          <span id="statusText">Conectando</span>
+        </div>
+
+      </div>
+    </header>
+
+    <section class="hero">
+
+      <div id="greeting" class="greeting">
+        Olá 👋
+      </div>
+
+      <div class="sub">
+        Estou pronto para conversar, organizar sua agenda,
+        criar lembretes e guardar informações importantes.
+      </div>
+
+      <div class="quick-grid">
+
+        <button class="quick" onclick="openReminder()">
+          <div class="icon">⏰</div>
+          <div class="title">Novo lembrete</div>
+          <div class="desc">Escolha data e hora</div>
+        </button>
+
+        <button class="quick" onclick="startVoice()">
+          <div class="icon">🎙️</div>
+          <div class="title">Falar comigo</div>
+          <div class="desc">Use sua voz</div>
+        </button>
+
+        <button class="quick" onclick="showAgenda()">
+          <div class="icon">📋</div>
+          <div class="title">Minha agenda</div>
+          <div class="desc">Veja o que vem pela frente</div>
+        </button>
+
+        <button class="quick" onclick="requestNotifications()">
+          <div class="icon">🔔</div>
+          <div class="title">Ativar alertas</div>
+          <div class="desc">Receba avisos no aparelho</div>
+        </button>
+
+      </div>
+    </section>
+
+    <section class="section">
+
+      <div class="section-head">
+        <div class="section-title">Agenda de hoje</div>
+        <div id="todayCount" class="section-action">0 itens</div>
+      </div>
+
+      <div class="card">
+        <div id="reminders"></div>
+      </div>
+
+    </section>
+
+    <section class="section">
+
+      <div class="section-head">
+        <div class="section-title">Resumo</div>
+      </div>
+
+      <div class="card">
+        <div id="summary" class="empty">
+          Converse com o Hermes para começar.
+        </div>
+      </div>
+
+    </section>
+
   </div>
 
-  <div class="tabs">
-    <button id="tabHome" class="tab active" onclick="switchView('home')">Início</button>
-    <button id="tabChat" class="tab" onclick="switchView('chat')">Conversa</button>
-    <button id="tabMemory" class="tab" onclick="switchView('memory')">Memória</button>
+
+  <div id="chatView" class="view">
+
+    <div class="chat-wrap">
+
+      <div class="chat-head">
+
+        <div>
+          <h2>Hermes</h2>
+          <p>Converse comigo</p>
+        </div>
+
+        <button class="circle-btn" onclick="clearChat()">
+          🗑️
+        </button>
+
+      </div>
+
+      <div id="messages" class="messages"></div>
+
+      <div id="typing" class="typing">
+        Hermes está pensando
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
   </div>
 
-  <section id="viewHome" class="view active">
-    <section class="card"><div class="head"><div class="cardtitle">Hoje</div><div class="minor" id="todayCount">0 itens</div></div><div id="reminders" class="list"><div class="empty">Nenhum lembrete ainda.</div></div></section>
-    <section class="card"><div class="head"><div class="cardtitle">Resumo</div><div class="minor">assistente</div></div><div id="summary" class="empty">Converse com o Hermes para começar.</div></section>
-  </section>
 
-  <section id="viewChat" class="view">
-    <section class="card"><div class="head"><div class="cardtitle">Conversa</div><div class="minor" id="modelLabel">IA</div></div><div class="chat" id="chat"></div></section>
-  </section>
+  <div id="memoryView" class="view">
 
-  <section id="viewMemory" class="view">
-    <section class="card"><div class="head"><div class="cardtitle">Memória autorizada</div><button class="ghost" onclick="openMemory()">＋</button></div><div id="memories"></div></section>
-    <section class="card"><div class="empty">O Hermes só deve guardar o que você pedir ou o que ficar claramente definido como uma preferência útil. Tudo nesta versão fica salvo neste aparelho.</div></section>
-  </section>
+    <div class="chat-wrap">
+
+      <div class="chat-head">
+
+        <div>
+          <h2>Memória 🧠</h2>
+          <p>Informações guardadas pelo Hermes</p>
+        </div>
+
+        <button class="circle-btn" onclick="openMemory()">
+          ＋
+        </button>
+
+      </div>
+
+      <div id="memoryList" class="list-card"></div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="composer">
-  <div class="row"><button id="micBtn" class="mic" onclick="startVoice()" aria-label="Falar">🎙️</button><input id="message" class="input" placeholder="Fale com Hermes..." autocomplete="off"/><button class="send" onclick="send()" aria-label="Enviar">➤</button></div>
-  <div class="small">Hermes 2.0 • IA + memória + ações</div>
+
+<div id="composer" class="composer">
+
+  <button
+    id="micBtn"
+    class="circle-btn"
+    onclick="startVoice()"
+    title="Falar"
+  >
+    🎙️
+  </button>
+
+  <input
+    id="message"
+    type="text"
+    autocomplete="off"
+    placeholder="Fale com o Hermes..."
+  >
+
+  <button
+    class="circle-btn send"
+    onclick="send()"
+    title="Enviar"
+  >
+    ➤
+  </button>
+
 </div>
 
-<div id="reminderModal" class="modal"><div class="sheet"><h2>Novo lembrete ⏰</h2><div class="field"><label>O que devo lembrar?</label><input id="rTitle" placeholder="Ex.: ligar para alguém"/></div><div class="field"><label>Data e hora</label><input id="rDate" type="datetime-local"/></div><button class="primary" onclick="saveReminder()">Salvar lembrete</button><button class="secondary" onclick="closeModal('reminderModal')">Cancelar</button></div></div>
-<div id="memoryModal" class="modal"><div class="sheet"><h2>Guardar na memória 🧠</h2><div class="field"><label>O que devo lembrar?</label><input id="mValue" placeholder="Ex.: prefiro viajar em hotéis com piscina"/></div><button class="primary" onclick="saveMemoryManual()">Guardar</button><button class="secondary" onclick="closeModal('memoryModal')">Cancelar</button></div></div>
+
+<nav class="bottom-nav">
+
+  <button
+    id="navHome"
+    class="nav-btn active"
+    onclick="switchView('home')"
+  >
+    <span class="nav-icon">⌂</span>
+    Início
+  </button>
+
+  <button
+    id="navChat"
+    class="nav-btn"
+    onclick="switchView('chat')"
+  >
+    <span class="nav-icon">💬</span>
+    Conversar
+  </button>
+
+  <button
+    id="navMemory"
+    class="nav-btn"
+    onclick="switchView('memory')"
+  >
+    <span class="nav-icon">🧠</span>
+    Memória
+  </button>
+
+</nav>
+
+
+<div id="reminderModal" class="modal">
+
+  <div class="modal-box">
+
+    <h3>Novo lembrete ⏰</h3>
+
+    <div class="field">
+      <label>O que você quer lembrar?</label>
+      <input
+        id="rTitle"
+        type="text"
+        placeholder="Ex.: Reunião com João"
+      >
+    </div>
+
+    <div class="field">
+      <label>Data e horário</label>
+      <input
+        id="rDate"
+        type="datetime-local"
+      >
+    </div>
+
+    <div class="modal-actions">
+
+      <button onclick="closeModal('reminderModal')">
+        Cancelar
+      </button>
+
+      <button
+        class="primary"
+        onclick="saveReminder()"
+      >
+        Salvar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div id="memoryModal" class="modal">
+
+  <div class="modal-box">
+
+    <h3>Nova memória 🧠</h3>
+
+    <div class="field">
+      <label>O que devo lembrar?</label>
+
+      <textarea
+        id="mValue"
+        placeholder="Ex.: Prefiro viajar de avião."
+      ></textarea>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button onclick="closeModal('memoryModal')">
+        Cancelar
+      </button>
+
+      <button
+        class="primary"
+        onclick="saveMemoryManual()"
+      >
+        Guardar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <div id="toast" class="toast"></div>
 
+
 <script>
-const KEYS={rem:'hermes_reminders_v2',mem:'hermes_memories_v2',chat:'hermes_chat_v2'};
-let reminders=JSON.parse(localStorage.getItem(KEYS.rem)||'[]');
-let memories=JSON.parse(localStorage.getItem(KEYS.mem)||'[]');
-let history=JSON.parse(localStorage.getItem(KEYS.chat)||'[]');
-let aiState={online:false,model:''};
 
-const $=id=>document.getElementById(id);
-function uid(){return crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random()}
-function nowLocalInput(){const d=new Date(Date.now()+3600000);const p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function greet(){const h=new Date().getHours();const t=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';$('greeting').textContent=`${t}, Wes 👋`}
-function saveAll(){localStorage.setItem(KEYS.rem,JSON.stringify(reminders));localStorage.setItem(KEYS.mem,JSON.stringify(memories));localStorage.setItem(KEYS.chat,JSON.stringify(history.slice(-24)))}
-function render(){
-  reminders=reminders.filter(r=>r&&r.when);
-  reminders.sort((a,b)=>new Date(a.when)-new Date(b.when));
-  const el=$('reminders');
-  const today=new Date();today.setHours(0,0,0,0);const tomorrow=new Date(today);tomorrow.setDate(today.getDate()+1);
-  const todays=reminders.filter(r=>{const d=new Date(r.when);return d>=today&&d<tomorrow});
-  $('todayCount').textContent=`${todays.length} ${todays.length===1?'item':'itens'}`;
-  if(!todays.length){el.innerHTML='<div class="empty">Nenhum lembrete para hoje.</div>'} else {el.innerHTML=todays.slice(0,12).map((r)=>{
-    const d=new Date(r.when), time=d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
-    return `<div class="item"><div class="time">${time}</div><div class="rmain"><div class="rtitle">${esc(r.title)}</div><div class="rmeta">${d.toLocaleDateString('pt-BR')} · ${esc(r.repeat||'uma vez')}</div></div><button class="ghost" onclick="removeReminder('${r.id}')">×</button></div>`;
-  }).join('')}
-  $('summary').textContent=reminders.length?`Você tem ${reminders.length} lembrete${reminders.length===1?'':'s'} salvo${reminders.length===1?'':'s'} neste aparelho.`:'Converse com o Hermes para começar.';
-  renderMemories();renderChat();
-}
-function renderMemories(){
-  const el=$('memories');if(!memories.length){el.innerHTML='<div class="empty">Nenhuma memória salva.</div>';return}
-  el.innerHTML=memories.slice().reverse().map(m=>`<div class="memory"><div class="micon">🧠</div><div class="mtext"><div class="mkey">${esc(m.key)}</div><div class="mvalue">${esc(m.value)}</div></div><button class="ghost" onclick="removeMemory('${m.id}')">×</button></div>`).join('');
-}
-function renderChat(){
-  const el=$('chat');
-  if(!history.length){el.innerHTML='<div class="bubble hermes">Olá, Wes. Eu sou o Hermes. 🤖\nPode falar comigo normalmente. Eu posso conversar, criar lembretes e guardar memórias que você autorizar.</div>';return}
-  el.innerHTML=history.map(m=>`<div class="bubble ${m.role==='user'?'user':'hermes'}">${esc(m.content)}</div>`).join('');
-  el.scrollTop=el.scrollHeight;
-}
-function switchView(v){['home','chat','memory'].forEach(x=>{$('view'+x[0].toUpperCase()+x.slice(1)).classList.toggle('active',x===v);$('tab'+x[0].toUpperCase()+x.slice(1)).classList.toggle('active',x===v)});window.scrollTo({top:0,behavior:'smooth'})}
-function addHistory(role,content){history.push({role,content});saveAll();renderChat()}
-function typing(show){const el=$('chat');const existing=$('typing');if(show){if(existing)return;const d=document.createElement('div');d.id='typing';d.className='bubble hermes';d.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';el.appendChild(d);el.scrollTop=el.scrollHeight}else if(existing)existing.remove()}
-function showToast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(showToast.t);showToast.t=setTimeout(()=>t.classList.remove('show'),2300)}
+const KEYS={
+  rem:'hermes_reminders_v2',
+  mem:'hermes_memories_v2',
+  chat:'hermes_chat_v2'
+};
 
-async function health(){
-  try{const r=await fetch('/api/health');const j=await r.json();aiState={online:j.ai,model:j.model};$('statusDot').className='dot '+(j.ai?'online':'offline');$('statusText').textContent=j.ai?'IA online':'IA não configurada';$('modelLabel').textContent=j.model||'IA';}
-  catch{$('statusDot').className='dot offline';$('statusText').textContent='servidor offline'}
-}
-async function ask(message){
-  switchView('chat');addHistory('user',message);typing(true);
-  try{
-    const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({message,history,memories,reminders,now:new Date().toISOString(),timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo'})});
-    const j=await r.json();typing(false);
-    if(!r.ok)throw new Error(j.error||'Falha no servidor');
-    if(j.ai===false)showToast('IA ainda não configurada no servidor');
-    if(j.action==='create_reminder'){
-      if(j.reminder_title&&j.reminder_when){createReminder(j.reminder_title,j.reminder_when,j.reminder_repeat||'one_time');}
-      else showToast('Preciso de data e horário para criar o lembrete');
-    }
-    if(j.action==='save_memory'&&j.memory_value){saveMemory(j.memory_key||'preferência',j.memory_value);}
-    if(j.action==='delete_memory'&&j.memory_key){removeMemoryByKey(j.memory_key)}
-    addHistory('assistant',j.reply||'Pronto.');
-    if(j.reply&&voiceReplies) speak(j.reply);
-    render();
-  }catch(e){typing(false);addHistory('assistant','Não consegui falar com meu servidor agora. Verifique a conexão e tente novamente.');showToast(e.message||'Erro ao conversar');}
-}
-function send(){const i=$('message'),m=i.value.trim();if(!m)return;i.value='';ask(m)}
-$('message').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}});
+let reminders=JSON.parse(
+  localStorage.getItem(KEYS.rem)||'[]'
+);
 
-function openReminder(){$('rDate').value=nowLocalInput();$('rTitle').value='';$('reminderModal').classList.add('open');setTimeout(()=>$('rTitle').focus(),50)}
-function closeModal(id){$(id).classList.remove('open')}
-function saveReminder(){const title=$('rTitle').value.trim(),when=$('rDate').value;if(!title||!when)return;createReminder(title,new Date(when).toISOString(),'one_time');closeModal('reminderModal');addHistory('assistant',`Fechado. Vou te lembrar de “${title}”. ⏰`);render();scheduleNotification(title,new Date(when));showToast('Lembrete salvo')}
-function createReminder(title,when,repeat='one_time'){const r={id:uid(),title,when,repeat,createdAt:new Date().toISOString()};reminders.push(r);saveAll();scheduleNotification(title,new Date(when));showToast('Lembrete criado ⏰')}
-function removeReminder(id){reminders=reminders.filter(r=>r.id!==id);saveAll();render();showToast('Lembrete removido')}
-function scheduleNotification(title,date){const ms=date.getTime()-Date.now();if(ms<=0||ms>2147483647)return;if('Notification' in window&&Notification.permission==='granted')setTimeout(()=>new Notification('Hermes ⏰',{body:title,icon:'/icon.svg',tag:'hermes-'+title}),ms)}
-async function requestNotifications(){if(!('Notification'in window)){showToast('Notificações não disponíveis neste navegador');return}const p=await Notification.requestPermission();showToast(p==='granted'?'Alertas ativados 🔔':'Permissão não concedida')}
+let memories=JSON.parse(
+  localStorage.getItem(KEYS.mem)||'[]'
+);
 
-function openMemory(){$('mValue').value='';$('memoryModal').classList.add('open');setTimeout(()=>$('mValue').focus(),50)}
-function saveMemoryManual(){const v=$('mValue').value.trim();if(!v)return;saveMemory('preferência',v);closeModal('memoryModal');showToast('Memória guardada 🧠');render()}
-function saveMemory(key,value){memories.push({id:uid(),key,value,createdAt:new Date().toISOString()});saveAll();renderMemories()}
-function removeMemory(id){memories=memories.filter(m=>m.id!==id);saveAll();renderMemories();showToast('Memória removida')}
-function removeMemoryByKey(key){const target=String(key).toLowerCase();memories=memories.filter(m=>String(m.key).toLowerCase()!==target&&String(m.value).toLowerCase()!==target);saveAll();renderMemories();showToast('Memória apagada')}
+let history=JSON.parse(
+  localStorage.getItem(KEYS.chat)||'[]'
+);
 
 let voiceReplies=false;
-function startVoice(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){showToast('Reconhecimento de voz não disponível');return}const r=new SR();r.lang='pt-BR';r.interimResults=false;r.maxAlternatives=1;$('micBtn').classList.add('active');r.onresult=e=>{const t=e.results[0][0].transcript;$('message').value=t;send()};r.onerror=()=>showToast('Não consegui entender a voz');r.onend=()=>$('micBtn').classList.remove('active');r.start()}
-function speak(text){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='pt-BR';u.rate=.98;speechSynthesis.speak(u)}
+let activeRecognition=null;
 
-if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
-greet();render();health();
+let aiState={
+  online:false,
+  model:''
+};
+
+
+const $=id=>document.getElementById(id);
+
+
+function uid(){
+
+  if(
+    typeof crypto!=='undefined' &&
+    crypto.randomUUID
+  ){
+    return crypto.randomUUID();
+  }
+
+  return Date.now()+'_'+Math.random();
+}
+
+
+function esc(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    m=>({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#39;'
+    }[m])
+  );
+
+}
+
+
+function greet(){
+
+  const h=new Date().getHours();
+
+  const t=
+    h<12
+      ?'Bom dia'
+      :h<18
+        ?'Boa tarde'
+        :'Boa noite';
+
+  $('greeting').textContent=
+    `${t}, Wes 👋`;
+}
+
+
+function saveAll(){
+
+  localStorage.setItem(
+    KEYS.rem,
+    JSON.stringify(reminders)
+  );
+
+  localStorage.setItem(
+    KEYS.mem,
+    JSON.stringify(memories)
+  );
+
+  localStorage.setItem(
+    KEYS.chat,
+    JSON.stringify(history.slice(-24))
+  );
+
+}
+
+
+function showToast(message){
+
+  const el=$('toast');
+
+  el.textContent=message;
+
+  el.classList.add('show');
+
+  clearTimeout(showToast.timer);
+
+  showToast.timer=setTimeout(
+    ()=>el.classList.remove('show'),
+    2800
+  );
+
+}
+
+
+function switchView(view){
+
+  document
+    .querySelectorAll('.view')
+    .forEach(el=>el.classList.remove('active'));
+
+  document
+    .querySelectorAll('.nav-btn')
+    .forEach(el=>el.classList.remove('active'));
+
+  if(view==='home'){
+
+    $('homeView').classList.add('active');
+    $('navHome').classList.add('active');
+
+    $('composer').style.display='none';
+
+  }
+
+  if(view==='chat'){
+
+    $('chatView').classList.add('active');
+    $('navChat').classList.add('active');
+
+    $('composer').style.display='flex';
+
+  }
+
+  if(view==='memory'){
+
+    $('memoryView').classList.add('active');
+    $('navMemory').classList.add('active');
+
+    $('composer').style.display='none';
+
+  }
+
+  render();
+
+}
+
+
+function render(){
+
+  reminders=reminders
+    .filter(r=>r&&r.when)
+    .sort(
+      (a,b)=>
+        new Date(a.when)-new Date(b.when)
+    );
+
+  const el=$('reminders');
+
+  const today=new Date();
+
+  today.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  const tomorrow=new Date(today);
+
+  tomorrow.setDate(
+    today.getDate()+1
+  );
+
+  const todays=reminders.filter(r=>{
+
+    const d=new Date(r.when);
+
+    return d>=today&&d<tomorrow;
+
+  });
+
+  $('todayCount').textContent=
+    `${todays.length} ${
+      todays.length===1
+        ?'item'
+        :'itens'
+    }`;
+
+  if(!todays.length){
+
+    el.innerHTML=
+      '<div class="empty">Nenhum lembrete para hoje. 📅</div>';
+
+  }else{
+
+    el.innerHTML=
+      todays
+      .slice(0,12)
+      .map(r=>{
+
+        const d=new Date(r.when);
+
+        const time=
+          d.toLocaleTimeString(
+            'pt-BR',
+            {
+              hour:'2-digit',
+              minute:'2-digit'
+            }
+          );
+
+        return `
+          <div class="item">
+
+            <div class="time">
+              ${time}
+            </div>
+
+            <div class="rmain">
+
+              <div class="rtitle">
+                ${esc(r.title)}
+              </div>
+
+              <div class="rmeta">
+                ${d.toLocaleDateString('pt-BR')}
+                ·
+                ${esc(r.repeat||'uma vez')}
+              </div>
+
+            </div>
+
+            <button
+              class="ghost"
+              onclick="removeReminder('${r.id}')"
+            >
+              ×
+            </button>
+
+          </div>
+        `;
+
+      })
+      .join('');
+
+  }
+
+  $('summary').textContent=
+    reminders.length
+      ? `Você tem ${reminders.length} lembrete${
+          reminders.length===1?'':'s'
+        } salvo${
+          reminders.length===1?'':'s'
+        } neste aparelho.`
+      :'Converse com o Hermes para começar.';
+
+  renderMemories();
+  renderChat();
+
+}
+
+
+function renderChat(){
+
+  const el=$('messages');
+
+  if(!history.length){
+
+    el.innerHTML=`
+      <div class="bubble assistant">
+        Olá, Wes! 👋
+        <br><br>
+        Sou o Hermes, seu assistente pessoal.
+        <br><br>
+        Você pode me pedir para criar lembretes,
+        consultar sua agenda, guardar informações
+        ou simplesmente conversar comigo.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  el.innerHTML=
+    history
+    .slice(-24)
+    .map(m=>`
+
+      <div class="bubble ${
+        m.role==='user'
+          ?'user'
+          :'assistant'
+      }">
+
+        ${esc(m.content)}
+
+      </div>
+
+    `)
+    .join('');
+
+  el.scrollTop=el.scrollHeight;
+
+}
+
+
+function renderMemories(){
+
+  const el=$('memoryList');
+
+  if(!memories.length){
+
+    el.innerHTML=`
+      <div class="empty">
+        Nenhuma memória salva ainda. 🧠
+      </div>
+    `;
+
+    return;
+
+  }
+
+  el.innerHTML=
+    memories
+    .slice()
+    .reverse()
+    .map(m=>`
+
+      <div class="memory">
+
+        <div class="memory-icon">
+          🧠
+        </div>
+
+        <div class="memory-content">
+
+          <div class="memory-key">
+            ${esc(m.key||'preferência')}
+          </div>
+
+          <div class="memory-value">
+            ${esc(m.value)}
+          </div>
+
+        </div>
+
+        <button
+          class="ghost"
+          onclick="removeMemory('${m.id}')"
+        >
+          ×
+        </button>
+
+      </div>
+
+    `)
+    .join('');
+
+}
+
+
+function addHistory(role,content){
+
+  history.push({
+    role,
+    content,
+    at:new Date().toISOString()
+  });
+
+  saveAll();
+  renderChat();
+
+}
+
+
+function typing(show){
+
+  $('typing').classList.toggle(
+    'show',
+    show
+  );
+
+}
+
+
+function isAgendaQuery(message){
+
+  const t=
+    String(message||'')
+      .toLowerCase();
+
+  return /agenda|lembrete|lembretes|compromisso|compromissos|marcado|marcados|o que tenho|o que está marcado|o que esta marcado/.test(t);
+
+}
+
+
+function agendaReply(){
+
+  const now=new Date();
+
+  const start=new Date(now);
+
+  start.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+  const end=new Date(start);
+
+  end.setDate(
+    end.getDate()+1
+  );
+
+  const todays=
+    reminders
+    .filter(
+      r=>r&&r.when
+    )
+    .filter(r=>{
+
+      const d=new Date(r.when);
+
+      return d>=start&&d<end;
+
+    })
+    .sort(
+      (a,b)=>
+        new Date(a.when)-
+        new Date(b.when)
+    );
+
+  if(!todays.length){
+
+    return 'Sua agenda de hoje está vazia. 📅';
+
+  }
+
+  const lines=
+    todays.map(r=>{
+
+      const d=new Date(r.when);
+
+      const time=
+        d.toLocaleTimeString(
+          'pt-BR',
+          {
+            hour:'2-digit',
+            minute:'2-digit'
+          }
+        );
+
+      return `${time} • ${r.title}`;
+
+    });
+
+  return `
+Hoje você tem ${
+    todays.length
+  } compromisso${
+    todays.length===1?'':'s'
+  }:
+
+${lines.join('\n')}
+`.trim();
+
+}
+
+
+function showAgenda(){
+
+  switchView('chat');
+
+  const reply=agendaReply();
+
+  addHistory(
+    'user',
+    'O que tenho marcado hoje?'
+  );
+
+  addHistory(
+    'assistant',
+    reply
+  );
+
+  if(voiceReplies){
+
+    speak(reply);
+
+  }
+
+}
+
+
+async function ask(message){
+
+  switchView('chat');
+
+  addHistory(
+    'user',
+    message
+  );
+
+  if(isAgendaQuery(message)){
+
+    const reply=agendaReply();
+
+    addHistory(
+      'assistant',
+      reply
+    );
+
+    if(voiceReplies){
+
+      speak(reply);
+
+    }
+
+    voiceReplies=false;
+
+    return;
+
+  }
+
+  typing(true);
+
+  try{
+
+    const r=await fetch(
+      '/api/chat',
+      {
+        method:'POST',
+
+        headers:{
+          'Content-Type':
+            'application/json'
+        },
+
+        body:JSON.stringify({
+
+          message,
+
+          history:
+            history.slice(0,-1),
+
+          memories,
+
+          reminders,
+
+          now:
+            new Date().toISOString(),
+
+          timezone:
+            Intl.DateTimeFormat()
+              .resolvedOptions()
+              .timeZone ||
+            'America/Sao_Paulo'
+
+        })
+
+      }
+    );
+
+    const j=await r.json();
+
+    typing(false);
+
+    if(!r.ok){
+
+      throw new Error(
+        j.error||
+        'Falha no servidor'
+      );
+
+    }
+
+    if(j.action==='create_reminder'){
+
+      if(
+        j.reminder_title &&
+        j.reminder_when
+      ){
+
+        createReminder(
+          j.reminder_title,
+          j.reminder_when,
+          j.reminder_repeat||
+            'one_time'
+        );
+
+      }else{
+
+        showToast(
+          'Preciso de data e horário para criar o lembrete'
+        );
+
+      }
+
+    }
+
+    if(
+      j.action==='save_memory' &&
+      j.memory_value
+    ){
+
+      saveMemory(
+        j.memory_key||
+          'preferência',
+        j.memory_value
+      );
+
+    }
+
+    if(
+      j.action==='delete_memory' &&
+      j.memory_key
+    ){
+
+      removeMemoryByKey(
+        j.memory_key
+      );
+
+    }
+
+    addHistory(
+      'assistant',
+      j.reply||
+        'Pronto.'
+    );
+
+    if(
+      j.reply &&
+      voiceReplies
+    ){
+
+      speak(j.reply);
+
+    }
+
+    voiceReplies=false;
+
+    render();
+
+  }catch(e){
+
+    typing(false);
+
+    addHistory(
+      'assistant',
+      'Não consegui falar com meu servidor agora. Verifique a conexão e tente novamente.'
+    );
+
+    showToast(
+      e.message||
+      'Erro ao conversar'
+    );
+
+    voiceReplies=false;
+
+  }
+
+}
+
+
+function send(){
+
+  const input=$('message');
+
+  const message=
+    input.value.trim();
+
+  if(!message)return;
+
+  input.value='';
+
+  voiceReplies=false;
+
+  ask(message);
+
+}
+
+
+$('message').addEventListener(
+  'keydown',
+  e=>{
+
+    if(
+      e.key==='Enter' &&
+      !e.shiftKey
+    ){
+
+      e.preventDefault();
+
+      send();
+
+    }
+
+  }
+);
+
+
+function startVoice(){
+
+  if(activeRecognition){
+
+    try{
+
+      activeRecognition.stop();
+
+    }catch{}
+
+    activeRecognition=null;
+
+    $('micBtn')
+      .classList
+      .remove('active');
+
+    showToast(
+      'Microfone encerrado'
+    );
+
+    return;
+
+  }
+
+  const SR=
+    window.SpeechRecognition||
+    window.webkitSpeechRecognition;
+
+  if(!SR){
+
+    showToast(
+      'Seu navegador não suporta reconhecimento de voz. Abra o Hermes no Chrome.'
+    );
+
+    return;
+
+  }
+
+  const recognition=new SR();
+
+  activeRecognition=recognition;
+
+  voiceReplies=true;
+
+  recognition.lang='pt-BR';
+
+  recognition.continuous=false;
+
+  recognition.interimResults=false;
+
+  recognition.maxAlternatives=1;
+
+  recognition.onstart=()=>{
+
+    $('micBtn')
+      .classList
+      .add('active');
+
+    showToast(
+      '🎙️ Estou ouvindo...'
+    );
+
+  };
+
+  recognition.onresult=event=>{
+
+    const transcript=
+      event.results?.[0]?.[0]
+        ?.transcript||
+      '';
+
+    const text=
+      String(transcript)
+        .trim();
+
+    if(!text){
+
+      showToast(
+        'Não consegui entender sua voz.'
+      );
+
+      voiceReplies=false;
+
+      return;
+
+    }
+
+    $('message').value=text;
+
+    ask(text);
+
+    $('message').value='';
+
+  };
+
+  recognition.onerror=event=>{
+
+    const error=
+      event?.error||
+      '';
+
+    const messages={
+
+      'not-allowed':
+        'Permita o acesso ao microfone para o Hermes.',
+
+      'audio-capture':
+        'Não consegui acessar o microfone.',
+
+      'no-speech':
+        'Não detectei sua voz. Tente novamente.',
+
+      'network':
+        'Falha na conexão do reconhecimento de voz.',
+
+      'service-not-allowed':
+        'O navegador bloqueou o reconhecimento de voz.'
+
+    };
+
+    showToast(
+      messages[error]||
+      'Não consegui reconhecer sua voz.'
+    );
+
+    voiceReplies=false;
+
+  };
+
+  recognition.onend=()=>{
+
+    activeRecognition=null;
+
+    $('micBtn')
+      .classList
+      .remove('active');
+
+  };
+
+  try{
+
+    recognition.start();
+
+  }catch(error){
+
+    activeRecognition=null;
+
+    $('micBtn')
+      .classList
+      .remove('active');
+
+    voiceReplies=false;
+
+    showToast(
+      'Não consegui iniciar o microfone.'
+    );
+
+  }
+
+}
+
+
+function speak(text){
+
+  if(
+    !('speechSynthesis' in window)
+  ){
+
+    showToast(
+      'Seu aparelho não possui síntese de voz disponível.'
+    );
+
+    return;
+
+  }
+
+  const synth=
+    window.speechSynthesis;
+
+  synth.cancel();
+
+  const utterance=
+    new SpeechSynthesisUtterance(
+      text
+    );
+
+  utterance.lang='pt-BR';
+
+  utterance.rate=.98;
+
+  utterance.pitch=1;
+
+  utterance.volume=1;
+
+  utterance.onstart=()=>{
+
+    showToast(
+      '🔊 Hermes está falando...'
+    );
+
+  };
+
+  utterance.onerror=()=>{
+
+    showToast(
+      'Não consegui reproduzir a voz.'
+    );
+
+  };
+
+  synth.speak(
+    utterance
+  );
+
+}
+
+
+function nowLocalInput(){
+
+  const d=
+    new Date(
+      Date.now()+3600000
+    );
+
+  const p=n=>
+    String(n).padStart(2,'0');
+
+  return `${d.getFullYear()}-${
+    p(d.getMonth()+1)
+  }-${
+    p(d.getDate())
+  }T${
+    p(d.getHours())
+  }:${
+    p(d.getMinutes())
+  }`;
+
+}
+
+
+function openReminder(){
+
+  $('rDate').value=
+    nowLocalInput();
+
+  $('rTitle').value='';
+
+  $('reminderModal')
+    .classList
+    .add('open');
+
+  setTimeout(
+    ()=>$('rTitle').focus(),
+    50
+  );
+
+}
+
+
+function closeModal(id){
+
+  $(id)
+    .classList
+    .remove('open');
+
+}
+
+
+function saveReminder(){
+
+  const title=
+    $('rTitle')
+      .value
+      .trim();
+
+  const when=
+    $('rDate')
+      .value;
+
+  if(!title||!when){
+
+    showToast(
+      'Preencha o título e o horário.'
+    );
+
+    return;
+
+  }
+
+  const date=
+    new Date(when);
+
+  createReminder(
+    title,
+    date.toISOString(),
+    'one_time'
+  );
+
+  closeModal(
+    'reminderModal'
+  );
+
+}
+
+
+function createReminder(
+  title,
+  when,
+  repeat='one_time'
+){
+
+  const r={
+
+    id:uid(),
+
+    title,
+
+    when,
+
+    repeat,
+
+    createdAt:
+      new Date()
+        .toISOString()
+
+  };
+
+  reminders.push(r);
+
+  saveAll();
+
+  scheduleNotification(
+    title,
+    new Date(when)
+  );
+
+  showToast(
+    'Lembrete criado ⏰'
+  );
+
+  render();
+
+}
+
+
+function removeReminder(id){
+
+  reminders=
+    reminders.filter(
+      r=>r.id!==id
+    );
+
+  saveAll();
+
+  render();
+
+  showToast(
+    'Lembrete removido'
+  );
+
+}
+
+
+function scheduleNotification(
+  title,
+  date
+){
+
+  const ms=
+    date.getTime()-
+    Date.now();
+
+  if(
+    ms<=0 ||
+    ms>2147483647
+  ){
+
+    return;
+
+  }
+
+  if(
+    'Notification' in window &&
+    Notification.permission==='granted'
+  ){
+
+    setTimeout(
+      ()=>{
+
+        new Notification(
+          'Hermes ⏰',
+          {
+            body:title,
+            icon:'/icon.svg',
+            tag:
+              'hermes-'+
+              title
+          }
+        );
+
+      },
+      ms
+    );
+
+  }
+
+}
+
+
+async function requestNotifications(){
+
+  if(
+    !('Notification' in window)
+  ){
+
+    showToast(
+      'Notificações não disponíveis neste navegador'
+    );
+
+    return;
+
+  }
+
+  const permission=
+    await Notification
+      .requestPermission();
+
+  showToast(
+    permission==='granted'
+      ?'Alertas ativados 🔔'
+      :'Permissão não concedida'
+  );
+
+}
+
+
+function openMemory(){
+
+  $('mValue').value='';
+
+  $('memoryModal')
+    .classList
+    .add('open');
+
+  setTimeout(
+    ()=>$('mValue').focus(),
+    50
+  );
+
+}
+
+
+function saveMemoryManual(){
+
+  const value=
+    $('mValue')
+      .value
+      .trim();
+
+  if(!value){
+
+    showToast(
+      'Digite algo para guardar.'
+    );
+
+    return;
+
+  }
+
+  saveMemory(
+    'preferência',
+    value
+  );
+
+  closeModal(
+    'memoryModal'
+  );
+
+  showToast(
+    'Memória guardada 🧠'
+  );
+
+  render();
+
+}
+
+
+function saveMemory(
+  key,
+  value
+){
+
+  memories.push({
+
+    id:uid(),
+
+    key,
+
+    value,
+
+    createdAt:
+      new Date()
+        .toISOString()
+
+  });
+
+  saveAll();
+
+  renderMemories();
+
+}
+
+
+function removeMemory(id){
+
+  memories=
+    memories.filter(
+      m=>m.id!==id
+    );
+
+  saveAll();
+
+  renderMemories();
+
+  showToast(
+    'Memória removida'
+  );
+
+}
+
+
+function removeMemoryByKey(key){
+
+  const target=
+    String(key)
+      .toLowerCase();
+
+  memories=
+    memories.filter(
+      m=>
+        String(m.key)
+          .toLowerCase()!==target &&
+        String(m.value)
+          .toLowerCase()!==target
+    );
+
+  saveAll();
+
+  renderMemories();
+
+  showToast(
+    'Memória apagada'
+  );
+
+}
+
+
+function clearChat(){
+
+  if(!history.length){
+
+    showToast(
+      'A conversa já está vazia.'
+    );
+
+    return;
+
+  }
+
+  if(
+    !confirm(
+      'Deseja apagar a conversa?'
+    )
+  ){
+
+    return;
+
+  }
+
+  history=[];
+
+  saveAll();
+
+  renderChat();
+
+  showToast(
+    'Conversa apagada'
+  );
+
+}
+
+
+async function checkHealth(){
+
+  try{
+
+    const r=
+      await fetch(
+        '/api/health',
+        {
+          cache:'no-store'
+        }
+      );
+
+    const j=
+      await r.json();
+
+    if(
+      r.ok &&
+      j.ok &&
+      j.ai
+    ){
+
+      aiState.online=true;
+
+      aiState.model=
+        j.model||
+        '';
+
+      $('statusDot')
+        .classList
+        .add('online');
+
+      $('statusText').textContent=
+        'IA online';
+
+    }else{
+
+      throw new Error(
+        'IA offline'
+      );
+
+    }
+
+  }catch{
+
+    aiState.online=false;
+
+    $('statusDot')
+      .classList
+      .remove('online');
+
+    $('statusText').textContent=
+      'IA offline';
+
+  }
+
+}
+
+
+async function registerServiceWorker(){
+
+  if(
+    'serviceWorker' in navigator
+  ){
+
+    try{
+
+      await navigator
+        .serviceWorker
+        .register('/sw.js');
+
+    }catch(error){
+
+      console.log(
+        'Service Worker:',
+        error
+      );
+
+    }
+
+  }
+
+}
+
+
+window.addEventListener(
+  'load',
+  ()=>{
+
+    greet();
+
+    render();
+
+    checkHealth();
+
+    registerServiceWorker();
+
+    reminders.forEach(r=>{
+
+      if(r&&r.when){
+
+        scheduleNotification(
+          r.title,
+          new Date(r.when)
+        );
+
+      }
+
+    });
+
+  }
+);
+
 </script>
+
 </body>
 </html>

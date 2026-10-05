@@ -1,18 +1,41 @@
-# Hermes PWA
+# Hermes 2.0
 
-Primeira versão do Hermes, assistente pessoal instalável como PWA.
+Hermes é um PWA de assistente pessoal. A versão 2.0 adiciona uma camada de IA no servidor, memória local e execução de ações estruturadas, mantendo a chave da OpenAI fora do navegador.
 
 ## Rodar localmente
-1. Instale Node.js.
-2. Execute `npm install`.
-3. Execute `npm start`.
-4. Abra `http://localhost:3000`.
 
-## Publicação
-Pode ser publicado em serviços compatíveis com Node.js, como Render, Railway ou Vercel (adaptando o servidor).
+```bash
+npm install
+npm start
+```
 
-## Próxima etapa
-Conectar `/api/chat` à OpenAI no servidor. A chave deve ficar em variável de ambiente, nunca no navegador.
+Abra `http://localhost:3000`.
 
-## Observação
-Notificações web dependem de HTTPS e da permissão do usuário. Para lembretes confiáveis mesmo com o navegador fechado, a próxima etapa deve usar Web Push com um backend e agendamento no servidor.
+## Ativar a inteligência artificial
+
+Defina a variável de ambiente `OPENAI_API_KEY`. Opcionalmente, defina `OPENAI_MODEL`.
+
+Exemplo:
+
+```bash
+OPENAI_API_KEY=...
+OPENAI_MODEL=gpt-6-luna
+```
+
+## Vercel
+
+Em Project Settings → Environment Variables, crie `OPENAI_API_KEY` para o ambiente desejado e faça um novo deploy. Nunca coloque a chave no HTML, JavaScript do navegador, GitHub ou em mensagens do chat.
+
+## O que esta versão faz
+
+• Conversa com IA usando a Responses API.
+• Saída estruturada para decidir entre conversa, criar lembrete, listar agenda, salvar memória e apagar memória.
+• Lembretes e memórias persistidos no navegador.
+• Reconhecimento de voz quando disponível no navegador.
+• Leitura em voz alta opcional das respostas.
+• PWA instalável com Service Worker.
+• Endpoint `/api/health` para verificar se a IA está configurada.
+
+## Próximas evoluções
+
+Banco de dados, notificações push confiáveis, autenticação, calendário, pesquisa na web, integrações e painel de automações.

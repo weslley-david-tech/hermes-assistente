@@ -152,13 +152,12 @@ ${JSON.stringify(context)}
 
     const data = JSON.parse(response.output_text);
     res.json({ ...data, ai: true, model: MODEL });
-  } catch (error) {
-    console.error("Hermes AI error:", error?.message || error);
+  }   catch (error) {
+    console.error("Hermes AI error:", error);
     res.status(502).json({
-      error: "Não consegui falar com a IA agora.",
-      details: process.env.NODE_ENV === "development" ? String(error?.message || error) : undefined
+      error: error?.message || "Erro ao chamar a OpenAI."
     });
-  }
+}
 });
 
 app.get("*splat", (_req, res) => {

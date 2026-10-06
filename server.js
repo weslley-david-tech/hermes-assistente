@@ -2,16 +2,23 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = path.dirname(
+  fileURLToPath(import.meta.url)
+);
 
 const app = express();
 
 const PORT =
   process.env.PORT || 3000;
 
+
+/*
+  MODELOS
+*/
+
 const MODEL =
   process.env.GEMINI_MODEL ||
-  "gemini-3.5-flash-lite";
+  "gemini-2.5-flash-lite";
 
 const IMAGE_MODEL =
   process.env.GEMINI_IMAGE_MODEL ||
@@ -22,8 +29,7 @@ const GEMINI_API_KEY =
 
 
 /*
-  O Vercel limita o payload das Functions.
-  Mantemos o limite abaixo de 4.5 MB.
+  CONFIGURAÇÃO
 */
 
 app.use(
@@ -37,6 +43,10 @@ app.use(
 );
 
 
+/*
+  SCHEMA DO HERMES
+*/
+
 const HERMES_SCHEMA = {
 
   type: "object",
@@ -45,91 +55,109 @@ const HERMES_SCHEMA = {
 
   properties: {
 
-    reply:{
-      type:"string"
+    reply: {
+      type: "string"
     },
 
-    action:{
-      type:"string",
-      enum:[
+    action: {
+
+      type: "string",
+
+      enum: [
         "none",
         "create_reminder",
         "list_agenda",
         "save_memory",
         "delete_memory"
       ]
+
     },
 
-    reminder_title:{
-      type:"string"
+    reminder_title: {
+      type: "string"
     },
 
-    reminder_when:{
-      type:"string"
+    reminder_when: {
+      type: "string"
     },
 
-    reminder_repeat:{
-      type:"string"
+    reminder_repeat: {
+      type: "string"
     },
 
-    memory_key:{
-      type:"string"
+    memory_key: {
+      type: "string"
     },
 
-    memory_value:{
-      type:"string"
+    memory_value: {
+      type: "string"
     }
 
   },
 
-  required:[
+  required: [
+
     "reply",
+
     "action",
+
     "reminder_title",
+
     "reminder_when",
+
     "reminder_repeat",
+
     "memory_key",
+
     "memory_value"
+
   ]
 
 };
 
 
-function safeHistory(history){
+/*
+  HISTÓRICO
+*/
 
-  if(
-    !Array.isArray(history)
-  ){
+function safeHistory(history) {
 
+  if (!Array.isArray(history)) {
     return [];
-
   }
 
   return history
+
     .filter(
-      m=>
-        m &&
+      item =>
+        item &&
         (
-          m.role==="user" ||
-          m.role==="assistant"
+          item.role === "user" ||
+          item.role === "assistant"
         ) &&
-        typeof m.content==="string"
+        typeof item.content === "string"
     )
+
     .slice(-12)
+
     .map(
-      m=>({
+      item => ({
 
         role:
-          m.role==="assistant"
-            ?"model"
-            :"user",
+          item.role === "assistant"
+            ? "model"
+            : "user",
 
-        parts:[
+        parts: [
+
           {
             text:
-              m.content
-                .slice(0,4000)
+              item.content.slice(
+                0,
+                5000
+              )
           }
+
         ]
 
       })
@@ -138,36 +166,55 @@ function safeHistory(history){
 }
 
 
-function extractText(payload){
+/*
+  EXTRAIR TEXTO
+*/
+
+function extractText(
+  payload
+) {
 
   return (
+
     payload
       ?.candidates?.[0]
-      ?.content?.parts
+      ?.content
+      ?.parts
       ?.map(
-        part=>part.text||""
+        part =>
+          part.text || ""
       )
-      .join("") || ""
+      .join("")
+
+    || ""
+
   );
 
 }
 
 
-function extractImage(payload){
+/*
+  EXTRAIR IMAGEM
+*/
 
-  const parts=
+function extractImage(
+  payload
+) {
+
+  const parts =
     payload
       ?.candidates?.[0]
       ?.content
       ?.parts || [];
 
-  for(
-    const part of parts
-  ){
 
-    if(
+  for (
+    const part of parts
+  ) {
+
+    if (
       part.inlineData?.data
-    ){
+    ) {
 
       return {
 
@@ -175,7 +222,7 @@ function extractImage(payload){
           part.inlineData.data,
 
         mimeType:
-          part.inlineData.mimeType||
+          part.inlineData.mimeType ||
           "image/png"
 
       };
@@ -189,118 +236,260 @@ function extractImage(payload){
 }
 
 
+/*
+  NORMALIZAR ANEXO
+*/
+
 function normalizeAttachment(
   attachment
-){
+) {
 
-  if(
+  if (
     !attachment ||
-    typeof attachment!=="object"
-  ){
+    typeof attachment !== "object"
+  ) {
 
     return null;
 
   }
 
-  const name=
+
+  const name =
     String(
-      attachment.name||"arquivo"
+      attachment.name ||
+      "arquivo"
     );
 
-  const mimeType=
+
+  const mimeType =
     String(
-      attachment.mimeType||
+      attachment.mimeType ||
       "application/octet-stream"
     );
 
-  const data=
+
+  const data =
     String(
-      attachment.data||""
+      attachment.data ||
+      ""
     );
 
-  if(!data){
+
+  if (!data) {
 
     return null;
 
   }
 
+
   return {
+
     name,
+
     mimeType,
-    data
+
+    data,
+
+    originalName:
+      String(
+        attachment.originalName ||
+        name
+      ),
+
+    originalMimeType:
+      String(
+        attachment.originalMimeType ||
+        mimeType
+      ),
+
+    extension:
+      String(
+        attachment.extension ||
+        ""
+      ),
+
+    converted:
+      Boolean(
+        attachment.converted
+      )
+
   };
 
 }
 
 
+/*
+  ARQUIVO TEXTO
+*/
+
 function isTextFile(
   mimeType,
   name
-){
+) {
 
-  const mime=
-    String(mimeType)
-      .toLowerCase();
+  const mime =
+    String(
+      mimeType || ""
+    ).toLowerCase();
 
-  const filename=
-    String(name)
-      .toLowerCase();
+
+  const filename =
+    String(
+      name || ""
+    ).toLowerCase();
+
 
   return (
+
     mime.startsWith("text/") ||
+
     mime.includes("json") ||
+
     mime.includes("csv") ||
+
     mime.includes("markdown") ||
-    /\.(txt|csv|json|md)$/i.test(
+
+    /\.(txt|csv|json|md|rtf)$/i.test(
       filename
     )
+
   );
 
 }
 
 
+/*
+  ARQUIVO PDF
+*/
+
+function isPdf(
+  mimeType,
+  name
+) {
+
+  const mime =
+    String(
+      mimeType || ""
+    ).toLowerCase();
+
+
+  const filename =
+    String(
+      name || ""
+    ).toLowerCase();
+
+
+  return (
+
+    mime ===
+      "application/pdf" ||
+
+    filename.endsWith(".pdf")
+
+  );
+
+}
+
+
+/*
+  IMAGEM
+*/
+
+function isImage(
+  mimeType
+) {
+
+  return String(
+    mimeType || ""
+  )
+    .toLowerCase()
+    .startsWith(
+      "image/"
+    );
+
+}
+
+
+/*
+  CRIAR PART DO ANEXO
+*/
+
 function buildAttachmentPart(
   attachment
-){
+) {
 
-  if(
+  /*
+    CSV, TXT, JSON, MD
+    e arquivos convertidos
+    pelo frontend
+  */
+
+  if (
+    attachment.converted ||
     isTextFile(
       attachment.mimeType,
       attachment.name
     )
-  ){
+  ) {
 
-    let decoded="";
+    let decoded = "";
 
-    try{
 
-      decoded=
+    try {
+
+      decoded =
         Buffer
           .from(
             attachment.data,
             "base64"
           )
-          .toString("utf8");
+          .toString(
+            "utf8"
+          );
 
-    }catch{
+    } catch {
 
-      decoded=
-        "[Não foi possível ler o arquivo como texto.]";
+      decoded =
+        "[Não foi possível ler o conteúdo textual do arquivo.]";
 
     }
+
 
     return {
 
       text:
-        `Arquivo anexado: ${attachment.name}\n\n${decoded.slice(0,120000)}`
+
+        `
+
+ARQUIVO ANEXADO
+
+Nome:
+${attachment.originalName}
+
+Tipo:
+${attachment.originalMimeType}
+
+Conteúdo:
+
+${decoded.slice(
+  0,
+  150000
+)}
+
+`
 
     };
 
   }
 
+
+  /*
+    PDF, imagem e outros formatos
+  */
+
   return {
 
-    inline_data:{
+    inline_data: {
 
       mime_type:
         attachment.mimeType,
@@ -315,28 +504,77 @@ function buildAttachmentPart(
 }
 
 
+/*
+  HEALTH
+*/
+
 app.get(
   "/api/health",
-  (_req,res)=>{
+  (_req, res) => {
 
     res.json({
 
-      ok:true,
+      ok: true,
 
-      name:"Hermes",
+      name:
+        "Hermes",
 
-      version:"3.0.0",
+      version:
+        "4.0.0",
 
       ai:
         Boolean(
           GEMINI_API_KEY
         ),
 
-      model:MODEL,
+      model:
+        MODEL,
 
-      imageModel:IMAGE_MODEL,
+      imageModel:
+        IMAGE_MODEL,
 
-      provider:"gemini"
+      provider:
+        "gemini",
+
+      features: {
+
+        chat:
+          true,
+
+        images:
+          true,
+
+        imageEditing:
+          true,
+
+        pdf:
+          true,
+
+        excel:
+          true,
+
+        csv:
+          true,
+
+        docx:
+          true,
+
+        txt:
+          true,
+
+        json:
+          true,
+
+        markdown:
+          true,
+
+        reminders:
+          true,
+
+        memory:
+          true
+
+      }
 
     });
 
@@ -344,89 +582,202 @@ app.get(
 );
 
 
+/*
+  CHAT PRINCIPAL
+*/
+
 app.post(
   "/api/chat",
-  async(req,res)=>{
+  async (req, res) => {
 
-    const message=
+    const message =
       String(
-        req.body?.message||""
+        req.body?.message ||
+        ""
       ).trim();
 
-    const now=
+
+    const now =
       String(
-        req.body?.now||
-        new Date()
-          .toISOString()
+        req.body?.now ||
+        new Date().toISOString()
       );
 
-    const timezone=
+
+    const timezone =
       String(
-        req.body?.timezone||
+        req.body?.timezone ||
         "America/Sao_Paulo"
       );
 
 
-    const memories=
+    const memories =
       Array.isArray(
         req.body?.memories
       )
-        ?req.body.memories
-          .slice(0,50)
-        :[];
+        ? req.body.memories.slice(
+            0,
+            50
+          )
+        : [];
 
 
-    const reminders=
+    const reminders =
       Array.isArray(
         req.body?.reminders
       )
-        ?req.body.reminders
-          .slice(0,50)
-        :[];
+        ? req.body.reminders.slice(
+            0,
+            50
+          )
+        : [];
 
 
-    const history=
+    const history =
       safeHistory(
         req.body?.history
       );
 
 
-    const attachment=
+    const attachment =
       normalizeAttachment(
         req.body?.attachment
       );
 
 
-    if(
+    if (
       !message &&
       !attachment
-    ){
+    ) {
 
       return res
         .status(400)
         .json({
+
           error:
             "Mensagem vazia."
+
         });
 
     }
 
 
-    if(
+    if (
       !GEMINI_API_KEY
-    ){
+    ) {
 
       return res
         .status(500)
         .json({
+
           error:
             "GEMINI_API_KEY não configurada no Vercel."
+
         });
 
     }
 
 
-    const context={
+    /*
+      IDENTIFICA O TIPO DO ANEXO
+    */
+
+    let attachmentDescription =
+      "";
+
+
+    if (attachment) {
+
+      if (
+        isImage(
+          attachment.mimeType
+        )
+      ) {
+
+        attachmentDescription =
+          `
+
+O usuário enviou uma imagem.
+
+Nome:
+${attachment.originalName}
+
+Analise visualmente a imagem.
+
+Se houver texto visível,
+faça OCR quando solicitado.
+
+Se o usuário perguntar sobre
+pessoas, objetos, ambiente,
+documentos ou detalhes visuais,
+responda com base somente no
+que realmente estiver visível.
+
+`;
+
+      }
+
+      else if (
+        isPdf(
+          attachment.mimeType,
+          attachment.name
+        )
+      ) {
+
+        attachmentDescription =
+          `
+
+O usuário enviou um PDF.
+
+Analise o conteúdo do PDF.
+
+Considere:
+
+• texto
+• tabelas
+• gráficos
+• imagens
+• estrutura
+• números
+• títulos
+• informações relevantes
+
+Não invente informações.
+
+`;
+
+      }
+
+      else {
+
+        attachmentDescription =
+          `
+
+O usuário enviou um documento.
+
+Analise o conteúdo disponível.
+
+Se for uma planilha,
+interprete linhas, colunas,
+valores, totais e padrões.
+
+Se for um documento,
+identifique os pontos principais.
+
+Não invente informações.
+
+`;
+
+      }
+
+    }
+
+
+    /*
+      CONTEXTO
+    */
+
+    const context = {
 
       now,
 
@@ -439,569 +790,10 @@ app.post(
     };
 
 
-    const system=`
+    /*
+      INSTRUÇÕES
+    */
 
-Você é Hermes, um assistente pessoal inteligente em português do Brasil.
+    const system = `
 
-Seja natural, útil, direto, humano e amigável.
-
-Data e hora atual:
-${now}
-
-Fuso horário:
-${timezone}
-
-Você pode executar UMA ação por mensagem.
-
-none:
-Conversa normal.
-
-create_reminder:
-Quando o usuário pedir para lembrar de algo.
-Converta datas relativas para ISO 8601.
-Se faltar data ou horário essencial, não invente.
-Faça uma pergunta e use action none.
-
-list_agenda:
-Quando o usuário pedir agenda, compromissos ou lembretes.
-Use somente os dados fornecidos.
-
-save_memory:
-Quando o usuário pedir explicitamente para lembrar ou guardar algo.
-Também pode usar para preferências estáveis úteis no futuro.
-
-delete_memory:
-Quando o usuário pedir para esquecer ou remover algo da memória.
-
-Quando houver uma foto:
-Analise a imagem com atenção.
-Descreva o que for relevante para a pergunta.
-Se o usuário pedir leitura de texto, faça OCR.
-Se pedir análise, explique.
-Se pedir uma alteração visual, a interface possui uma função específica de edição.
-
-Quando houver um arquivo:
-Analise o conteúdo disponível.
-Para PDF, considere texto, tabelas, gráficos e imagens quando disponíveis.
-Para TXT, CSV, JSON e Markdown, leia o conteúdo.
-Não invente informações que não estejam no arquivo.
-
-Para create_reminder:
-reminder_title = somente a tarefa.
-reminder_when = ISO 8601 completo.
-reminder_repeat = one_time, daily, weekly ou monthly.
-
-Para save_memory/delete_memory:
-memory_key = identificador curto.
-memory_value = conteúdo.
-
-Nunca diga que uma ação foi executada se o campo action não representar essa ação.
-
-Não invente acesso a calendário ou dados externos.
-
-Contexto local:
-${JSON.stringify(context)}
-`;
-
-
-    const contents=[
-
-      ...history,
-
-      {
-
-        role:"user",
-
-        parts:[]
-
-      }
-
-    ];
-
-
-    const currentParts=
-      contents[
-        contents.length-1
-      ].parts;
-
-
-    if(message){
-
-      currentParts.push({
-        text:message
-      });
-
-    }
-
-
-    if(attachment){
-
-      currentParts.push(
-        buildAttachmentPart(
-          attachment
-        )
-      );
-
-    }
-
-
-    try{
-
-      const response=
-        await fetch(
-
-          `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent`,
-
-          {
-
-            method:"POST",
-
-            headers:{
-
-              "Content-Type":
-                "application/json",
-
-              "x-goog-api-key":
-                GEMINI_API_KEY
-
-            },
-
-            body:
-              JSON.stringify({
-
-                systemInstruction:{
-
-                  parts:[
-                    {
-                      text:system
-                    }
-                  ]
-
-                },
-
-                contents,
-
-                generationConfig:{
-
-                  responseMimeType:
-                    "application/json",
-
-                  responseJsonSchema:
-                    HERMES_SCHEMA,
-
-                  maxOutputTokens:700
-
-                }
-
-              })
-
-          }
-
-        );
-
-
-      const raw=
-        await response.text();
-
-
-      if(!response.ok){
-
-        console.error(
-          "Gemini API error:",
-          raw
-        );
-
-        let details=raw;
-
-        try{
-
-          const parsed=
-            JSON.parse(raw);
-
-          details=
-            parsed?.error?.message||
-            parsed?.error?.status||
-            raw;
-
-        }catch{}
-
-        return res
-          .status(502)
-          .json({
-
-            error:
-              `Gemini: ${details}`
-
-          });
-
-      }
-
-
-      const payload=
-        JSON.parse(raw);
-
-
-      const text=
-        extractText(
-          payload
-        );
-
-
-      if(!text){
-
-        return res
-          .status(502)
-          .json({
-
-            error:
-              "Gemini não retornou uma resposta."
-
-          });
-
-      }
-
-
-      let data;
-
-      try{
-
-        data=
-          JSON.parse(text);
-
-      }catch{
-
-        data={
-
-          reply:text,
-
-          action:"none",
-
-          reminder_title:"",
-
-          reminder_when:"",
-
-          reminder_repeat:"one_time",
-
-          memory_key:"",
-
-          memory_value:""
-
-        };
-
-      }
-
-
-      return res.json({
-
-        ...data,
-
-        ai:true,
-
-        model:MODEL,
-
-        provider:"gemini",
-
-        attachment:
-          Boolean(attachment)
-
-      });
-
-
-    }catch(error){
-
-      console.error(
-        "Hermes Gemini error:",
-        error
-      );
-
-      return res
-        .status(502)
-        .json({
-
-          error:
-            error?.message||
-            "Erro ao chamar o Gemini."
-
-        });
-
-    }
-
-  }
-);
-
-
-app.post(
-  "/api/image-edit",
-  async(req,res)=>{
-
-    if(
-      !GEMINI_API_KEY
-    ){
-
-      return res
-        .status(500)
-        .json({
-
-          error:
-            "GEMINI_API_KEY não configurada."
-
-        });
-
-    }
-
-
-    const prompt=
-      String(
-        req.body?.prompt||
-        ""
-      ).trim();
-
-
-    const image=
-      req.body?.image;
-
-
-    if(
-      !prompt ||
-      !image?.data
-    ){
-
-      return res
-        .status(400)
-        .json({
-
-          error:
-            "Envie uma imagem e descreva a alteração desejada."
-
-        });
-
-    }
-
-
-    try{
-
-      const response=
-        await fetch(
-
-          `https://generativelanguage.googleapis.com/v1/models/${IMAGE_MODEL}:generateContent`,
-
-          {
-
-            method:"POST",
-
-            headers:{
-
-              "Content-Type":
-                "application/json",
-
-              "x-goog-api-key":
-                GEMINI_API_KEY
-
-            },
-
-            body:
-              JSON.stringify({
-
-                contents:[
-
-                  {
-
-                    parts:[
-
-                      {
-
-                        text:
-                          `
-Edite a imagem enviada seguindo exatamente a instrução abaixo.
-
-Instrução do usuário:
-${prompt}
-
-Preserve a identidade, características principais e elementos não solicitados da imagem sempre que possível.
-
-Faça a edição de forma natural e realista.
-`
-
-                      },
-
-                      {
-
-                        inline_data:{
-
-                          mime_type:
-                            image.mimeType||
-                            "image/jpeg",
-
-                          data:
-                            image.data
-
-                        }
-
-                      }
-
-                    ]
-
-                  }
-
-                ],
-
-                generationConfig:{
-
-                  responseModalities:[
-                    "TEXT",
-                    "IMAGE"
-                  ],
-
-                  responseFormat:{
-
-                    image:{
-
-                      imageSize:
-                        "1K"
-
-                    }
-
-                  }
-
-                }
-
-              })
-
-          }
-
-        );
-
-
-      const raw=
-        await response.text();
-
-
-      if(!response.ok){
-
-        console.error(
-          "Gemini Image error:",
-          raw
-        );
-
-        let details=raw;
-
-        try{
-
-          const parsed=
-            JSON.parse(raw);
-
-          details=
-            parsed?.error?.message||
-            parsed?.error?.status||
-            raw;
-
-        }catch{}
-
-        return res
-          .status(502)
-          .json({
-
-            error:
-              `Gemini Image: ${details}`
-
-          });
-
-      }
-
-
-      const payload=
-        JSON.parse(raw);
-
-
-      const imageResult=
-        extractImage(
-          payload
-        );
-
-
-      const text=
-        extractText(
-          payload
-        );
-
-
-      if(!imageResult){
-
-        return res
-          .status(502)
-          .json({
-
-            error:
-              text||
-              "O Gemini não retornou uma imagem."
-
-          });
-
-      }
-
-
-      return res.json({
-
-        ok:true,
-
-        image:
-          imageResult.data,
-
-        mimeType:
-          imageResult.mimeType,
-
-        reply:
-          text||
-          "Pronto! Editei a imagem. 🎨"
-
-      });
-
-
-    }catch(error){
-
-      console.error(
-        "Hermes image edit error:",
-        error
-      );
-
-      return res
-        .status(502)
-        .json({
-
-          error:
-            error?.message||
-            "Erro ao editar a imagem."
-
-        });
-
-    }
-
-  }
-);
-
-
-app.get(
-  "*splat",
-  (_req,res)=>{
-
-    res.sendFile(
-      path.join(
-        __dirname,
-        "index.html"
-      )
-    );
-
-  }
-);
-
-
-app.listen(
-  PORT,
-  ()=>{
-
-    console.log(
-      `Hermes 3.0 com anexos rodando na porta ${PORT}`
-    );
-
-  }
-);
+Você é Hermes, um assistente pessoal inteligente em português

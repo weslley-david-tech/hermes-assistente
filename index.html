@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#07111f">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
+
+<meta
+  name="theme-color"
+  content="#07111f"
+>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-status-bar-style"
+  content="black-translucent"
+>
 
 <title>Hermes</title>
 
-<link rel="manifest" href="/manifest.json">
-<link rel="icon" href="/icon.svg">
+<link
+  rel="manifest"
+  href="/manifest.json"
+>
+
+<link
+  rel="icon"
+  href="/icon.svg"
+>
 
 <style>
+
+/* =========================
+   BASE
+========================= */
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -21,24 +55,52 @@
 }
 
 :root{
+
   --bg:#050b14;
+
   --card:#0d1726;
+
   --card2:#111e30;
+
   --border:rgba(255,255,255,.08);
+
   --text:#f5f7fb;
+
   --muted:#8e9bad;
+
   --blue:#4f8cff;
+
   --blue2:#2864df;
+
   --green:#27d69a;
+
   --danger:#ff5d6c;
-  --shadow:0 20px 60px rgba(0,0,0,.35);
+
+  --purple:#7b4dff;
+
+  --shadow:
+    0 20px 60px rgba(0,0,0,.35);
+
 }
 
-html,body{
+
+/* =========================
+   BODY
+========================= */
+
+html,
+body{
+
   width:100%;
+
   min-height:100%;
-  background:var(--bg);
-  color:var(--text);
+
+  background:
+    var(--bg);
+
+  color:
+    var(--text);
+
   font-family:
     Inter,
     -apple-system,
@@ -47,1087 +109,2501 @@ html,body{
     Roboto,
     Arial,
     sans-serif;
+
 }
 
 body{
+
   min-height:100vh;
+
   overflow-x:hidden;
+
 }
 
 button,
 input,
 textarea{
+
   font:inherit;
+
 }
 
 button{
+
   border:0;
+
   cursor:pointer;
+
 }
+
+
+/* =========================
+   APP
+========================= */
 
 .app{
+
   width:100%;
+
   max-width:900px;
+
   min-height:100vh;
+
   margin:auto;
+
   padding-bottom:90px;
+
 }
 
+
+/* =========================
+   HEADER
+========================= */
+
 .top{
-  padding:26px 18px 12px;
+
+  padding:
+    26px
+    18px
+    12px;
+
 }
 
 .brand{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   gap:15px;
+
 }
 
 .brand-left{
+
   display:flex;
+
   align-items:center;
+
   gap:13px;
+
 }
 
 .logo{
+
   width:52px;
+
   height:52px;
+
   border-radius:17px;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  background:linear-gradient(135deg,#5d98ff,#255dd8);
-  box-shadow:0 12px 30px rgba(55,115,255,.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      #5d98ff,
+      #255dd8
+    );
+
+  box-shadow:
+    0 12px 30px
+    rgba(55,115,255,.25);
+
   overflow:hidden;
+
 }
 
 .logo img{
+
   width:34px;
+
   height:34px;
+
 }
 
 .brand h1{
+
   font-size:23px;
+
   letter-spacing:-.5px;
+
 }
 
 .brand p{
+
   color:var(--muted);
+
   font-size:13px;
+
   margin-top:3px;
+
 }
 
 .status{
+
   display:flex;
+
   align-items:center;
+
   gap:7px;
+
   color:var(--muted);
+
   font-size:12px;
+
 }
 
 .dot{
+
   width:8px;
+
   height:8px;
+
   border-radius:50%;
+
   background:#777;
+
 }
 
 .dot.online{
+
   background:var(--green);
-  box-shadow:0 0 12px rgba(39,214,154,.7);
+
+  box-shadow:
+    0 0 12px
+    rgba(39,214,154,.7);
+
 }
 
+
+/* =========================
+   HERO
+========================= */
+
 .hero{
-  margin:15px 18px 18px;
-  padding:25px 21px;
-  border:1px solid var(--border);
+
+  margin:
+    15px
+    18px
+    18px;
+
+  padding:
+    25px
+    21px;
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:25px;
+
   background:
-    radial-gradient(circle at 90% 0%,rgba(72,125,255,.22),transparent 40%),
-    linear-gradient(145deg,#0f1c2e,#0a1422);
-  box-shadow:var(--shadow);
+
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(72,125,255,.22),
+      transparent 40%
+    ),
+
+    linear-gradient(
+      145deg,
+      #0f1c2e,
+      #0a1422
+    );
+
+  box-shadow:
+    var(--shadow);
+
 }
 
 .hero .greeting{
+
   font-size:28px;
+
   font-weight:700;
+
   letter-spacing:-.8px;
+
 }
 
 .hero .sub{
+
   color:var(--muted);
+
   margin-top:8px;
+
   line-height:1.5;
+
   font-size:14px;
+
 }
 
+
+/* =========================
+   QUICK ACTIONS
+========================= */
+
 .quick-grid{
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:11px;
+
   margin-top:20px;
+
 }
 
 .quick{
+
   min-height:120px;
+
   text-align:left;
+
   padding:17px;
+
   border-radius:19px;
-  background:rgba(255,255,255,.045);
-  border:1px solid var(--border);
+
+  background:
+    rgba(255,255,255,.045);
+
+  border:
+    1px solid
+    var(--border);
+
   color:var(--text);
+
   transition:.2s;
+
 }
 
 .quick:active{
+
   transform:scale(.98);
+
 }
 
 .quick .icon{
+
   font-size:25px;
+
   margin-bottom:12px;
+
 }
 
 .quick .title{
+
   font-weight:650;
+
   font-size:14px;
+
 }
 
 .quick .desc{
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-top:5px;
+
   line-height:1.35;
+
 }
 
+
+/* =========================
+   SECTIONS
+========================= */
+
 .section{
+
   padding:0 18px;
+
   margin-top:22px;
+
 }
 
 .section-head{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   margin-bottom:11px;
+
 }
 
 .section-title{
+
   font-size:17px;
+
   font-weight:700;
+
 }
 
 .section-action{
+
   color:#77a7ff;
+
   background:none;
+
   font-size:12px;
+
 }
 
 .card{
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:20px;
+
   overflow:hidden;
+
 }
 
 .empty{
+
   padding:22px;
+
   color:var(--muted);
+
   font-size:13px;
+
   text-align:center;
+
 }
 
+
+/* =========================
+   REMINDERS
+========================= */
+
 .item{
+
   display:flex;
+
   align-items:center;
+
   gap:13px;
+
   padding:16px;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
 }
 
 .item:last-child{
+
   border-bottom:0;
+
 }
 
 .time{
+
   min-width:52px;
+
   font-size:14px;
+
   font-weight:700;
+
   color:#8eb5ff;
+
 }
 
 .rmain{
+
   flex:1;
+
   min-width:0;
+
 }
 
 .rtitle{
+
   font-size:14px;
+
   font-weight:600;
+
   word-break:break-word;
+
 }
 
 .rmeta{
+
   color:var(--muted);
+
   font-size:11px;
+
   margin-top:4px;
+
 }
 
 .ghost{
+
   width:34px;
+
   height:34px;
+
   border-radius:10px;
-  background:rgba(255,255,255,.05);
+
+  background:
+    rgba(255,255,255,.05);
+
   color:#a9b2c0;
+
   font-size:20px;
+
 }
 
-.bottom-nav{
-  position:fixed;
-  z-index:50;
-  left:50%;
-  bottom:12px;
-  transform:translateX(-50%);
-  width:calc(100% - 28px);
-  max-width:620px;
-  height:64px;
-  border:1px solid var(--border);
-  border-radius:21px;
-  background:rgba(11,20,34,.94);
-  backdrop-filter:blur(18px);
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  padding:6px;
-  box-shadow:0 15px 50px rgba(0,0,0,.45);
-}
 
-.nav-btn{
-  background:transparent;
-  color:var(--muted);
-  border-radius:16px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:3px;
-  font-size:11px;
-}
-
-.nav-btn .nav-icon{
-  font-size:20px;
-}
-
-.nav-btn.active{
-  color:white;
-  background:rgba(75,135,255,.16);
-}
+/* =========================
+   VIEWS
+========================= */
 
 .view{
+
   display:none;
+
 }
 
 .view.active{
+
   display:block;
+
 }
 
+
+/* =========================
+   CHAT
+========================= */
+
 .chat-wrap{
-  min-height:calc(100vh - 130px);
+
+  min-height:
+    calc(100vh - 130px);
+
   padding:18px;
-  padding-bottom:150px;
+
+  padding-bottom:170px;
+
 }
 
 .chat-head{
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
   margin-bottom:17px;
+
 }
 
 .chat-head h2{
+
   font-size:22px;
+
 }
 
 .chat-head p{
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-top:3px;
+
 }
 
 .messages{
+
   display:flex;
+
   flex-direction:column;
+
   gap:12px;
+
 }
 
 .bubble{
+
   max-width:90%;
-  padding:13px 15px;
+
+  padding:
+    13px
+    15px;
+
   border-radius:17px;
+
   line-height:1.5;
+
   font-size:14px;
+
   white-space:pre-wrap;
+
   word-break:break-word;
+
 }
 
 .bubble.user{
+
   align-self:flex-end;
-  background:linear-gradient(135deg,#3979ef,#245fd1);
+
+  background:
+    linear-gradient(
+      135deg,
+      #3979ef,
+      #245fd1
+    );
+
   border-bottom-right-radius:5px;
+
 }
 
 .bubble.assistant{
+
   align-self:flex-start;
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-bottom-left-radius:5px;
+
 }
+
+
+/* =========================
+   CHAT IMAGE
+========================= */
 
 .bubble-image{
+
   width:100%;
+
   max-width:330px;
-  border-radius:14px;
+
   display:block;
+
   margin-top:10px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
 }
 
+
+/* =========================
+   FILE CARD
+========================= */
+
 .file-card{
+
   margin-top:8px;
+
   padding:11px;
+
   border-radius:13px;
-  background:rgba(255,255,255,.06);
+
+  background:
+    rgba(255,255,255,.06);
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
+
 }
 
 .file-icon{
-  font-size:24px;
+
+  width:40px;
+
+  height:40px;
+
+  border-radius:10px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#172338;
+
+  font-size:22px;
+
+}
+
+.file-info{
+
+  min-width:0;
+
 }
 
 .file-name{
+
   font-size:12px;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
   white-space:nowrap;
+
 }
 
 .file-type{
-  font-size:10px;
+
   color:var(--muted);
+
+  font-size:10px;
+
   margin-top:3px;
+
 }
 
+
+/* =========================
+   TYPING
+========================= */
+
 .typing{
+
   display:none;
+
   align-items:center;
+
   gap:4px;
+
   padding:14px;
+
   color:var(--muted);
+
   font-size:12px;
+
 }
 
 .typing.show{
+
   display:flex;
+
 }
 
 .typing span{
+
   width:5px;
+
   height:5px;
+
   background:#7890b5;
+
   border-radius:50%;
+
   animation:pulse 1s infinite;
+
 }
 
 .typing span:nth-child(2){
+
   animation-delay:.15s;
+
 }
 
 .typing span:nth-child(3){
+
   animation-delay:.3s;
+
 }
 
 @keyframes pulse{
-  0%,100%{opacity:.3}
-  50%{opacity:1}
-}
 
-.composer{
-  position:fixed;
-  z-index:40;
-  left:50%;
-  bottom:87px;
-  transform:translateX(-50%);
-  width:calc(100% - 28px);
-  max-width:620px;
-  display:flex;
-  gap:7px;
-  padding:7px;
-  border:1px solid var(--border);
-  background:rgba(10,19,32,.96);
-  backdrop-filter:blur(18px);
-  border-radius:19px;
-  box-shadow:0 15px 45px rgba(0,0,0,.4);
-  align-items:center;
-}
+  0%,100%{
 
-.composer input{
-  flex:1;
-  min-width:0;
-  border:0;
-  outline:0;
-  background:transparent;
-  color:white;
-  padding:11px 7px;
-  font-size:14px;
-}
+    opacity:.3;
 
-.composer input::placeholder{
-  color:#657389;
-}
-
-.circle-btn{
-  width:43px;
-  height:43px;
-  flex:none;
-  border-radius:14px;
-  background:rgba(255,255,255,.06);
-  color:white;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:19px;
-}
-
-.circle-btn.send{
-  background:var(--blue);
-}
-
-.circle-btn.active{
-  background:#e94e61;
-  animation:micPulse 1s infinite;
-}
-
-@keyframes micPulse{
-  50%{
-    box-shadow:0 0 0 8px rgba(233,78,97,.12);
   }
+
+  50%{
+
+    opacity:1;
+
+  }
+
 }
 
-.attach-btn{
-  background:rgba(255,255,255,.06);
-}
+
+/* =========================
+   ATTACH PREVIEW
+========================= */
 
 .attachment-preview{
+
   display:none;
+
   position:fixed;
-  z-index:45;
+
+  z-index:46;
+
   left:50%;
+
   bottom:154px;
-  transform:translateX(-50%);
-  width:calc(100% - 28px);
+
+  transform:
+    translateX(-50%);
+
+  width:
+    calc(100% - 28px);
+
   max-width:620px;
+
   padding:9px;
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:16px;
-  background:rgba(10,19,32,.97);
-  box-shadow:var(--shadow);
+
+  background:
+    rgba(10,19,32,.97);
+
+  box-shadow:
+    var(--shadow);
+
 }
 
 .attachment-preview.show{
+
   display:flex;
+
+  align-items:center;
+
 }
 
 .attachment-content{
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
-  flex:1;
+
   min-width:0;
+
+  flex:1;
+
 }
 
 .preview-thumb{
+
   width:55px;
+
   height:55px;
-  border-radius:11px;
+
+  flex:none;
+
   object-fit:cover;
+
+  border-radius:11px;
+
   background:#081220;
+
 }
 
 .preview-file-icon{
+
   width:55px;
+
   height:55px;
+
+  flex:none;
+
   border-radius:11px;
+
   background:#172338;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  font-size:25px;
+
+  font-size:26px;
+
 }
 
 .preview-info{
+
   min-width:0;
+
   flex:1;
+
 }
 
 .preview-name{
+
   font-size:12px;
+
   white-space:nowrap;
+
   overflow:hidden;
+
   text-overflow:ellipsis;
+
 }
 
 .preview-size{
+
   color:var(--muted);
+
   font-size:10px;
+
   margin-top:4px;
+
 }
 
 .preview-actions{
+
   display:flex;
+
   gap:5px;
+
+  margin-left:8px;
+
 }
 
 .preview-action{
-  width:34px;
-  height:34px;
+
+  width:36px;
+
+  height:36px;
+
   border-radius:10px;
-  background:rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.07);
+
   color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
 }
 
 .preview-action.edit{
-  background:rgba(79,140,255,.18);
+
+  background:
+    rgba(79,140,255,.18);
+
   color:#8eb5ff;
+
 }
 
+
+/* =========================
+   COMPOSER
+========================= */
+
+.composer{
+
+  position:fixed;
+
+  z-index:40;
+
+  left:50%;
+
+  bottom:87px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    calc(100% - 28px);
+
+  max-width:620px;
+
+  display:flex;
+
+  gap:7px;
+
+  padding:7px;
+
+  border:
+    1px solid
+    var(--border);
+
+  background:
+    rgba(10,19,32,.96);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-radius:19px;
+
+  box-shadow:
+    0 15px 45px
+    rgba(0,0,0,.4);
+
+  align-items:center;
+
+}
+
+.composer input{
+
+  flex:1;
+
+  min-width:0;
+
+  border:0;
+
+  outline:0;
+
+  background:transparent;
+
+  color:white;
+
+  padding:
+    11px
+    7px;
+
+  font-size:14px;
+
+}
+
+.composer input::placeholder{
+
+  color:#657389;
+
+}
+
+.circle-btn{
+
+  width:43px;
+
+  height:43px;
+
+  flex:none;
+
+  border-radius:14px;
+
+  background:
+    rgba(255,255,255,.06);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-size:19px;
+
+}
+
+.circle-btn.send{
+
+  background:
+    var(--blue);
+
+}
+
+.circle-btn.active{
+
+  background:#e94e61;
+
+  animation:
+    micPulse 1s infinite;
+
+}
+
+@keyframes micPulse{
+
+  50%{
+
+    box-shadow:
+      0 0 0 8px
+      rgba(233,78,97,.12);
+
+  }
+
+}
+
+.attach-btn{
+
+  background:
+    rgba(255,255,255,.06);
+
+}
+
+
+/* =========================
+   ATTACH MENU
+========================= */
+
+.attach-menu{
+
+  display:none;
+
+  position:fixed;
+
+  z-index:90;
+
+  left:50%;
+
+  bottom:153px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    calc(100% - 28px);
+
+  max-width:620px;
+
+  padding:10px;
+
+  border:
+    1px solid
+    var(--border);
+
+  background:
+    rgba(11,20,34,.98);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-radius:19px;
+
+  box-shadow:
+    var(--shadow);
+
+}
+
+.attach-menu.open{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:8px;
+
+}
+
+.attach-option{
+
+  min-height:82px;
+
+  padding:12px 8px;
+
+  border-radius:15px;
+
+  background:
+    rgba(255,255,255,.05);
+
+  color:white;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:5px;
+
+}
+
+.attach-option:active{
+
+  transform:scale(.97);
+
+}
+
+.attach-option .big{
+
+  font-size:24px;
+
+}
+
+.attach-option .label{
+
+  font-size:11px;
+
+  color:#d7deea;
+
+}
+
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+
+  position:fixed;
+
+  z-index:50;
+
+  left:50%;
+
+  bottom:12px;
+
+  transform:
+    translateX(-50%);
+
+  width:
+    calc(100% - 28px);
+
+  max-width:620px;
+
+  height:64px;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:21px;
+
+  background:
+    rgba(11,20,34,.94);
+
+  backdrop-filter:
+    blur(18px);
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  padding:6px;
+
+  box-shadow:
+    0 15px 50px
+    rgba(0,0,0,.45);
+
+}
+
+.nav-btn{
+
+  background:transparent;
+
+  color:var(--muted);
+
+  border-radius:16px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:center;
+
+  justify-content:center;
+
+  gap:3px;
+
+  font-size:11px;
+
+}
+
+.nav-btn .nav-icon{
+
+  font-size:20px;
+
+}
+
+.nav-btn.active{
+
+  color:white;
+
+  background:
+    rgba(75,135,255,.16);
+
+}
+
+
+/* =========================
+   MEMORY
+========================= */
+
 .list-card{
-  margin:0 18px 15px;
+
+  margin:
+    0
+    18px
+    15px;
+
   padding:18px;
+
   background:var(--card);
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:20px;
+
 }
 
 .memory{
+
   padding:13px 0;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid
+    var(--border);
+
   display:flex;
+
   align-items:flex-start;
+
   gap:12px;
+
 }
 
 .memory:last-child{
+
   border-bottom:0;
+
 }
 
 .memory-icon{
+
   font-size:21px;
+
 }
 
 .memory-content{
+
   flex:1;
+
 }
 
 .memory-key{
+
   color:#79a8ff;
+
   font-size:11px;
+
 }
 
 .memory-value{
+
   margin-top:4px;
+
   font-size:13px;
+
   line-height:1.4;
+
 }
 
+
+/* =========================
+   MODALS
+========================= */
+
 .modal{
+
   position:fixed;
+
   inset:0;
+
   z-index:100;
+
   display:none;
+
   align-items:flex-end;
+
   justify-content:center;
-  background:rgba(0,0,0,.65);
-  backdrop-filter:blur(5px);
+
+  background:
+    rgba(0,0,0,.65);
+
+  backdrop-filter:
+    blur(5px);
+
 }
 
 .modal.open{
+
   display:flex;
+
 }
 
 .modal-box{
+
   width:100%;
+
   max-width:620px;
+
   padding:22px;
+
   background:#0d1828;
-  border:1px solid var(--border);
-  border-radius:25px 25px 0 0;
-  box-shadow:0 -20px 60px rgba(0,0,0,.45);
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:
+    25px
+    25px
+    0
+    0;
+
+  box-shadow:
+    0 -20px 60px
+    rgba(0,0,0,.45);
+
 }
 
 .modal-box h3{
+
   font-size:19px;
+
   margin-bottom:18px;
+
 }
 
 .field{
+
   margin-bottom:13px;
+
 }
 
 .field label{
+
   display:block;
+
   color:var(--muted);
+
   font-size:12px;
+
   margin-bottom:7px;
+
 }
 
 .field input,
 .field textarea{
+
   width:100%;
+
   background:#081220;
+
   color:white;
-  border:1px solid var(--border);
+
+  border:
+    1px solid
+    var(--border);
+
   border-radius:13px;
+
   outline:0;
+
   padding:13px;
+
 }
 
 .field textarea{
+
   min-height:100px;
+
   resize:vertical;
+
 }
 
 .modal-actions{
+
   display:flex;
+
   gap:9px;
+
   margin-top:17px;
+
 }
 
 .modal-actions button{
+
   flex:1;
+
   padding:13px;
+
   border-radius:13px;
+
   color:white;
-  background:rgba(255,255,255,.07);
+
+  background:
+    rgba(255,255,255,.07);
+
 }
 
 .modal-actions .primary{
-  background:var(--blue);
+
+  background:
+    var(--blue);
+
 }
 
-.toast{
+
+/* =========================
+   IMAGE VIEWER
+========================= */
+
+.image-viewer{
+
   position:fixed;
-  z-index:200;
-  left:50%;
+
+  inset:0;
+
+  z-index:150;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:
+    rgba(0,0,0,.92);
+
+  padding:20px;
+
+}
+
+.image-viewer.open{
+
+  display:flex;
+
+}
+
+.image-viewer img{
+
+  max-width:100%;
+
+  max-height:90vh;
+
+  object-fit:contain;
+
+  border-radius:12px;
+
+}
+
+.image-viewer-close{
+
+  position:absolute;
+
   top:18px;
-  transform:translate(-50%,-120px);
-  background:#152235;
-  border:1px solid var(--border);
-  color:white;
-  padding:12px 17px;
+
+  right:18px;
+
+  width:44px;
+
+  height:44px;
+
   border-radius:14px;
+
+  background:
+    rgba(255,255,255,.1);
+
+  color:white;
+
+  font-size:23px;
+
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+
+  position:fixed;
+
+  z-index:200;
+
+  left:50%;
+
+  top:18px;
+
+  transform:
+    translate(-50%,-120px);
+
+  background:#152235;
+
+  border:
+    1px solid
+    var(--border);
+
+  color:white;
+
+  padding:
+    12px
+    17px;
+
+  border-radius:14px;
+
   font-size:12px;
-  box-shadow:var(--shadow);
+
+  box-shadow:
+    var(--shadow);
+
   transition:.3s;
-  max-width:calc(100% - 30px);
+
+  max-width:
+    calc(100% - 30px);
+
   text-align:center;
+
 }
 
 .toast.show{
-  transform:translate(-50%,0);
+
+  transform:
+    translate(-50%,0);
+
 }
+
+
+/* =========================
+   HIDDEN INPUTS
+========================= */
 
 .hidden-file{
+
   display:none;
+
 }
 
+
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media(min-width:700px){
+
   .quick-grid{
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+      repeat(4,1fr);
+
   }
 
   .quick{
+
     min-height:140px;
+
   }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
-<div id="homeView" class="view active">
+
+<!-- =========================
+     HOME
+========================= -->
+
+<div
+  id="homeView"
+  class="view active"
+>
+
 
 <header class="top">
+
 <div class="brand">
 
+
 <div class="brand-left">
+
 <div class="logo">
-<img src="/icon.svg" alt="Hermes">
+
+<img
+  src="/icon.svg"
+  alt="Hermes"
+>
+
 </div>
+
 
 <div>
+
 <h1>Hermes</h1>
-<p>Seu assistente pessoal</p>
+
+<p>
+Seu assistente pessoal
+</p>
+
 </div>
+
 </div>
+
 
 <div class="status">
-<span id="statusDot" class="dot"></span>
-<span id="statusText">Conectando</span>
-</div>
+
+<span
+  id="statusDot"
+  class="dot"
+></span>
+
+<span
+  id="statusText"
+>
+Conectando
+</span>
 
 </div>
+
+
+</div>
+
 </header>
+
 
 <section class="hero">
 
-<div id="greeting" class="greeting">
+
+<div
+  id="greeting"
+  class="greeting"
+>
 Olá 👋
 </div>
 
+
 <div class="sub">
-Estou pronto para conversar, analisar arquivos,
-entender fotos, criar lembretes e ajudar você.
+
+Converse comigo, envie fotos,
+PDFs, planilhas, documentos ou
+peça para editar imagens.
+
 </div>
+
 
 <div class="quick-grid">
 
-<button class="quick" onclick="openReminder()">
-<div class="icon">⏰</div>
-<div class="title">Novo lembrete</div>
-<div class="desc">Escolha data e hora</div>
+
+<button
+  class="quick"
+  onclick="openReminder()"
+>
+
+<div class="icon">
+⏰
+</div>
+
+<div class="title">
+Novo lembrete
+</div>
+
+<div class="desc">
+Escolha data e hora
+</div>
+
 </button>
 
-<button class="quick" onclick="startVoice()">
-<div class="icon">🎙️</div>
-<div class="title">Falar comigo</div>
-<div class="desc">Use sua voz</div>
+
+<button
+  class="quick"
+  onclick="startVoice()"
+>
+
+<div class="icon">
+🎙️
+</div>
+
+<div class="title">
+Falar comigo
+</div>
+
+<div class="desc">
+Use sua voz
+</div>
+
 </button>
 
-<button class="quick" onclick="showAgenda()">
-<div class="icon">📋</div>
-<div class="title">Minha agenda</div>
-<div class="desc">Veja o que vem pela frente</div>
+
+<button
+  class="quick"
+  onclick="showAgenda()"
+>
+
+<div class="icon">
+📋
+</div>
+
+<div class="title">
+Minha agenda
+</div>
+
+<div class="desc">
+Veja seus compromissos
+</div>
+
 </button>
 
-<button class="quick" onclick="requestNotifications()">
-<div class="icon">🔔</div>
-<div class="title">Ativar alertas</div>
-<div class="desc">Receba avisos no aparelho</div>
+
+<button
+  class="quick"
+  onclick="requestNotifications()"
+>
+
+<div class="icon">
+🔔
+</div>
+
+<div class="title">
+Ativar alertas
+</div>
+
+<div class="desc">
+Receba avisos
+</div>
+
 </button>
+
 
 </div>
+
 </section>
+
 
 <section class="section">
 
+
 <div class="section-head">
-<div class="section-title">Agenda de hoje</div>
-<div id="todayCount" class="section-action">0 itens</div>
+
+<div class="section-title">
+Agenda de hoje
 </div>
 
+<div
+  id="todayCount"
+  class="section-action"
+>
+0 itens
+</div>
+
+</div>
+
+
 <div class="card">
+
 <div id="reminders"></div>
+
 </div>
 
 </section>
 
+
 <section class="section">
 
+
 <div class="section-head">
-<div class="section-title">Resumo</div>
+
+<div class="section-title">
+Resumo
 </div>
 
+</div>
+
+
 <div class="card">
-<div id="summary" class="empty">
+
+<div
+  id="summary"
+  class="empty"
+>
 Converse com o Hermes para começar.
 </div>
+
 </div>
 
 </section>
 
+
 </div>
 
 
-<div id="chatView" class="view">
+<!-- =========================
+     CHAT
+========================= -->
+
+<div
+  id="chatView"
+  class="view"
+>
+
 
 <div class="chat-wrap">
 
+
 <div class="chat-head">
 
+
 <div>
-<h2>Hermes</h2>
-<p>Converse comigo</p>
+
+<h2>
+Hermes
+</h2>
+
+<p>
+Converse comigo
+</p>
+
 </div>
 
-<button class="circle-btn" onclick="clearChat()">
+
+<button
+  class="circle-btn"
+  onclick="clearChat()"
+>
 🗑️
 </button>
 
+
 </div>
 
-<div id="messages" class="messages"></div>
 
-<div id="typing" class="typing">
+<div
+  id="messages"
+  class="messages"
+></div>
+
+
+<div
+  id="typing"
+  class="typing"
+>
+
 Hermes está pensando
+
 <span></span>
 <span></span>
 <span></span>
-</div>
 
 </div>
 
+
 </div>
 
 
-<div id="memoryView" class="view">
+</div>
+
+
+<!-- =========================
+     MEMORY
+========================= -->
+
+<div
+  id="memoryView"
+  class="view"
+>
+
 
 <div class="chat-wrap">
 
+
 <div class="chat-head">
 
+
 <div>
-<h2>Memória 🧠</h2>
-<p>Informações guardadas pelo Hermes</p>
+
+<h2>
+Memória 🧠
+</h2>
+
+<p>
+Informações guardadas
+</p>
+
 </div>
 
-<button class="circle-btn" onclick="openMemory()">
+
+<button
+  class="circle-btn"
+  onclick="openMemory()"
+>
 ＋
 </button>
 
-</div>
-
-<div id="memoryList" class="list-card"></div>
 
 </div>
 
-</div>
+
+<div
+  id="memoryList"
+  class="list-card"
+></div>
+
 
 </div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================
+     FILE INPUTS
+========================= -->
 
 
 <input
-id="fileInput"
-class="hidden-file"
-type="file"
-accept="image/*,.pdf,.txt,.csv,.json,.md"
-onchange="handleFile(event)"
+  id="cameraInput"
+  class="hidden-file"
+  type="file"
+  accept="image/*"
+  capture="environment"
 >
 
-<div id="attachmentPreview" class="attachment-preview">
 
-<div class="attachment-content" id="attachmentContent"></div>
+<input
+  id="imageInput"
+  class="hidden-file"
+  type="file"
+  accept="image/*"
+>
+
+
+<input
+  id="documentInput"
+  class="hidden-file"
+  type="file"
+  accept="
+    .pdf,
+    .csv,
+    .txt,
+    .json,
+    .md,
+    .xlsx,
+    .xls,
+    .docx,
+    .doc,
+    .pptx,
+    .ppt,
+    .rtf
+  "
+>
+
+
+<!-- =========================
+     ATTACH MENU
+========================= -->
+
+<div
+  id="attachMenu"
+  class="attach-menu"
+>
+
+
+<button
+  class="attach-option"
+  onclick="openCamera()"
+>
+
+<div class="big">
+📷
+</div>
+
+<div class="label">
+Tirar foto
+</div>
+
+</button>
+
+
+<button
+  class="attach-option"
+  onclick="openGallery()"
+>
+
+<div class="big">
+🖼️
+</div>
+
+<div class="label">
+Galeria
+</div>
+
+</button>
+
+
+<button
+  class="attach-option"
+  onclick="openDocuments()"
+>
+
+<div class="big">
+📁
+</div>
+
+<div class="label">
+Arquivo
+</div>
+
+</button>
+
+
+</div>
+
+
+<!-- =========================
+     ATTACHMENT PREVIEW
+========================= -->
+
+<div
+  id="attachmentPreview"
+  class="attachment-preview"
+>
+
+
+<div
+  id="attachmentContent"
+  class="attachment-content"
+></div>
+
 
 <div class="preview-actions">
 
+
 <button
-id="editAttachmentBtn"
-class="preview-action edit"
-onclick="editSelectedImage()"
-title="Editar imagem"
-style="display:none"
+  id="editAttachmentBtn"
+  class="preview-action edit"
+  onclick="editSelectedImage()"
+  title="Editar imagem"
+  style="display:none"
 >
 🎨
 </button>
 
+
 <button
-class="preview-action"
-onclick="removeAttachment()"
-title="Remover"
+  class="preview-action"
+  onclick="removeAttachment()"
+  title="Remover"
 >
 ×
 </button>
 
-</div>
 
 </div>
 
 
-<div id="composer" class="composer">
+</div>
+
+
+<!-- =========================
+     COMPOSER
+========================= -->
+
+<div
+  id="composer"
+  class="composer"
+>
+
 
 <button
-class="circle-btn attach-btn"
-onclick="openFilePicker()"
-title="Anexar arquivo"
+  class="circle-btn attach-btn"
+  onclick="toggleAttachMenu()"
+  title="Anexar"
 >
 📎
 </button>
 
+
 <button
-id="micBtn"
-class="circle-btn"
-onclick="startVoice()"
-title="Falar"
+  id="micBtn"
+  class="circle-btn"
+  onclick="startVoice()"
+  title="Falar"
 >
 🎙️
 </button>
 
+
 <input
-id="message"
-type="text"
-autocomplete="off"
-placeholder="Fale com o Hermes..."
+  id="message"
+  type="text"
+  autocomplete="off"
+  placeholder="Fale com o Hermes..."
 >
 
+
 <button
-class="circle-btn send"
-onclick="send()"
-title="Enviar"
+  class="circle-btn send"
+  onclick="send()"
+  title="Enviar"
 >
 ➤
 </button>
 
+
 </div>
 
 
+<!-- =========================
+     NAVIGATION
+========================= -->
+
 <nav class="bottom-nav">
 
+
 <button
-id="navHome"
-class="nav-btn active"
-onclick="switchView('home')"
+  id="navHome"
+  class="nav-btn active"
+  onclick="switchView('home')"
 >
-<span class="nav-icon">⌂</span>
+
+<span class="nav-icon">
+⌂
+</span>
+
 Início
+
 </button>
 
+
 <button
-id="navChat"
-class="nav-btn"
-onclick="switchView('chat')"
+  id="navChat"
+  class="nav-btn"
+  onclick="switchView('chat')"
 >
-<span class="nav-icon">💬</span>
+
+<span class="nav-icon">
+💬
+</span>
+
 Conversar
+
 </button>
 
+
 <button
-id="navMemory"
-class="nav-btn"
-onclick="switchView('memory')"
+  id="navMemory"
+  class="nav-btn"
+  onclick="switchView('memory')"
 >
-<span class="nav-icon">🧠</span>
+
+<span class="nav-icon">
+🧠
+</span>
+
 Memória
+
 </button>
+
 
 </nav>
 
 
-<div id="reminderModal" class="modal">
+<!-- =========================
+     REMINDER MODAL
+========================= -->
+
+<div
+  id="reminderModal"
+  class="modal"
+>
+
 
 <div class="modal-box">
 
-<h3>Novo lembrete ⏰</h3>
+
+<h3>
+Novo lembrete ⏰
+</h3>
+
 
 <div class="field">
-<label>O que você quer lembrar?</label>
+
+<label>
+O que você quer lembrar?
+</label>
 
 <input
-id="rTitle"
-type="text"
-placeholder="Ex.: Reunião com João"
+  id="rTitle"
+  type="text"
+  placeholder="Ex.: Academia"
 >
+
 </div>
+
 
 <div class="field">
-<label>Data e horário</label>
+
+<label>
+Data e horário
+</label>
 
 <input
-id="rDate"
-type="datetime-local"
+  id="rDate"
+  type="datetime-local"
 >
+
 </div>
+
 
 <div class="modal-actions">
 
-<button onclick="closeModal('reminderModal')">
+
+<button
+  onclick="closeModal('reminderModal')"
+>
 Cancelar
 </button>
 
+
 <button
-class="primary"
-onclick="saveReminder()"
+  class="primary"
+  onclick="saveReminder()"
 >
 Salvar
 </button>
 
+
+</div>
+
+
 </div>
 
 </div>
 
-</div>
 
+<!-- =========================
+     MEMORY MODAL
+========================= -->
 
-<div id="memoryModal" class="modal">
+<div
+  id="memoryModal"
+  class="modal"
+>
+
 
 <div class="modal-box">
 
-<h3>Nova memória 🧠</h3>
+
+<h3>
+Nova memória 🧠
+</h3>
+
 
 <div class="field">
-<label>O que devo lembrar?</label>
+
+<label>
+O que devo lembrar?
+</label>
 
 <textarea
-id="mValue"
-placeholder="Ex.: Prefiro viajar de avião."
+  id="mValue"
+  placeholder="Ex.: Prefiro viajar de avião."
 ></textarea>
 
 </div>
 
+
 <div class="modal-actions">
 
-<button onclick="closeModal('memoryModal')">
+
+<button
+  onclick="closeModal('memoryModal')"
+>
 Cancelar
 </button>
 
+
 <button
-class="primary"
-onclick="saveMemoryManual()"
+  class="primary"
+  onclick="saveMemoryManual()"
 >
 Guardar
 </button>
 
+
+</div>
+
+
 </div>
 
 </div>
 
+
+<!-- =========================
+     IMAGE VIEWER
+========================= -->
+
+<div
+  id="imageViewer"
+  class="image-viewer"
+  onclick="closeImageViewer()"
+>
+
+<button
+  class="image-viewer-close"
+  onclick="closeImageViewer()"
+>
+×
+</button>
+
+<img
+  id="viewerImage"
+  src=""
+  alt="Imagem"
+  onclick="event.stopPropagation()"
+>
+
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
 
+
+/* =========================
+   STORAGE
+========================= */
+
 const KEYS={
-  rem:'hermes_reminders_v2',
-  mem:'hermes_memories_v2',
-  chat:'hermes_chat_v2'
+
+  rem:
+    'hermes_reminders_v2',
+
+  mem:
+    'hermes_memories_v2',
+
+  chat:
+    'hermes_chat_v2'
+
 };
 
-let reminders=JSON.parse(
-  localStorage.getItem(KEYS.rem)||'[]'
-);
 
-let memories=JSON.parse(
-  localStorage.getItem(KEYS.mem)||'[]'
-);
+let reminders=
+  readStorage(
+    KEYS.rem,
+    []
+  );
 
-let history=JSON.parse(
-  localStorage.getItem(KEYS.chat)||'[]'
-);
 
-let voiceReplies=false;
-let activeRecognition=null;
-let selectedAttachment=null;
+let memories=
+  readStorage(
+    KEYS.mem,
+    []
+  );
+
+
+let history=
+  readStorage(
+    KEYS.chat,
+    []
+  );
+
+
+let selectedAttachment=
+  null;
+
+
+let voiceReplies=
+  false;
+
+
+let activeRecognition=
+  null;
+
 
 let aiState={
+
   online:false,
+
   model:''
+
 };
 
-const $=id=>document.getElementById(id);
+
+/* =========================
+   HELPERS
+========================= */
+
+const $=
+  id =>
+    document.getElementById(id);
+
+
+function readStorage(
+  key,
+  fallback
+){
+
+  try{
+
+    const raw=
+      localStorage.getItem(key);
+
+    if(!raw){
+
+      return fallback;
+
+    }
+
+    const parsed=
+      JSON.parse(raw);
+
+    return parsed ?? fallback;
+
+  }catch{
+
+    return fallback;
+
+  }
+
+}
 
 
 function uid(){
@@ -1136,379 +2612,604 @@ function uid(){
     typeof crypto!=='undefined' &&
     crypto.randomUUID
   ){
+
     return crypto.randomUUID();
+
   }
 
-  return Date.now()+'_'+Math.random();
+  return (
+    Date.now()+
+    '_' +
+    Math.random()
+  );
 
 }
 
 
-function esc(s){
+function esc(value){
 
-  return String(s).replace(
+  return String(
+    value ?? ''
+  ).replace(
     /[&<>"']/g,
     m=>({
+
       '&':'&amp;',
+
       '<':'&lt;',
+
       '>':'&gt;',
+
       '"':'&quot;',
+
       "'":'&#39;'
+
     }[m])
   );
 
 }
 
 
-function greet(){
+function showToast(
+  message
+){
 
-  const h=new Date().getHours();
+  const el=
+    $('toast');
 
-  const t=
-    h<12
-      ?'Bom dia'
-      :h<18
-        ?'Boa tarde'
-        :'Boa noite';
+  el.textContent=
+    message;
 
-  $('greeting').textContent=
-    `${t}, Wes 👋`;
+  el.classList.add(
+    'show'
+  );
+
+  clearTimeout(
+    showToast.timer
+  );
+
+  showToast.timer=
+    setTimeout(
+      ()=>{
+        el.classList.remove(
+          'show'
+        );
+      },
+      3000
+    );
 
 }
 
 
 function saveAll(){
 
-  localStorage.setItem(
-    KEYS.rem,
-    JSON.stringify(reminders)
-  );
+  try{
 
-  localStorage.setItem(
-    KEYS.mem,
-    JSON.stringify(memories)
-  );
+    localStorage.setItem(
+      KEYS.rem,
+      JSON.stringify(
+        reminders
+      )
+    );
 
-  localStorage.setItem(
-    KEYS.chat,
-    JSON.stringify(history.slice(-24))
-  );
+    localStorage.setItem(
+      KEYS.mem,
+      JSON.stringify(
+        memories
+      )
+    );
+
+    localStorage.setItem(
+      KEYS.chat,
+      JSON.stringify(
+        history.slice(-24)
+      )
+    );
+
+  }catch(error){
+
+    console.error(
+      'Storage error:',
+      error
+    );
+
+    showToast(
+      'O navegador está sem espaço para guardar o histórico.'
+    );
+
+  }
 
 }
 
 
-function showToast(message){
+/* =========================
+   GREETING
+========================= */
 
-  const el=$('toast');
+function greet(){
 
-  el.textContent=message;
+  const hour=
+    new Date()
+      .getHours();
 
-  el.classList.add('show');
+  const text=
+    hour<12
+      ?'Bom dia'
+      :hour<18
+        ?'Boa tarde'
+        :'Boa noite';
 
-  clearTimeout(showToast.timer);
-
-  showToast.timer=setTimeout(
-    ()=>el.classList.remove('show'),
-    3000
-  );
+  $('greeting')
+    .textContent=
+      `${text}, Wes 👋`;
 
 }
 
 
-function switchView(view){
+/* =========================
+   NAVIGATION
+========================= */
+
+function switchView(
+  view
+){
 
   document
-    .querySelectorAll('.view')
-    .forEach(el=>el.classList.remove('active'));
+    .querySelectorAll(
+      '.view'
+    )
+    .forEach(
+      el =>
+        el.classList.remove(
+          'active'
+        )
+    );
+
 
   document
-    .querySelectorAll('.nav-btn')
-    .forEach(el=>el.classList.remove('active'));
+    .querySelectorAll(
+      '.nav-btn'
+    )
+    .forEach(
+      el =>
+        el.classList.remove(
+          'active'
+        )
+    );
+
 
   if(view==='home'){
 
-    $('homeView').classList.add('active');
-    $('navHome').classList.add('active');
-    $('composer').style.display='none';
-    $('attachmentPreview').classList.remove('show');
+    $('homeView')
+      .classList
+      .add('active');
+
+    $('navHome')
+      .classList
+      .add('active');
+
+    $('composer')
+      .style
+      .display='none';
+
+    closeAttachMenu();
 
   }
+
 
   if(view==='chat'){
 
-    $('chatView').classList.add('active');
-    $('navChat').classList.add('active');
-    $('composer').style.display='flex';
+    $('chatView')
+      .classList
+      .add('active');
+
+    $('navChat')
+      .classList
+      .add('active');
+
+    $('composer')
+      .style
+      .display='flex';
 
   }
+
 
   if(view==='memory'){
 
-    $('memoryView').classList.add('active');
-    $('navMemory').classList.add('active');
-    $('composer').style.display='none';
-    $('attachmentPreview').classList.remove('show');
+    $('memoryView')
+      .classList
+      .add('active');
+
+    $('navMemory')
+      .classList
+      .add('active');
+
+    $('composer')
+      .style
+      .display='none';
+
+    closeAttachMenu();
 
   }
+
 
   render();
 
 }
 
 
+/* =========================
+   RENDER
+========================= */
+
 function render(){
 
-  reminders=reminders
-    .filter(r=>r&&r.when)
-    .sort(
-      (a,b)=>
-        new Date(a.when)-new Date(b.when)
-    );
+  reminders=
+    reminders
+      .filter(
+        r =>
+          r &&
+          r.when
+      )
+      .sort(
+        (a,b) =>
+          new Date(a.when) -
+          new Date(b.when)
+      );
 
-  const el=$('reminders');
 
-  const today=new Date();
+  const element=
+    $('reminders');
+
+
+  const today=
+    new Date();
+
 
   today.setHours(
-    0,0,0,0
+    0,
+    0,
+    0,
+    0
   );
 
-  const tomorrow=new Date(today);
+
+  const tomorrow=
+    new Date(today);
+
 
   tomorrow.setDate(
-    today.getDate()+1
+    tomorrow.getDate()+1
   );
 
-  const todays=reminders.filter(r=>{
 
-    const d=new Date(r.when);
+  const todays=
+    reminders.filter(
+      r=>{
 
-    return d>=today&&d<tomorrow;
+        const date=
+          new Date(r.when);
 
-  });
+        return (
+          date>=today &&
+          date<tomorrow
+        );
 
-  $('todayCount').textContent=
-    `${todays.length} ${
-      todays.length===1
-        ?'item'
-        :'itens'
-    }`;
+      }
+    );
+
+
+  $('todayCount')
+    .textContent=
+      `${todays.length} ${
+        todays.length===1
+          ?'item'
+          :'itens'
+      }`;
+
 
   if(!todays.length){
 
-    el.innerHTML=
-      '<div class="empty">Nenhum lembrete para hoje. 📅</div>';
+    element.innerHTML=
+      `
+      <div class="empty">
+        Nenhum lembrete para hoje. 📅
+      </div>
+      `;
 
   }else{
 
-    el.innerHTML=
+    element.innerHTML=
       todays
-      .slice(0,12)
-      .map(r=>{
+        .slice(0,12)
+        .map(
+          r=>{
 
-        const d=new Date(r.when);
+            const date=
+              new Date(
+                r.when
+              );
 
-        const time=
-          d.toLocaleTimeString(
-            'pt-BR',
-            {
-              hour:'2-digit',
-              minute:'2-digit'
-            }
-          );
 
-        return `
-          <div class="item">
+            const time=
+              date.toLocaleTimeString(
+                'pt-BR',
+                {
+                  hour:'2-digit',
+                  minute:'2-digit'
+                }
+              );
 
-            <div class="time">
-              ${time}
+
+            return `
+              <div class="item">
+
+                <div class="time">
+                  ${time}
+                </div>
+
+                <div class="rmain">
+
+                  <div class="rtitle">
+                    ${esc(r.title)}
+                  </div>
+
+                  <div class="rmeta">
+                    ${date.toLocaleDateString('pt-BR')}
+                    ·
+                    ${esc(
+                      r.repeat ||
+                      'uma vez'
+                    )}
+                  </div>
+
+                </div>
+
+                <button
+                  class="ghost"
+                  onclick="removeReminder('${r.id}')"
+                >
+                  ×
+                </button>
+
+              </div>
+            `;
+
+          }
+        )
+        .join('');
+
+  }
+
+
+  $('summary')
+    .textContent=
+      reminders.length
+        ? `Você tem ${reminders.length} lembrete${
+            reminders.length===1
+              ?''
+              :'s'
+          } salvo${
+            reminders.length===1
+              ?''
+              :'s'
+          } neste aparelho.`
+        :'Converse com o Hermes para começar.';
+
+
+  renderMemories();
+
+  renderChat();
+
+}
+
+
+/* =========================
+   CHAT RENDER
+========================= */
+
+function renderChat(){
+
+  const element=
+    $('messages');
+
+
+  if(!history.length){
+
+    element.innerHTML=
+      `
+      <div class="bubble assistant">
+
+        Olá, Wes! 👋
+
+        <br><br>
+
+        Sou o Hermes, seu assistente pessoal.
+
+        <br><br>
+
+        Posso conversar com você,
+        analisar fotos, PDFs,
+        planilhas, documentos,
+        criar lembretes e editar imagens.
+
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  element.innerHTML=
+    history
+      .slice(-24)
+      .map(
+        message=>{
+
+          let media='';
+
+
+          if(
+            message.image
+          ){
+
+            media=
+              `
+              <img
+                class="bubble-image"
+                src="${message.image}"
+                alt="Imagem"
+                onclick="openImageViewer('${message.image}')"
+              >
+              `;
+
+          }
+
+
+          if(
+            message.file
+          ){
+
+            media=
+              `
+              <div class="file-card">
+
+                <div class="file-icon">
+                  ${fileIcon(
+                    message.file.name
+                  )}
+                </div>
+
+                <div class="file-info">
+
+                  <div class="file-name">
+                    ${esc(
+                      message.file.name
+                    )}
+                  </div>
+
+                  <div class="file-type">
+                    ${esc(
+                      message.file.type ||
+                      'arquivo'
+                    )}
+                  </div>
+
+                </div>
+
+              </div>
+              `;
+
+          }
+
+
+          return `
+            <div class="bubble ${
+              message.role==='user'
+                ?'user'
+                :'assistant'
+            }">
+
+              ${esc(
+                message.content ||
+                ''
+              )}
+
+              ${media}
+
+            </div>
+          `;
+
+        }
+      )
+      .join('');
+
+
+  setTimeout(
+    ()=>{
+      element.scrollTop=
+        element.scrollHeight;
+    },
+    20
+  );
+
+}
+
+
+/* =========================
+   MEMORIES
+========================= */
+
+function renderMemories(){
+
+  const element=
+    $('memoryList');
+
+
+  if(!memories.length){
+
+    element.innerHTML=
+      `
+      <div class="empty">
+        Nenhuma memória salva ainda. 🧠
+      </div>
+      `;
+
+    return;
+
+  }
+
+
+  element.innerHTML=
+    memories
+      .slice()
+      .reverse()
+      .map(
+        memory=>`
+
+          <div class="memory">
+
+            <div class="memory-icon">
+              🧠
             </div>
 
-            <div class="rmain">
+            <div class="memory-content">
 
-              <div class="rtitle">
-                ${esc(r.title)}
+              <div class="memory-key">
+                ${esc(
+                  memory.key ||
+                  'preferência'
+                )}
               </div>
 
-              <div class="rmeta">
-                ${d.toLocaleDateString('pt-BR')}
-                ·
-                ${esc(r.repeat||'uma vez')}
+              <div class="memory-value">
+                ${esc(
+                  memory.value
+                )}
               </div>
 
             </div>
 
             <button
               class="ghost"
-              onclick="removeReminder('${r.id}')"
+              onclick="removeMemory('${memory.id}')"
             >
               ×
             </button>
 
           </div>
-        `;
 
-      })
+        `
+      )
       .join('');
 
-  }
-
-  $('summary').textContent=
-    reminders.length
-      ? `Você tem ${reminders.length} lembrete${
-          reminders.length===1?'':'s'
-        } salvo${
-          reminders.length===1?'':'s'
-        } neste aparelho.`
-      :'Converse com o Hermes para começar.';
-
-  renderMemories();
-  renderChat();
-
 }
 
 
-function renderChat(){
-
-  const el=$('messages');
-
-  if(!history.length){
-
-    el.innerHTML=`
-      <div class="bubble assistant">
-        Olá, Wes! 👋
-        <br><br>
-        Sou o Hermes, seu assistente pessoal.
-        <br><br>
-        Você pode conversar comigo,
-        enviar fotos ou arquivos,
-        criar lembretes e pedir para editar imagens.
-      </div>
-    `;
-
-    return;
-
-  }
-
-  el.innerHTML=
-    history
-    .slice(-24)
-    .map(m=>{
-
-      let media='';
-
-      if(m.image){
-
-        media=`
-          <img
-            class="bubble-image"
-            src="${m.image}"
-            alt="Imagem"
-          >
-        `;
-
-      }
-
-      if(m.file){
-
-        media=`
-          <div class="file-card">
-
-            <div class="file-icon">
-              📄
-            </div>
-
-            <div>
-
-              <div class="file-name">
-                ${esc(m.file.name)}
-              </div>
-
-              <div class="file-type">
-                ${esc(m.file.type||'arquivo')}
-              </div>
-
-            </div>
-
-          </div>
-        `;
-
-      }
-
-      return `
-        <div class="bubble ${
-          m.role==='user'
-            ?'user'
-            :'assistant'
-        }">
-
-          ${esc(m.content||'')}
-
-          ${media}
-
-        </div>
-      `;
-
-    })
-    .join('');
-
-}
-
-
-function renderMemories(){
-
-  const el=$('memoryList');
-
-  if(!memories.length){
-
-    el.innerHTML=`
-      <div class="empty">
-        Nenhuma memória salva ainda. 🧠
-      </div>
-    `;
-
-    return;
-
-  }
-
-  el.innerHTML=
-    memories
-    .slice()
-    .reverse()
-    .map(m=>`
-
-      <div class="memory">
-
-        <div class="memory-icon">
-          🧠
-        </div>
-
-        <div class="memory-content">
-
-          <div class="memory-key">
-            ${esc(m.key||'preferência')}
-          </div>
-
-          <div class="memory-value">
-            ${esc(m.value)}
-          </div>
-
-        </div>
-
-        <button
-          class="ghost"
-          onclick="removeMemory('${m.id}')"
-        >
-          ×
-        </button>
-
-      </div>
-
-    `)
-    .join('');
-
-}
-
+/* =========================
+   HISTORY
+========================= */
 
 function addHistory(
   role,
@@ -1519,6 +3220,7 @@ function addHistory(
   history.push({
 
     role,
+
     content,
 
     ...extra,
@@ -1529,6 +3231,7 @@ function addHistory(
 
   });
 
+
   saveAll();
 
   renderChat();
@@ -1536,205 +3239,484 @@ function addHistory(
 }
 
 
-function typing(show){
+function clearChat(){
 
-  $('typing').classList.toggle(
-    'show',
-    show
-  );
-
-}
-
-
-function isAgendaQuery(message){
-
-  const t=
-    String(message||'')
-      .toLowerCase();
-
-  return /agenda|lembrete|lembretes|compromisso|compromissos|marcado|marcados|o que tenho|o que está marcado|o que esta marcado/.test(t);
-
-}
-
-
-function agendaReply(){
-
-  const now=new Date();
-
-  const start=new Date(now);
-
-  start.setHours(
-    0,0,0,0
-  );
-
-  const end=new Date(start);
-
-  end.setDate(
-    end.getDate()+1
-  );
-
-  const todays=
-    reminders
-    .filter(r=>r&&r.when)
-    .filter(r=>{
-
-      const d=new Date(r.when);
-
-      return d>=start&&d<end;
-
-    })
-    .sort(
-      (a,b)=>
-        new Date(a.when)-
-        new Date(b.when)
-    );
-
-  if(!todays.length){
-
-    return 'Sua agenda de hoje está vazia. 📅';
-
-  }
-
-  const lines=
-    todays.map(r=>{
-
-      const d=new Date(r.when);
-
-      const time=
-        d.toLocaleTimeString(
-          'pt-BR',
-          {
-            hour:'2-digit',
-            minute:'2-digit'
-          }
-        );
-
-      return `${time} • ${r.title}`;
-
-    });
-
-  return `
-Hoje você tem ${
-    todays.length
-  } compromisso${
-    todays.length===1?'':'s'
-  }:
-
-${lines.join('\n')}
-`.trim();
-
-}
-
-
-function showAgenda(){
-
-  switchView('chat');
-
-  const reply=
-    agendaReply();
-
-  addHistory(
-    'user',
-    'O que tenho marcado hoje?'
-  );
-
-  addHistory(
-    'assistant',
-    reply
-  );
-
-}
-
-
-function openFilePicker(){
-
-  switchView('chat');
-
-  $('fileInput').click();
-
-}
-
-
-async function handleFile(event){
-
-  const file=
-    event.target.files?.[0];
-
-  event.target.value='';
-
-  if(!file)return;
-
-  const maxSize=
-    3*1024*1024;
-
-  if(file.size>maxSize){
+  if(!history.length){
 
     showToast(
-      'Arquivo muito grande. Escolha um arquivo de até 3 MB.'
+      'A conversa já está vazia.'
     );
 
     return;
 
   }
 
-  try{
 
-    const dataUrl=
-      await fileToDataURL(file);
+  if(
+    !confirm(
+      'Deseja apagar a conversa?'
+    )
+  ){
 
-    selectedAttachment={
-
-      name:file.name,
-
-      type:
-        file.type||
-        'application/octet-stream',
-
-      size:file.size,
-
-      dataUrl,
-
-      base64:
-        dataUrl.split(',')[1]
-
-    };
-
-    renderAttachmentPreview();
-
-    showToast(
-      'Anexo pronto para enviar 📎'
-    );
-
-  }catch{
-
-    showToast(
-      'Não consegui ler este arquivo.'
-    );
+    return;
 
   }
+
+
+  history=[];
+
+  saveAll();
+
+  renderChat();
+
+  showToast(
+    'Conversa apagada'
+  );
 
 }
 
 
-function fileToDataURL(file){
+/* =========================
+   AGENDA
+========================= */
+
+function isAgendaQuery(
+  message
+){
+
+  const text=
+    String(
+      message||''
+    )
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(
+        /[\u0300-\u036f]/g,
+        ''
+      );
+
+
+  const asking=
+    /agenda|meus lembretes|meus compromissos|o que tenho|o que esta marcado|o que tenho marcado|quais sao meus lembretes|quais meus compromissos|compromissos de hoje|agenda de hoje/.test(
+      text
+    );
+
+
+  const creating=
+    /crie|criar|cria|me lembre|lembrar|marque|marcar|agende|agendar|adicione|adicionar/.test(
+      text
+    );
+
+
+  return (
+    asking &&
+    !creating
+  );
+
+}
+
+
+function agendaReply(){
+
+  const now=
+    new Date();
+
+
+  const start=
+    new Date(
+      now
+    );
+
+
+  start.setHours(
+    0,
+    0,
+    0,
+    0
+  );
+
+
+  const end=
+    new Date(
+      start
+    );
+
+
+  end.setDate(
+    end.getDate()+1
+  );
+
+
+  const today=
+    reminders
+      .filter(
+        r =>
+          r &&
+          r.when
+      )
+      .filter(
+        r=>{
+
+          const date=
+            new Date(r.when);
+
+          return (
+            date>=start &&
+            date<end
+          );
+
+        }
+      )
+      .sort(
+        (a,b)=>
+          new Date(a.when)-
+          new Date(b.when)
+      );
+
+
+  if(!today.length){
+
+    return:
+      'Sua agenda de hoje está vazia. 📅';
+
+  }
+
+
+  const lines=
+    today.map(
+      reminder=>{
+
+        const date=
+          new Date(
+            reminder.when
+          );
+
+
+        const time=
+          date.toLocaleTimeString(
+            'pt-BR',
+            {
+              hour:'2-digit',
+              minute:'2-digit'
+            }
+          );
+
+
+        return (
+          `${time} • ${reminder.title}`
+        );
+
+      }
+    );
+
+
+  return `
+Hoje você tem ${
+    today.length
+  } compromisso${
+    today.length===1
+      ?''
+      :'s'
+  }:
+
+${lines.join('\n')}
+  `.trim();
+
+}
+
+
+function showAgenda(){
+
+  switchView(
+    'chat'
+  );
+
+
+  addHistory(
+    'user',
+    'O que tenho marcado hoje?'
+  );
+
+
+  addHistory(
+    'assistant',
+    agendaReply()
+  );
+
+}
+
+
+/* =========================
+   TYPING
+========================= */
+
+function typing(
+  show
+){
+
+  $('typing')
+    .classList
+    .toggle(
+      'show',
+      show
+    );
+
+}
+
+
+/* =========================
+   ATTACH MENU
+========================= */
+
+function toggleAttachMenu(){
+
+  $('attachMenu')
+    .classList
+    .toggle(
+      'open'
+    );
+
+}
+
+
+function closeAttachMenu(){
+
+  $('attachMenu')
+    .classList
+    .remove(
+      'open'
+    );
+
+}
+
+
+function openCamera(){
+
+  closeAttachMenu();
+
+  switchView(
+    'chat'
+  );
+
+  $('cameraInput')
+    .click();
+
+}
+
+
+function openGallery(){
+
+  closeAttachMenu();
+
+  switchView(
+    'chat'
+  );
+
+  $('imageInput')
+    .click();
+
+}
+
+
+function openDocuments(){
+
+  closeAttachMenu();
+
+  switchView(
+    'chat'
+  );
+
+  $('documentInput')
+    .click();
+
+}
+
+
+/* =========================
+   FILE ICONS
+========================= */
+
+function getExtension(
+  name
+){
+
+  const value=
+    String(
+      name||''
+    )
+      .toLowerCase()
+      .split('.')
+      .pop();
+
+  return value;
+
+}
+
+
+function fileIcon(
+  name
+){
+
+  const ext=
+    getExtension(
+      name
+    );
+
+
+  if(
+    ['jpg','jpeg','png','webp','bmp','gif']
+      .includes(ext)
+  ){
+
+    return '🖼️';
+
+  }
+
+
+  if(
+    ['xlsx','xls']
+      .includes(ext)
+  ){
+
+    return '📊';
+
+  }
+
+
+  if(
+    ext==='csv'
+  ){
+
+    return '📈';
+
+  }
+
+
+  if(
+    ext==='pdf'
+  ){
+
+    return '📕';
+
+  }
+
+
+  if(
+    ['docx','doc']
+      .includes(ext)
+  ){
+
+    return '📝';
+
+  }
+
+
+  if(
+    ['pptx','ppt']
+      .includes(ext)
+  ){
+
+    return '📽️';
+
+  }
+
+
+  if(
+    ['txt','json','md','rtf']
+      .includes(ext)
+  ){
+
+    return '📄';
+
+  }
+
+
+  return '📁';
+
+}
+
+
+/* =========================
+   FILE SIZE
+========================= */
+
+function formatBytes(
+  bytes
+){
+
+  const value=
+    Number(bytes||0);
+
+
+  if(
+    value<1024
+  ){
+
+    return `${value} B`;
+
+  }
+
+
+  if(
+    value<1024*1024
+  ){
+
+    return (
+      `${(
+        value/1024
+      ).toFixed(1)} KB`
+    );
+
+  }
+
+
+  return (
+    `${(
+      value/
+      (1024*1024)
+    ).toFixed(1)} MB`
+  );
+
+}
+
+
+/* =========================
+   FILE TO DATA URL
+========================= */
+
+function fileToDataURL(
+  file
+){
 
   return new Promise(
-    (resolve,reject)=>{
+    (
+      resolve,
+      reject
+    )=>{
 
       const reader=
         new FileReader();
 
+
       reader.onload=
-        ()=>resolve(
-          reader.result
-        );
+        ()=>{
+          resolve(
+            reader.result
+          );
+        };
+
 
       reader.onerror=
-        ()=>reject(
-          reader.error
-        );
+        ()=>{
+          reject(
+            reader.error
+          );
+        };
 
-      reader.readAsDataURL(file);
+
+      reader.readAsDataURL(
+        file
+      );
 
     }
   );
@@ -1742,52 +3724,851 @@ function fileToDataURL(file){
 }
 
 
-function formatBytes(bytes){
+/* =========================
+   IMAGE THUMBNAIL
+========================= */
 
-  if(bytes<1024){
+function createImagePreview(
+  file
+){
 
-    return bytes+' B';
+  return new Promise(
+    (
+      resolve,
+      reject
+    )=>{
 
-  }
+      const image=
+        new Image();
 
-  if(bytes<1024*1024){
 
-    return (
-      bytes/1024
-    ).toFixed(1)+' KB';
+      const url=
+        URL.createObjectURL(
+          file
+        );
 
-  }
 
-  return (
-    bytes/(1024*1024)
-  ).toFixed(1)+' MB';
+      image.onload=
+        ()=>{
+
+          try{
+
+            const max=
+              650;
+
+
+            let width=
+              image.naturalWidth;
+
+
+            let height=
+              image.naturalHeight;
+
+
+            if(
+              width>max ||
+              height>max
+            ){
+
+              const ratio=
+                Math.min(
+                  max/width,
+                  max/height
+                );
+
+              width=
+                Math.round(
+                  width*ratio
+                );
+
+              height=
+                Math.round(
+                  height*ratio
+                );
+
+            }
+
+
+            const canvas=
+              document
+                .createElement(
+                  'canvas'
+                );
+
+
+            canvas.width=
+              width;
+
+            canvas.height=
+              height;
+
+
+            const context=
+              canvas.getContext(
+                '2d'
+              );
+
+
+            context.drawImage(
+              image,
+              0,
+              0,
+              width,
+              height
+            );
+
+
+            const data=
+              canvas.toDataURL(
+                'image/jpeg',
+                .72
+              );
+
+
+            URL.revokeObjectURL(
+              url
+            );
+
+
+            resolve(
+              data
+            );
+
+          }catch(error){
+
+            URL.revokeObjectURL(
+              url
+            );
+
+            reject(error);
+
+          }
+
+        };
+
+
+      image.onerror=
+        ()=>{
+          URL.revokeObjectURL(
+            url
+          );
+
+          reject(
+            new Error(
+              'Imagem inválida'
+            )
+          );
+        };
+
+
+      image.src=
+        url;
+
+    }
+  );
 
 }
 
+
+/* =========================
+   EXTERNAL LIBRARY
+========================= */
+
+function loadScript(
+  src,
+  globalName
+){
+
+  if(
+    window[globalName]
+  ){
+
+    return Promise.resolve(
+      window[globalName]
+    );
+
+  }
+
+
+  return new Promise(
+    (
+      resolve,
+      reject
+    )=>{
+
+      const existing=
+        document.querySelector(
+          `script[data-hermes-lib="${globalName}"]`
+        );
+
+
+      if(existing){
+
+        existing.addEventListener(
+          'load',
+          ()=>resolve(
+            window[globalName]
+          )
+        );
+
+        existing.addEventListener(
+          'error',
+          reject
+        );
+
+        return;
+
+      }
+
+
+      const script=
+        document.createElement(
+          'script'
+        );
+
+
+      script.src=
+        src;
+
+      script.async=true;
+
+      script.dataset
+        .hermesLib=
+          globalName;
+
+
+      script.onload=
+        ()=>{
+
+          if(
+            window[globalName]
+          ){
+
+            resolve(
+              window[globalName]
+            );
+
+          }else{
+
+            reject(
+              new Error(
+                `Biblioteca ${globalName} não carregada.`
+              )
+            );
+
+          }
+
+        };
+
+
+      script.onerror=
+        ()=>{
+          reject(
+            new Error(
+              `Não foi possível carregar ${globalName}.`
+            )
+          );
+        };
+
+
+      document.head.appendChild(
+        script
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   READ TEXT FILE
+========================= */
+
+async function readTextFile(
+  file
+){
+
+  return new Promise(
+    (
+      resolve,
+      reject
+    )=>{
+
+      const reader=
+        new FileReader();
+
+
+      reader.onload=
+        ()=>{
+          resolve(
+            String(
+              reader.result||''
+            )
+          );
+        };
+
+
+      reader.onerror=
+        ()=>{
+          reject(
+            reader.error
+          );
+        };
+
+
+      reader.readAsText(
+        file,
+        'utf-8'
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================
+   EXCEL -> TEXT
+========================= */
+
+async function convertExcelToText(
+  file
+){
+
+  try{
+
+    await loadScript(
+      'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+      'XLSX'
+    );
+
+
+    const buffer=
+      await file.arrayBuffer();
+
+
+    const workbook=
+      XLSX.read(
+        buffer,
+        {
+          type:'array'
+        }
+      );
+
+
+    const sections=[];
+
+
+    for(
+      const sheetName
+      of workbook.SheetNames
+    ){
+
+      const worksheet=
+        workbook.Sheets[
+          sheetName
+        ];
+
+
+      const csv=
+        XLSX.utils
+          .sheet_to_csv(
+            worksheet,
+            {
+              blankrows:false
+            }
+          );
+
+
+      sections.push(
+        `=== PLANILHA: ${sheetName} ===\n${csv}`
+      );
+
+    }
+
+
+    let result=
+      sections.join(
+        '\n\n'
+      );
+
+
+    if(
+      result.length>180000
+    ){
+
+      result=
+        result.slice(
+          0,
+          180000
+        )+
+        '\n\n[Conteúdo adicional omitido por limite de envio.]';
+
+    }
+
+
+    return result;
+
+  }catch(error){
+
+    console.error(
+      'Excel conversion:',
+      error
+    );
+
+    throw new Error(
+      'Não consegui ler esta planilha Excel. Tente novamente com XLSX.'
+    );
+
+  }
+
+}
+
+
+/* =========================
+   DOCX -> TEXT
+========================= */
+
+async function convertDocxToText(
+  file
+){
+
+  try{
+
+    await loadScript(
+      'https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js',
+      'mammoth'
+    );
+
+
+    const buffer=
+      await file.arrayBuffer();
+
+
+    const result=
+      await mammoth.extractRawText(
+        {
+          arrayBuffer:buffer
+        }
+      );
+
+
+    let text=
+      String(
+        result?.value||''
+      );
+
+
+    if(
+      text.length>180000
+    ){
+
+      text=
+        text.slice(
+          0,
+          180000
+        )+
+        '\n\n[Conteúdo adicional omitido por limite de envio.]';
+
+    }
+
+
+    return text;
+
+  }catch(error){
+
+    console.error(
+      'DOCX conversion:',
+      error
+    );
+
+    throw new Error(
+      'Não consegui ler este Word. Tente novamente com DOCX.'
+    );
+
+  }
+
+}
+
+
+/* =========================
+   SMART FILE PREPARATION
+========================= */
+
+async function prepareFile(
+  file
+){
+
+  const extension=
+    getExtension(
+      file.name
+    );
+
+
+  const dataUrl=
+    await fileToDataURL(
+      file
+    );
+
+
+  const base64=
+    String(
+      dataUrl
+    ).split(',')[1]||'';
+
+
+  const isImage=
+    file.type
+      .startsWith(
+        'image/'
+      );
+
+
+  let analysisName=
+    file.name;
+
+
+  let analysisMime=
+    file.type ||
+    'application/octet-stream';
+
+
+  let analysisBase64=
+    base64;
+
+
+  let converted=
+    false;
+
+
+  /*
+    CSV/TXT/JSON/MD
+  */
+
+  if(
+    [
+      'csv',
+      'txt',
+      'json',
+      'md',
+      'rtf'
+    ].includes(
+      extension
+    )
+  ){
+
+    const text=
+      await readTextFile(
+        file
+      );
+
+
+    const limited=
+      text.length>180000
+        ?text.slice(
+            0,
+            180000
+          )+
+          '\n\n[Conteúdo adicional omitido.]'
+        :text;
+
+
+    const textBlob=
+      new Blob(
+        [limited],
+        {
+          type:'text/plain'
+        }
+      );
+
+
+    const textDataUrl=
+      await fileToDataURL(
+        textBlob
+      );
+
+
+    analysisBase64=
+      String(
+        textDataUrl
+      ).split(',')[1]||'';
+
+
+    analysisMime=
+      extension==='csv'
+        ?'text/csv'
+        :'text/plain';
+
+
+    analysisName=
+      `${file.name} [texto]`;
+
+    converted=true;
+
+  }
+
+
+  /*
+    Excel
+  */
+
+  if(
+    [
+      'xlsx',
+      'xls'
+    ].includes(
+      extension
+    )
+  ){
+
+    const text=
+      await convertExcelToText(
+        file
+      );
+
+
+    const textBlob=
+      new Blob(
+        [text],
+        {
+          type:'text/csv'
+        }
+      );
+
+
+    const textDataUrl=
+      await fileToDataURL(
+        textBlob
+      );
+
+
+    analysisBase64=
+      String(
+        textDataUrl
+      ).split(',')[1]||'';
+
+
+    analysisMime=
+      'text/csv';
+
+
+    analysisName=
+      `${file.name} [dados convertidos]`;
+
+    converted=true;
+
+  }
+
+
+  /*
+    DOCX
+  */
+
+  if(
+    extension==='docx'
+  ){
+
+    const text=
+      await convertDocxToText(
+        file
+      );
+
+
+    const textBlob=
+      new Blob(
+        [text],
+        {
+          type:'text/plain'
+        }
+      );
+
+
+    const textDataUrl=
+      await fileToDataURL(
+        textBlob
+      );
+
+
+    analysisBase64=
+      String(
+        textDataUrl
+      ).split(',')[1]||'';
+
+
+    analysisMime=
+      'text/plain';
+
+
+    analysisName=
+      `${file.name} [texto extraído]`;
+
+    converted=true;
+
+  }
+
+
+  return {
+
+    name:
+      file.name,
+
+    type:
+      file.type ||
+      'application/octet-stream',
+
+    size:
+      file.size,
+
+    extension,
+
+    dataUrl,
+
+    base64,
+
+    isImage,
+
+    converted,
+
+    analysisName,
+
+    analysisMime,
+
+    analysisBase64
+
+  };
+
+}
+
+
+/* =========================
+   HANDLE FILE
+========================= */
+
+async function handleFile(
+  event
+){
+
+  const file=
+    event
+      .target
+      .files?.[0];
+
+
+  event.target.value='';
+
+
+  if(!file){
+
+    return;
+
+  }
+
+
+  /*
+    O payload JSON em Base64 aumenta o
+    tamanho do arquivo enviado.
+  */
+
+  const maxSize=
+    2.5*1024*1024;
+
+
+  if(
+    file.size>maxSize
+  ){
+
+    showToast(
+      'Escolha um arquivo de até 2,5 MB nesta versão.'
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    showToast(
+      'Preparando seu arquivo... 📎'
+    );
+
+
+    const attachment=
+      await prepareFile(
+        file
+      );
+
+
+    selectedAttachment=
+      attachment;
+
+
+    renderAttachmentPreview();
+
+
+    showToast(
+      'Anexo pronto para enviar ✅'
+    );
+
+
+  }catch(error){
+
+    console.error(
+      'Attachment:',
+      error
+    );
+
+
+    selectedAttachment=
+      null;
+
+
+    showToast(
+      error.message ||
+      'Não consegui preparar este arquivo.'
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PREVIEW
+========================= */
 
 function renderAttachmentPreview(){
 
   const box=
     $('attachmentPreview');
 
+
   const content=
     $('attachmentContent');
 
-  if(!selectedAttachment){
 
-    box.classList.remove('show');
+  if(
+    !selectedAttachment
+  ){
+
+    box.classList.remove(
+      'show'
+    );
 
     return;
 
   }
 
+
   const isImage=
-    selectedAttachment.type
-      .startsWith('image/');
+    selectedAttachment.isImage;
+
 
   if(isImage){
 
-    content.innerHTML=`
+    content.innerHTML=
+      `
 
       <img
         class="preview-thumb"
@@ -1798,66 +4579,234 @@ function renderAttachmentPreview(){
       <div class="preview-info">
 
         <div class="preview-name">
-          ${esc(selectedAttachment.name)}
+          ${esc(
+            selectedAttachment.name
+          )}
         </div>
 
         <div class="preview-size">
-          ${formatBytes(selectedAttachment.size)}
+          ${formatBytes(
+            selectedAttachment.size
+          )}
         </div>
 
       </div>
 
-    `;
+      `;
 
-    $('editAttachmentBtn').style.display=
-      'flex';
+
+    $('editAttachmentBtn')
+      .style
+      .display='flex';
+
 
   }else{
 
-    content.innerHTML=`
+    content.innerHTML=
+      `
 
       <div class="preview-file-icon">
-        📄
+        ${fileIcon(
+          selectedAttachment.name
+        )}
       </div>
 
       <div class="preview-info">
 
         <div class="preview-name">
-          ${esc(selectedAttachment.name)}
+          ${esc(
+            selectedAttachment.name
+          )}
         </div>
 
         <div class="preview-size">
-          ${formatBytes(selectedAttachment.size)}
+          ${formatBytes(
+            selectedAttachment.size
+          )}
+          ${
+            selectedAttachment.converted
+              ?' · preparado para análise'
+              :''
+          }
         </div>
 
       </div>
 
-    `;
+      `;
 
-    $('editAttachmentBtn').style.display=
-      'none';
+
+    $('editAttachmentBtn')
+      .style
+      .display='none';
 
   }
 
-  box.classList.add('show');
+
+  box.classList.add(
+    'show'
+  );
 
 }
 
+
+/* =========================
+   REMOVE ATTACHMENT
+========================= */
 
 function removeAttachment(){
 
-  selectedAttachment=null;
+  selectedAttachment=
+    null;
+
 
   $('attachmentPreview')
     .classList
-    .remove('show');
+    .remove(
+      'show'
+    );
+
+
+  $('message')
+    .placeholder=
+      'Fale com o Hermes...';
 
 }
 
 
-async function editSelectedImage(){
+/* =========================
+   IMAGE EDIT DETECTION
+========================= */
 
-  if(!selectedAttachment){
+function isImageEditRequest(
+  message
+){
+
+  const text=
+    String(
+      message||''
+    )
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(
+        /[\u0300-\u036f]/g,
+        ''
+      );
+
+
+  const words=[
+
+    'editar',
+
+    'edite',
+
+    'edita',
+
+    'altere',
+
+    'alterar',
+
+    'altera',
+
+    'mude',
+
+    'mudar',
+
+    'troque',
+
+    'trocar',
+
+    'remova',
+
+    'remover',
+
+    'remove',
+
+    'fundo',
+
+    'background',
+
+    'melhore',
+
+    'melhorar',
+
+    'melhora',
+
+    'qualidade',
+
+    'profissional',
+
+    'terno',
+
+    'roupa',
+
+    'cabelo',
+
+    'barba',
+
+    'iluminacao',
+
+    'ilumine',
+
+    'retocar',
+
+    'retoque',
+
+    'realista',
+
+    'realismo',
+
+    'transforme',
+
+    'transformar',
+
+    'coloque',
+
+    'colocar',
+
+    'adicione',
+
+    'adicionar',
+
+    'apague',
+
+    'apagar',
+
+    'substitua',
+
+    'substituir',
+
+    'mude o fundo',
+
+    'troque o fundo',
+
+    'retire o fundo',
+
+    'remova o fundo'
+
+  ];
+
+
+  return words.some(
+    word =>
+      text.includes(
+        word
+      )
+  );
+
+}
+
+
+/* =========================
+   EDIT IMAGE
+========================= */
+
+async function editSelectedImage(
+  speakReply=false
+){
+
+  if(
+    !selectedAttachment
+  ){
 
     showToast(
       'Selecione uma imagem primeiro.'
@@ -1867,52 +4816,69 @@ async function editSelectedImage(){
 
   }
 
+
   if(
-    !selectedAttachment.type
-      .startsWith('image/')
+    !selectedAttachment.isImage
   ){
 
     showToast(
-      'Edição disponível para fotos e imagens.'
+      'A edição está disponível para fotos e imagens.'
     );
 
     return;
 
   }
 
-  const input=
+
+  const prompt=
     $('message')
       .value
       .trim();
 
-  if(!input){
+
+  if(!prompt){
 
     showToast(
-      'Escreva o que deseja alterar na foto.'
+      'Escreva o que você quer mudar na foto.'
     );
 
-    $('message').focus();
+    $('message')
+      .focus();
 
     return;
 
   }
 
+
+  const attachment=
+    selectedAttachment;
+
+
+  removeAttachment();
+
+
   await editImage(
-    input,
-    selectedAttachment
+    prompt,
+    attachment,
+    speakReply
   );
+
+
+  $('message').value='';
 
 }
 
 
 async function editImage(
   prompt,
-  attachment
+  attachment,
+  shouldSpeak=false
 ){
 
-  switchView('chat');
+  switchView(
+    'chat'
+  );
 
-  typing(true);
 
   addHistory(
     'user',
@@ -1923,7 +4889,9 @@ async function editImage(
     }
   );
 
-  removeAttachment();
+
+  typing(true);
+
 
   try{
 
@@ -1938,72 +4906,116 @@ async function editImage(
               'application/json'
           },
 
-          body:JSON.stringify({
+          body:
+            JSON.stringify({
 
-            prompt,
+              prompt,
 
-            image:{
-              mimeType:
-                attachment.type,
+              image:{
 
-              data:
-                attachment.base64
-            }
+                mimeType:
+                  attachment.type,
 
-          })
+                data:
+                  attachment.base64
+
+              }
+
+            })
 
         }
       );
 
+
     const result=
       await response.json();
 
+
     typing(false);
 
-    if(!response.ok){
+
+    if(
+      !response.ok
+    ){
 
       throw new Error(
-        result.error||
+        result.error ||
         'Falha na edição da imagem.'
       );
 
     }
 
-    if(result.image){
+
+    if(
+      result.image
+    ){
+
+      const imageData=
+        `data:${
+          result.mimeType ||
+          'image/png'
+        };base64,${
+          result.image
+        }`;
+
+
+      const preview=
+        await createPreviewFromDataUrl(
+          imageData
+        );
+
 
       addHistory(
         'assistant',
-        result.reply||
+        result.reply ||
           'Pronto! Editei a imagem. 🎨',
+
         {
           image:
-            `data:${result.mimeType||'image/png'};base64,${result.image}`
+            preview
         }
       );
+
+
+      if(
+        shouldSpeak &&
+        result.reply
+      ){
+
+        speak(
+          result.reply
+        );
+
+      }
+
+
+      render();
+
 
     }else{
 
       addHistory(
         'assistant',
-        result.reply||
+        result.reply ||
           'Não consegui gerar a imagem.'
       );
 
     }
 
-    $('message').value='';
 
   }catch(error){
 
     typing(false);
+
 
     addHistory(
       'assistant',
       'Não consegui editar essa imagem.'
     );
 
+
     showToast(
-      error.message||
+      error.message ||
       'Erro na edição da imagem.'
     );
 
@@ -2012,90 +5024,238 @@ async function editImage(
 }
 
 
-async function ask(
-  message,
-  attachment=null
+/* =========================
+   PREVIEW FROM DATA URL
+========================= */
+
+function createPreviewFromDataUrl(
+  dataUrl
 ){
 
-  switchView('chat');
+  return new Promise(
+    (
+      resolve
+    )=>{
 
-  if(attachment){
+      const image=
+        new Image();
 
-    const isImage=
-      attachment.type
-        .startsWith('image/');
 
-    addHistory(
-      'user',
-      message||
-        (
-          isImage
-            ?'Analise esta imagem.'
-            :'Analise este arquivo.'
-        ),
-      isImage
-        ?{
-            image:
-              attachment.dataUrl
+      image.onload=
+        ()=>{
+
+          const max=
+            650;
+
+
+          let width=
+            image.naturalWidth;
+
+
+          let height=
+            image.naturalHeight;
+
+
+          if(
+            width>max ||
+            height>max
+          ){
+
+            const ratio=
+              Math.min(
+                max/width,
+                max/height
+              );
+
+
+            width=
+              Math.round(
+                width*ratio
+              );
+
+
+            height=
+              Math.round(
+                height*ratio
+              );
+
           }
-        :{
-            file:{
-              name:
-                attachment.name,
 
-              type:
-                attachment.type
-            }
-          }
+
+          const canvas=
+            document
+              .createElement(
+                'canvas'
+              );
+
+
+          canvas.width=
+            width;
+
+          canvas.height=
+            height;
+
+
+          const context=
+            canvas.getContext(
+              '2d'
+            );
+
+
+          context.drawImage(
+            image,
+            0,
+            0,
+            width,
+            height
+          );
+
+
+          resolve(
+            canvas.toDataURL(
+              'image/jpeg',
+              .72
+            )
+          );
+
+        };
+
+
+      image.onerror=
+        ()=>resolve(
+          dataUrl
+        );
+
+
+      image.src=
+        dataUrl;
+
+    }
+  );
+
+}
+
+
+/* =========================
+   ASK HERMES
+========================= */
+
+async function ask(
+  message,
+  attachment=null,
+  shouldSpeak=false
+){
+
+  switchView(
+    'chat'
+  );
+
+
+  const hasAttachment=
+    Boolean(
+      attachment
     );
+
+
+  const image=
+    hasAttachment &&
+    attachment.isImage;
+
+
+  const finalMessage=
+    message ||
+    (
+      image
+        ?'Analise esta imagem e me diga o que é relevante nela.'
+        :'Analise este arquivo e me mostre os principais pontos.'
+    );
+
+
+  if(
+    hasAttachment
+  ){
+
+    if(image){
+
+      addHistory(
+        'user',
+        finalMessage,
+        {
+          image:
+            attachment.dataUrl
+        }
+      );
+
+    }else{
+
+      addHistory(
+        'user',
+        finalMessage,
+        {
+          file:{
+            name:
+              attachment.name,
+
+            type:
+              attachment.type
+          }
+        }
+      );
+
+    }
 
   }else{
 
     addHistory(
       'user',
-      message
+      finalMessage
     );
 
   }
 
+
   if(
-    !attachment &&
-    isAgendaQuery(message)
+    !hasAttachment &&
+    isAgendaQuery(
+      message
+    )
   ){
 
     const reply=
       agendaReply();
+
 
     addHistory(
       'assistant',
       reply
     );
 
-    if(voiceReplies){
 
-      speak(reply);
+    if(
+      shouldSpeak
+    ){
+
+      speak(
+        reply
+      );
 
     }
 
-    voiceReplies=false;
 
     return;
 
   }
 
+
   typing(true);
+
 
   try{
 
     const payload={
 
       message:
-        message||
-        (
-          attachment
-            ?'Analise este anexo.'
-            :''
-        ),
+        finalMessage,
 
       history:
         history.slice(0,-1),
@@ -2105,34 +5265,62 @@ async function ask(
       reminders,
 
       now:
-        new Date().toISOString(),
+        new Date()
+          .toISOString(),
 
       timezone:
         Intl.DateTimeFormat()
           .resolvedOptions()
-          .timeZone||
+          .timeZone ||
         'America/Sao_Paulo'
 
     };
 
-    if(attachment){
+
+    if(
+      attachment
+    ){
+
+      /*
+        Para arquivos convertidos,
+        enviamos o conteúdo textual.
+      */
 
       payload.attachment={
 
         name:
-          attachment.name,
+          attachment.converted
+            ?attachment.analysisName
+            :attachment.name,
 
         mimeType:
-          attachment.type,
+          attachment.converted
+            ?attachment.analysisMime
+            :attachment.type,
 
         data:
-          attachment.base64
+          attachment.converted
+            ?attachment.analysisBase64
+            :attachment.base64,
+
+        originalName:
+          attachment.name,
+
+        originalMimeType:
+          attachment.type,
+
+        extension:
+          attachment.extension,
+
+        converted:
+          attachment.converted
 
       };
 
     }
 
-    const r=
+
+    const response=
       await fetch(
         '/api/chat',
         {
@@ -2144,120 +5332,198 @@ async function ask(
           },
 
           body:
-            JSON.stringify(payload)
+            JSON.stringify(
+              payload
+            )
 
         }
       );
 
-    const j=
-      await r.json();
+
+    const result=
+      await response.json();
+
 
     typing(false);
 
-    if(!r.ok){
+
+    if(
+      !response.ok
+    ){
 
       throw new Error(
-        j.error||
-        'Falha no servidor'
+        result.error ||
+        'Falha no servidor.'
       );
 
     }
 
-    if(j.action==='create_reminder'){
+
+    if(
+      result.action===
+      'create_reminder'
+    ){
 
       if(
-        j.reminder_title &&
-        j.reminder_when
+        result.reminder_title &&
+        result.reminder_when
       ){
 
         createReminder(
-          j.reminder_title,
-          j.reminder_when,
-          j.reminder_repeat||
+          result.reminder_title,
+          result.reminder_when,
+          result.reminder_repeat ||
             'one_time'
-        );
-
-      }else{
-
-        showToast(
-          'Preciso de data e horário para criar o lembrete'
         );
 
       }
 
     }
 
+
     if(
-      j.action==='save_memory' &&
-      j.memory_value
+      result.action===
+      'save_memory' &&
+      result.memory_value
     ){
 
       saveMemory(
-        j.memory_key||
+        result.memory_key ||
           'preferência',
-        j.memory_value
+
+        result.memory_value
       );
 
     }
 
+
     if(
-      j.action==='delete_memory' &&
-      j.memory_key
+      result.action===
+      'delete_memory' &&
+      result.memory_key
     ){
 
       removeMemoryByKey(
-        j.memory_key
+        result.memory_key
       );
 
     }
 
+
     addHistory(
       'assistant',
-      j.reply||
+      result.reply ||
         'Pronto.'
     );
 
+
     if(
-      j.reply &&
-      voiceReplies
+      shouldSpeak &&
+      result.reply
     ){
 
-      speak(j.reply);
+      speak(
+        result.reply
+      );
 
     }
 
-    voiceReplies=false;
+
+    voiceReplies=
+      false;
+
 
     render();
 
-  }catch(e){
+
+  }catch(error){
 
     typing(false);
+
 
     addHistory(
       'assistant',
       'Não consegui processar sua solicitação.'
     );
 
+
     showToast(
-      e.message||
-      'Erro ao conversar'
+      error.message ||
+      'Erro ao conversar.'
     );
 
-    voiceReplies=false;
+
+    voiceReplies=
+      false;
 
   }
 
 }
 
 
+/* =========================
+   PROCESS OUTGOING
+========================= */
+
+async function processOutgoing(
+  message,
+  attachment,
+  shouldSpeak=false
+){
+
+  const finalText=
+    String(
+      message||''
+    ).trim();
+
+
+  if(
+    attachment &&
+    attachment.isImage &&
+    isImageEditRequest(
+      finalText
+    )
+  ){
+
+    removeAttachment();
+
+
+    await editImage(
+      finalText,
+      attachment,
+      shouldSpeak
+    );
+
+
+    $('message').value='';
+
+    return;
+
+  }
+
+
+  await ask(
+    finalText,
+    attachment,
+    shouldSpeak
+  );
+
+}
+
+
+/* =========================
+   SEND
+========================= */
+
 function send(){
 
   const input=
     $('message');
 
+
   const message=
     input.value.trim();
+
 
   if(
     !message &&
@@ -2268,49 +5534,71 @@ function send(){
 
   }
 
+
   const attachment=
     selectedAttachment;
 
-  selectedAttachment=null;
+
+  selectedAttachment=
+    null;
+
 
   $('attachmentPreview')
     .classList
-    .remove('show');
+    .remove(
+      'show'
+    );
+
 
   input.value='';
 
-  voiceReplies=false;
 
-  ask(
+  voiceReplies=
+    false;
+
+
+  processOutgoing(
     message,
-    attachment
+    attachment,
+    false
   );
 
 }
 
 
-$('message').addEventListener(
-  'keydown',
-  e=>{
+/* =========================
+   ENTER
+========================= */
 
-    if(
-      e.key==='Enter' &&
-      !e.shiftKey
-    ){
+$('message')
+  .addEventListener(
+    'keydown',
+    event=>{
 
-      e.preventDefault();
+      if(
+        event.key==='Enter' &&
+        !event.shiftKey
+      ){
 
-      send();
+        event.preventDefault();
+
+        send();
+
+      }
 
     }
+  );
 
-  }
-);
 
+/* =========================
+   VOICE
+========================= */
 
 function startVoice(){
 
-  if(activeRecognition){
+  if(
+    activeRecognition
+  ){
 
     try{
 
@@ -2318,25 +5606,40 @@ function startVoice(){
 
     }catch{}
 
-    activeRecognition=null;
+
+    activeRecognition=
+      null;
+
 
     $('micBtn')
       .classList
-      .remove('active');
+      .remove(
+        'active'
+      );
+
+
+    voiceReplies=
+      false;
+
 
     showToast(
       'Microfone encerrado'
     );
 
+
     return;
 
   }
 
-  const SR=
-    window.SpeechRecognition||
+
+  const SpeechRecognition=
+    window.SpeechRecognition ||
     window.webkitSpeechRecognition;
 
-  if(!SR){
+
+  if(
+    !SpeechRecognition
+  ){
 
     showToast(
       'Seu navegador não suporta reconhecimento de voz. Abra o Hermes no Chrome.'
@@ -2346,136 +5649,188 @@ function startVoice(){
 
   }
 
+
   const recognition=
-    new SR();
+    new SpeechRecognition();
+
 
   activeRecognition=
     recognition;
 
-  voiceReplies=true;
 
-  recognition.lang='pt-BR';
+  voiceReplies=
+    true;
 
-  recognition.continuous=false;
 
-  recognition.interimResults=false;
+  recognition.lang=
+    'pt-BR';
 
-  recognition.maxAlternatives=1;
 
-  recognition.onstart=()=>{
+  recognition.continuous=
+    false;
 
-    $('micBtn')
-      .classList
-      .add('active');
 
-    showToast(
-      '🎙️ Estou ouvindo...'
-    );
+  recognition.interimResults=
+    false;
 
-  };
 
-  recognition.onresult=event=>{
+  recognition.maxAlternatives=
+    1;
 
-    const transcript=
-      event.results?.[0]?.[0]
-        ?.transcript||
-      '';
 
-    const text=
-      String(transcript)
-        .trim();
+  recognition.onstart=
+    ()=>{
 
-    if(!text){
+      $('micBtn')
+        .classList
+        .add(
+          'active'
+        );
+
 
       showToast(
-        'Não consegui entender sua voz.'
+        '🎙️ Estou ouvindo...'
       );
-
-      voiceReplies=false;
-
-      return;
-
-    }
-
-    $('message').value=
-      text;
-
-    ask(
-      text,
-      selectedAttachment
-    );
-
-    if(selectedAttachment){
-
-      selectedAttachment=null;
-
-      $('attachmentPreview')
-        .classList
-        .remove('show');
-
-    }
-
-    $('message').value='';
-
-  };
-
-  recognition.onerror=event=>{
-
-    const error=
-      event?.error||
-      '';
-
-    const messages={
-
-      'not-allowed':
-        'Permita o acesso ao microfone para o Hermes.',
-
-      'audio-capture':
-        'Não consegui acessar o microfone.',
-
-      'no-speech':
-        'Não detectei sua voz. Tente novamente.',
-
-      'network':
-        'Falha na conexão do reconhecimento de voz.',
-
-      'service-not-allowed':
-        'O navegador bloqueou o reconhecimento de voz.'
 
     };
 
-    showToast(
-      messages[error]||
-      'Não consegui reconhecer sua voz.'
-    );
 
-    voiceReplies=false;
+  recognition.onresult=
+    event=>{
 
-  };
+      const transcript=
+        event
+          .results?.[0]?.[0]
+          ?.transcript ||
+        '';
 
-  recognition.onend=()=>{
 
-    activeRecognition=null;
+      const text=
+        String(
+          transcript
+        ).trim();
 
-    $('micBtn')
-      .classList
-      .remove('active');
 
-  };
+      if(!text){
+
+        voiceReplies=
+          false;
+
+
+        showToast(
+          'Não consegui entender sua voz.'
+        );
+
+
+        return;
+
+      }
+
+
+      const attachment=
+        selectedAttachment;
+
+
+      selectedAttachment=
+        null;
+
+
+      $('attachmentPreview')
+        .classList
+        .remove(
+          'show'
+        );
+
+
+      $('message').value=
+        '';
+
+
+      processOutgoing(
+        text,
+        attachment,
+        true
+      );
+
+    };
+
+
+  recognition.onerror=
+    event=>{
+
+      const error=
+        event?.error ||
+        '';
+
+
+      const messages={
+
+        'not-allowed':
+          'Permita o acesso ao microfone para o Hermes.',
+
+        'audio-capture':
+          'Não consegui acessar o microfone.',
+
+        'no-speech':
+          'Não detectei sua voz. Tente novamente.',
+
+        'network':
+          'Falha na conexão do reconhecimento de voz.',
+
+        'service-not-allowed':
+          'O navegador bloqueou o reconhecimento de voz.'
+
+      };
+
+
+      showToast(
+        messages[error] ||
+        'Não consegui reconhecer sua voz.'
+      );
+
+
+      voiceReplies=
+        false;
+
+    };
+
+
+  recognition.onend=
+    ()=>{
+
+      activeRecognition=
+        null;
+
+
+      $('micBtn')
+        .classList
+        .remove(
+          'active'
+        );
+
+    };
+
 
   try{
 
     recognition.start();
 
-  }catch{
+  }catch(error){
 
-    activeRecognition=null;
+    activeRecognition=
+      null;
+
 
     $('micBtn')
       .classList
-      .remove('active');
+      .remove(
+        'active'
+      );
 
-    voiceReplies=false;
+
+    voiceReplies=
+      false;
+
 
     showToast(
       'Não consegui iniciar o microfone.'
@@ -2486,33 +5841,54 @@ function startVoice(){
 }
 
 
-function speak(text){
+/* =========================
+   SPEECH
+========================= */
+
+function speak(
+  text
+){
 
   if(
-    !('speechSynthesis' in window)
+    !(
+      'speechSynthesis'
+      in window
+    )
   ){
 
     return;
 
   }
 
+
   const synth=
     window.speechSynthesis;
 
+
   synth.cancel();
+
 
   const utterance=
     new SpeechSynthesisUtterance(
       text
     );
 
-  utterance.lang='pt-BR';
 
-  utterance.rate=.98;
+  utterance.lang=
+    'pt-BR';
 
-  utterance.pitch=1;
 
-  utterance.volume=1;
+  utterance.rate=
+    .98;
+
+
+  utterance.pitch=
+    1;
+
+
+  utterance.volume=
+    1;
+
 
   synth.speak(
     utterance
@@ -2521,25 +5897,33 @@ function speak(text){
 }
 
 
-function nowLocalInput(){
+/* =========================
+   REMINDERS
+========================= */
 
-  const d=
-    new Date(
-      Date.now()+3600000
-    );
+function localDateTimeValue(){
 
-  const p=n=>
-    String(n).padStart(2,'0');
+  const date=
+    new Date();
 
-  return `${d.getFullYear()}-${
-    p(d.getMonth()+1)
-  }-${
-    p(d.getDate())
-  }T${
-    p(d.getHours())
-  }:${
-    p(d.getMinutes())
-  }`;
+
+  const pad=
+    value =>
+      String(
+        value
+      ).padStart(
+        2,
+        '0'
+      );
+
+
+  return (
+    `${date.getFullYear()}-`+
+    `${pad(date.getMonth()+1)}-`+
+    `${pad(date.getDate())}T`+
+    `${pad(date.getHours())}:`+
+    `${pad(date.getMinutes())}`
+  );
 
 }
 
@@ -2547,27 +5931,38 @@ function nowLocalInput(){
 function openReminder(){
 
   $('rDate').value=
-    nowLocalInput();
+    localDateTimeValue();
+
 
   $('rTitle').value='';
 
+
   $('reminderModal')
     .classList
-    .add('open');
+    .add(
+      'open'
+    );
+
 
   setTimeout(
-    ()=>$('rTitle').focus(),
+    () =>
+      $('rTitle')
+        .focus(),
     50
   );
 
 }
 
 
-function closeModal(id){
+function closeModal(
+  id
+){
 
   $(id)
     .classList
-    .remove('open');
+    .remove(
+      'open'
+    );
 
 }
 
@@ -2579,11 +5974,16 @@ function saveReminder(){
       .value
       .trim();
 
+
   const when=
     $('rDate')
       .value;
 
-  if(!title||!when){
+
+  if(
+    !title ||
+    !when
+  ){
 
     showToast(
       'Preencha o título e o horário.'
@@ -2593,11 +5993,15 @@ function saveReminder(){
 
   }
 
+
   createReminder(
     title,
-    new Date(when).toISOString(),
+    new Date(
+      when
+    ).toISOString(),
     'one_time'
   );
+
 
   closeModal(
     'reminderModal'
@@ -2612,9 +6016,10 @@ function createReminder(
   repeat='one_time'
 ){
 
-  const r={
+  const reminder={
 
-    id:uid(),
+    id:
+      uid(),
 
     title,
 
@@ -2628,30 +6033,41 @@ function createReminder(
 
   };
 
-  reminders.push(r);
+
+  reminders.push(
+    reminder
+  );
+
 
   saveAll();
+
 
   scheduleNotification(
     title,
     new Date(when)
   );
 
+
   showToast(
     'Lembrete criado ⏰'
   );
+
 
   render();
 
 }
 
 
-function removeReminder(id){
+function removeReminder(
+  id
+){
 
   reminders=
     reminders.filter(
-      r=>r.id!==id
+      reminder =>
+        reminder.id!==id
     );
+
 
   saveAll();
 
@@ -2669,22 +6085,26 @@ function scheduleNotification(
   date
 ){
 
-  const ms=
-    date.getTime()-
+  const milliseconds=
+    date.getTime() -
     Date.now();
 
+
   if(
-    ms<=0 ||
-    ms>2147483647
+    milliseconds<=0 ||
+    milliseconds>2147483647
   ){
 
     return;
 
   }
 
+
   if(
-    'Notification' in window &&
-    Notification.permission==='granted'
+    'Notification'
+    in window &&
+    Notification.permission===
+      'granted'
   ){
 
     setTimeout(
@@ -2693,16 +6113,22 @@ function scheduleNotification(
         new Notification(
           'Hermes ⏰',
           {
-            body:title,
-            icon:'/icon.svg',
+
+            body:
+              title,
+
+            icon:
+              '/icon.svg',
+
             tag:
-              'hermes-'+
+              'hermes-' +
               title
+
           }
         );
 
       },
-      ms
+      milliseconds
     );
 
   }
@@ -2713,20 +6139,25 @@ function scheduleNotification(
 async function requestNotifications(){
 
   if(
-    !('Notification' in window)
+    !(
+      'Notification'
+      in window
+    )
   ){
 
     showToast(
-      'Notificações não disponíveis neste navegador'
+      'Notificações não estão disponíveis neste navegador.'
     );
 
     return;
 
   }
 
+
   const permission=
     await Notification
       .requestPermission();
+
 
   showToast(
     permission==='granted'
@@ -2737,16 +6168,26 @@ async function requestNotifications(){
 }
 
 
+/* =========================
+   MEMORY
+========================= */
+
 function openMemory(){
 
   $('mValue').value='';
 
+
   $('memoryModal')
     .classList
-    .add('open');
+    .add(
+      'open'
+    );
+
 
   setTimeout(
-    ()=>$('mValue').focus(),
+    () =>
+      $('mValue')
+        .focus(),
     50
   );
 
@@ -2760,6 +6201,7 @@ function saveMemoryManual(){
       .value
       .trim();
 
+
   if(!value){
 
     showToast(
@@ -2770,18 +6212,22 @@ function saveMemoryManual(){
 
   }
 
+
   saveMemory(
     'preferência',
     value
   );
 
+
   closeModal(
     'memoryModal'
   );
 
+
   showToast(
     'Memória guardada 🧠'
   );
+
 
   render();
 
@@ -2795,7 +6241,8 @@ function saveMemory(
 
   memories.push({
 
-    id:uid(),
+    id:
+      uid(),
 
     key,
 
@@ -2807,6 +6254,7 @@ function saveMemory(
 
   });
 
+
   saveAll();
 
   renderMemories();
@@ -2814,12 +6262,16 @@ function saveMemory(
 }
 
 
-function removeMemory(id){
+function removeMemory(
+  id
+){
 
   memories=
     memories.filter(
-      m=>m.id!==id
+      memory =>
+        memory.id!==id
     );
+
 
   saveAll();
 
@@ -2832,20 +6284,34 @@ function removeMemory(id){
 }
 
 
-function removeMemoryByKey(key){
+function removeMemoryByKey(
+  key
+){
 
   const target=
-    String(key)
+    String(
+      key
+    )
       .toLowerCase();
+
 
   memories=
     memories.filter(
-      m=>
-        String(m.key)
-          .toLowerCase()!==target &&
-        String(m.value)
-          .toLowerCase()!==target
+      memory =>
+
+        String(
+          memory.key
+        )
+          .toLowerCase() !==
+          target &&
+
+        String(
+          memory.value
+        )
+          .toLowerCase() !==
+          target
     );
+
 
   saveAll();
 
@@ -2858,46 +6324,57 @@ function removeMemoryByKey(key){
 }
 
 
-function clearChat(){
+/* =========================
+   IMAGE VIEWER
+========================= */
 
-  if(!history.length){
+function openImageViewer(
+  source
+){
 
-    showToast(
-      'A conversa já está vazia.'
+  $('viewerImage')
+    .src=
+      source;
+
+
+  $('imageViewer')
+    .classList
+    .add(
+      'open'
     );
 
-    return;
+}
 
-  }
 
-  if(
-    !confirm(
-      'Deseja apagar a conversa?'
-    )
-  ){
+function closeImageViewer(){
 
-    return;
+  $('imageViewer')
+    .classList
+    .remove(
+      'open'
+    );
 
-  }
 
-  history=[];
-
-  saveAll();
-
-  renderChat();
-
-  showToast(
-    'Conversa apagada'
+  setTimeout(
+    ()=>{
+      $('viewerImage')
+        .src='';
+    },
+    200
   );
 
 }
 
 
+/* =========================
+   HEALTH
+========================= */
+
 async function checkHealth(){
 
   try{
 
-    const r=
+    const response=
       await fetch(
         '/api/health',
         {
@@ -2905,77 +6382,172 @@ async function checkHealth(){
         }
       );
 
-    const j=
-      await r.json();
+
+    const data=
+      await response.json();
+
 
     if(
-      r.ok &&
-      j.ok &&
-      j.ai
+      response.ok &&
+      data.ok &&
+      data.ai
     ){
 
-      aiState.online=true;
+      aiState.online=
+        true;
+
 
       aiState.model=
-        j.model||
+        data.model ||
         '';
+
 
       $('statusDot')
         .classList
-        .add('online');
+        .add(
+          'online'
+        );
 
-      $('statusText').textContent=
-        'IA online';
+
+      $('statusText')
+        .textContent=
+          'IA online';
 
     }else{
 
-      throw new Error();
+      throw new Error(
+        'IA offline'
+      );
 
     }
 
   }catch{
 
-    aiState.online=false;
+    aiState.online=
+      false;
+
 
     $('statusDot')
       .classList
-      .remove('online');
+      .remove(
+        'online'
+      );
 
-    $('statusText').textContent=
-      'IA offline';
+
+    $('statusText')
+      .textContent=
+        'IA offline';
 
   }
 
 }
 
 
+/* =========================
+   SERVICE WORKER
+========================= */
+
 async function registerServiceWorker(){
 
   if(
-    'serviceWorker' in navigator
+    !(
+      'serviceWorker'
+      in navigator
+    )
   ){
 
-    try{
+    return;
 
+  }
+
+
+  try{
+
+    const registration=
       await navigator
         .serviceWorker
         .register(
           '/sw.js'
         );
 
-    }catch(error){
 
-      console.log(
-        'Service Worker:',
-        error
+    registration
+      .update()
+      .catch(
+        ()=>{}
       );
 
-    }
+  }catch(error){
+
+    console.log(
+      'Service Worker:',
+      error
+    );
 
   }
 
 }
 
+
+/* =========================
+   INPUT EVENTS
+========================= */
+
+$('cameraInput')
+  .addEventListener(
+    'change',
+    handleFile
+  );
+
+
+$('imageInput')
+  .addEventListener(
+    'change',
+    handleFile
+  );
+
+
+$('documentInput')
+  .addEventListener(
+    'change',
+    handleFile
+  );
+
+
+/* =========================
+   CLOSE MENU
+========================= */
+
+document.addEventListener(
+  'click',
+  event=>{
+
+    const menu=
+      $('attachMenu');
+
+
+    const button=
+      document.querySelector(
+        '.attach-btn'
+      );
+
+
+    if(
+      !menu.contains(event.target) &&
+      !button.contains(event.target)
+    ){
+
+      closeAttachMenu();
+
+    }
+
+  }
+);
+
+
+/* =========================
+   START
+========================= */
 
 window.addEventListener(
   'load',
@@ -2989,18 +6561,26 @@ window.addEventListener(
 
     registerServiceWorker();
 
-    reminders.forEach(r=>{
 
-      if(r&&r.when){
+    reminders.forEach(
+      reminder=>{
 
-        scheduleNotification(
-          r.title,
-          new Date(r.when)
-        );
+        if(
+          reminder &&
+          reminder.when
+        ){
+
+          scheduleNotification(
+            reminder.title,
+            new Date(
+              reminder.when
+            )
+          );
+
+        }
 
       }
-
-    });
+    );
 
   }
 );
@@ -3008,4 +6588,5 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
